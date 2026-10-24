@@ -1,0 +1,32 @@
+---
+title: eBook
+---
+
+# eBook
+
+- [0. Introduction](/la/0_intro)
+- [1. Weighted means](/la/1_weighted_means)
+- [2. Geometry of weighted sums](/la/2_spacewalk)
+- [3. Matrix as a function](/la/3_mat_vec_mul)
+- [4. Rank and reversibility](/la/4_rank_and_reversibility)
+- [5. Barycentric coordinates](/la/5_barycentric_coordinates)
+- [6. Matrix-matrix multiplication](/la/6_matrix_matrix_multiplication)
+- [7. Linear transformations](/la/7_linear_transformations)
+- [8. Polynomials are vectors in disguise](/la/8_polynomial_curves)
+- [9. Bezier curves](/la/9_bezier_curves)
+- [10. Dot product](/la/10_dot_product)
+- [11. Matrix transpose](/la/11_matrix_transpose)
+- [12. Rotations](/la/12_rotations)
+- [13. Normal vectors](/la/13_normal_vectors)
+- [14. Eigenvectors and eigenvalues](/la/14_eigenvectors_eigenvalues)
+- [15. Eigendecomposition](/la/15_eigendecomposition)
+- [16. Eigenvectors of symmetric matrices](/la/16_eigenvectors_symmetric_matrices)
+- [17. Powers of a matrix](/la/17_powers_of_a_matrix)
+- [18. Fibonacci numbers](/la/18_fibonacci_numbers)
+- [19. Markov matrices](/la/19_markov_matrices)
+- [20. Projection matrix](/la/20_projection_matrix)
+- [21. Symmetric matrix-vector product](/la/21_symmetric_matrix_vector_product)
+- [22. Positive symmetric definite matrices](/la/22_psd_matrices)
+- [23. SVD](/la/23_svd)
+- [24. Dimension reduction](/la/24_dimension_reduction)
+- [25. What next](/la/25_what_next)

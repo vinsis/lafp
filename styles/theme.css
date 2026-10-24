@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+
 /*
  * Site theme. Change these values to restyle the site.
  * Every `.css` file in `/styles` loads after the built-in `src/app.css`,
@@ -5,23 +7,270 @@
  */
 :root {
   /* Colors */
-  --color-text: #1a1a1a;
-  --color-bg: #fff;
-  --color-muted: #555;       /* nav links, blockquotes */
-  --color-subtle: #666;      /* buttons, editor status and notes */
-  --color-hover: #000;       /* links and buttons on hover */
-  --color-border: #ddd;
-  --color-border-hover: #999;
-  --color-code-bg: #f4f4f4;
-  --color-error: #c00;
+  --color-text: #27272a;
+  --color-muted: #52525b;    /* nav links, blockquotes */
+  --color-subtle: #71717a;   /* buttons, editor status and notes */
+  --color-hover: #0f766e;    /* links and buttons on hover */
+  --color-border-hover: #a1a1aa;
+  --color-error: #e11d48;
+
+  /* Background: faint grey-teal. Each step is a shade darker than the one before it. */
+  --color-bg: #d3dcdc;
+  --color-code-bg: #c6d1d1;      /* code blocks and Python editors */
+  --color-code-bar: #b9c5c5;     /* editor toolbar and line-number gutter */
+  --color-code-border: #a7b5b5;  /* editor and code block borders */
+  --color-border: #a7b5b5;
+
+  /* Accent: header bar, homepage logo and buttons */
+  --color-accent: #0d9488;   /* teal-600 */
 
   /* Fonts */
-  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;   /* header, editor */
-  --font-body: Georgia, "Times New Roman", serif;                        /* page text */
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* code */
-  --font-size-body: 1.125rem;
-  --line-height: 1.6;
+  --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;   /* header, editor */
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;             /* page text */
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; /* code */
+  --font-size-body: 1rem;
+  --line-height: 1.65;
 
   /* Layout */
   --content-width: 40rem;    /* page text column, about 70 characters */
+  --wide-content-width: 56rem; /* page text column on pages with no canvas */
+  --home-width: 48rem;       /* homepage column */
+}
+
+/* Less empty space below the last line of a page; the built-in is 4rem. */
+main {
+  padding-bottom: 1.5rem;
+}
+
+/* Page headings in a darker teal than the header. */
+main :is(h1, h2, h3, h4, h5, h6) {
+  color: #0f766e;   /* teal-700 */
+}
+
+/* A page with no canvas has the whole window for its text, so its column is wider.
+   Its <main> has no class; a canvas page's has `canvas-page-text`. */
+main:not([class]) {
+  max-width: var(--wide-content-width);
+}
+
+/* On a canvas page the text column is a bit wider than the default, with a bit less padding at the sides. */
+main.canvas-page-text {
+  max-width: 48rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* Header: a teal bar with a white logo. */
+.site-header {
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 1rem;
+  background: var(--color-accent);
+  border-bottom: none;
+}
+
+.site-header-title {
+  display: inline-flex;
+  min-width: 0;
+}
+
+.site-header-logo {
+  display: block;
+  width: 297px;   /* 540 × 0.55, as on linear-algebra-for-programmers */
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: #fff;
+}
+
+.site-header-links {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 1rem;
+}
+
+.site-header-link {
+  display: inline-flex;
+  color: #fff;
+}
+
+.site-header-link svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.site-header-link:hover {
+  color: #134e4a;   /* teal-900 */
+}
+
+.site-header-repo {
+  display: inline-flex;
+  flex-shrink: 0;
+  fill: #fff;
+}
+
+.site-header-repo svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.site-header-repo:hover {
+  fill: #134e4a;   /* teal-900 */
+}
+
+/* Homepage */
+main.home {
+  max-width: var(--home-width);
+  padding: 2.5rem 1rem 4rem;
+  font-family: var(--font-ui);
+}
+
+.home-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+main.home h1 {
+  width: 100%;
+  margin: 0;
+}
+
+.home-logo {
+  display: block;
+  width: 329px;   /* 548 × 0.6, as on linear-algebra-for-programmers */
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  /* A bit darker than the accent: thin shapes look paler than the solid buttons. */
+  fill: #0d9488;
+  stroke: #0d9488;
+}
+
+.home-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.home-button {
+  padding: 0.875rem 1.5rem;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.home-button:hover {
+  background: var(--color-hover);
+  color: #fff;
+}
+
+.home-features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 1.75rem;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-features li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 300;
+}
+
+.home-features svg {
+  width: 1.25em;
+  height: 1.25em;
+  color: #0d9488;   /* same teal as the homepage logo */
+}
+
+.home-figure {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.home-credits {
+  margin: 2rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 300;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.home-credits a {
+  color: inherit;
+}
+
+.home-credits a:hover {
+  color: var(--color-hover);
+}
+
+/* The negative margins keep the tall logo from making its line taller. */
+.home-credits-pie {
+  display: inline-flex;
+  vertical-align: middle;
+  margin: -0.75em 0;
+}
+
+.home-credits-pie svg {
+  width: 3.56em;
+  height: 2.5em;   /* the logo's 64 × 45 shape */
+}
+
+/* Python editors and static Python code: a shade darker than the page, so they stand out from the text. */
+.python-editor,
+main > pre {
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 6px;
+}
+
+.python-editor {
+  overflow: hidden;
+}
+
+/* CodeMirror's line-number gutter is light grey by default. */
+.python-editor .cm-gutters {
+  background: var(--color-code-bar);
+  border-right-color: var(--color-code-border);
+}
+
+.python-editor-toolbar {
+  padding: 0.125rem 0.5rem;
+  background: var(--color-code-bar);
+  border-top-color: var(--color-code-border);
+}
+
+.python-editor-output {
+  border-top-color: var(--color-code-border);
+}
+
+.python-editor-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  background: var(--color-bg);
+  border-color: var(--color-code-border);
+}
+
+/* Collapsed text: room above and below what <details> shows when open. */
+main details[open] > summary {
+  margin-bottom: 0.75rem;
+}
+
+main details[open] {
+  padding-bottom: 0.75rem;
 }

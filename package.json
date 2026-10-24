@@ -8,7 +8,7 @@
     "preview": "vite preview --configLoader runner"
   },
   "dependencies": {
-    "@tinyvolt/pie": "0.1.0",
+    "@tinyvolt/pie": "0.3.0",
     "solid-js": "1.9.14",
     "vite": "8.1.4"
   },

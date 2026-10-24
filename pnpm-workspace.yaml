@@ -1,2 +1,4 @@
 minimumReleaseAgeExclude:
   - '@tinyvolt/pie@0.1.0'
+  - '@tinyvolt/pie@0.2.0'
+  - '@tinyvolt/pie@0.3.0'
