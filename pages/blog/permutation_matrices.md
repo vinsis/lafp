@@ -40,8 +40,8 @@ A permutation matrix simply permutes (or shuffles) the elements of the input vec
 <g><rect x="60" y="120" width="30" height="30" fill="rgb(102,204,30)" opacity="0.8" /><text x="75" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,2</text></g>
 <g><rect x="90" y="120" width="30" height="30" fill="rgb(153,204,30)" opacity="0.8" /><text x="105" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,3</text></g>
 <g><rect x="120" y="120" width="30" height="30" fill="rgb(204,204,30)" opacity="0.8" /><text x="135" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,4</text></g>
-<animateTransform id="swapStaticFwd" attributeName="transform" type="translate" from="0 0" to="160 0" dur="2s" begin="colShuffleBack_block_0_0.end + 0.5s" fill="freeze" />
-<animateTransform id="swapStaticBack" attributeName="transform" type="translate" from="160 0" to="0 0" dur="2s" begin="rowShuffleBack_block_0_0.end + 0.5s" fill="freeze" />
+<animateTransform id="swapStaticFwd" attributeName="transform" type="translate" from="0 0" to="160 0" dur="1s" begin="colShuffleBack_block_0_0.end + 0.25s" fill="freeze" />
+<animateTransform id="swapStaticBack" attributeName="transform" type="translate" from="160 0" to="0 0" dur="1s" begin="rowShuffleBack_block_0_0.end + 0.25s" fill="freeze" />
 </g>
 <g id="permGroup" transform="translate(160 0)">
 <rect x="0" y="0" width="30" height="30" fill="#f4f4f5" stroke="gray" />
@@ -69,235 +69,235 @@ A permutation matrix simply permutes (or shuffles) the elements of the input vec
 <rect x="60" y="120" width="30" height="30" fill="#f4f4f5" stroke="gray" />
 <rect x="90" y="120" width="30" height="30" fill="#27272a" stroke="gray" />
 <rect x="120" y="120" width="30" height="30" fill="#f4f4f5" stroke="gray" />
-<animateTransform id="swapPermFwd" attributeName="transform" type="translate" from="160 0" to="0 0" dur="2s" begin="colShuffleBack_block_0_0.end + 0.5s" fill="freeze" />
-<animateTransform id="swapPermBack" attributeName="transform" type="translate" from="0 0" to="160 0" dur="2s" begin="rowShuffleBack_block_0_0.end + 0.5s" fill="freeze" />
+<animateTransform id="swapPermFwd" attributeName="transform" type="translate" from="160 0" to="0 0" dur="1s" begin="colShuffleBack_block_0_0.end + 0.25s" fill="freeze" />
+<animateTransform id="swapPermBack" attributeName="transform" type="translate" from="0 0" to="160 0" dur="1s" begin="rowShuffleBack_block_0_0.end + 0.25s" fill="freeze" />
 </g>
 <text x="335" y="75" text-anchor="middle" dominant-baseline="middle" font-size="24" fill="#27272a">=</text>
 <g transform="translate(360 0)"><rect x="0" y="0" width="30" height="30" fill="rgb(0,0,30)" opacity="0.8" /><text x="15" y="15" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">0,0</text>
-<animateMotion id="pauseStart_block_0_0" dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion id="colShuffleFwd_block_0_0" dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion id="pauseCol_block_0_0" dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion id="colShuffleBack_block_0_0" dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion id="pauseMid_block_0_0" dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion id="rowShuffleFwd_block_0_0" dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion id="pauseRow_block_0_0" dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion id="rowShuffleBack_block_0_0" dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion id="pauseStart_block_0_0" dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion id="colShuffleFwd_block_0_0" dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion id="pauseCol_block_0_0" dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion id="colShuffleBack_block_0_0" dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion id="pauseMid_block_0_0" dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion id="rowShuffleFwd_block_0_0" dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion id="pauseRow_block_0_0" dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion id="rowShuffleBack_block_0_0" dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="30" y="0" width="30" height="30" fill="rgb(51,0,30)" opacity="0.8" /><text x="45" y="15" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">0,1</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="60" y="0" width="30" height="30" fill="rgb(102,0,30)" opacity="0.8" /><text x="75" y="15" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">0,2</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="90" y="0" width="30" height="30" fill="rgb(153,0,30)" opacity="0.8" /><text x="105" y="15" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">0,3</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="120" y="0" width="30" height="30" fill="rgb(204,0,30)" opacity="0.8" /><text x="135" y="15" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">0,4</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="0" y="30" width="30" height="30" fill="rgb(0,51,30)" opacity="0.8" /><text x="15" y="45" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">1,0</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="30" y="30" width="30" height="30" fill="rgb(51,51,30)" opacity="0.8" /><text x="45" y="45" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">1,1</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="60" y="30" width="30" height="30" fill="rgb(102,51,30)" opacity="0.8" /><text x="75" y="45" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">1,2</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="90" y="30" width="30" height="30" fill="rgb(153,51,30)" opacity="0.8" /><text x="105" y="45" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">1,3</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="120" y="30" width="30" height="30" fill="rgb(204,51,30)" opacity="0.8" /><text x="135" y="45" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">1,4</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="0" y="60" width="30" height="30" fill="rgb(0,102,30)" opacity="0.8" /><text x="15" y="75" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">2,0</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="30" y="60" width="30" height="30" fill="rgb(51,102,30)" opacity="0.8" /><text x="45" y="75" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">2,1</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="60" y="60" width="30" height="30" fill="rgb(102,102,30)" opacity="0.8" /><text x="75" y="75" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">2,2</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="90" y="60" width="30" height="30" fill="rgb(153,102,30)" opacity="0.8" /><text x="105" y="75" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">2,3</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="120" y="60" width="30" height="30" fill="rgb(204,102,30)" opacity="0.8" /><text x="135" y="75" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">2,4</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="0" y="90" width="30" height="30" fill="rgb(0,153,30)" opacity="0.8" /><text x="15" y="105" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">3,0</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="30" y="90" width="30" height="30" fill="rgb(51,153,30)" opacity="0.8" /><text x="45" y="105" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">3,1</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="60" y="90" width="30" height="30" fill="rgb(102,153,30)" opacity="0.8" /><text x="75" y="105" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">3,2</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="90" y="90" width="30" height="30" fill="rgb(153,153,30)" opacity="0.8" /><text x="105" y="105" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">3,3</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="120" y="90" width="30" height="30" fill="rgb(204,153,30)" opacity="0.8" /><text x="135" y="105" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">3,4</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,30" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,30" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,30 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="0" y="120" width="30" height="30" fill="rgb(0,204,30)" opacity="0.8" /><text x="15" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,0</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="30" y="120" width="30" height="30" fill="rgb(51,204,30)" opacity="0.8" /><text x="45" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,1</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="60" y="120" width="30" height="30" fill="rgb(102,204,30)" opacity="0.8" /><text x="75" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,2</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="90" y="120" width="30" height="30" fill="rgb(153,204,30)" opacity="0.8" /><text x="105" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,3</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-60,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-60,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-60,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 <g transform="translate(360 0)"><rect x="120" y="120" width="30" height="30" fill="rgb(204,204,30)" opacity="0.8" /><text x="135" y="135" text-anchor="middle" dominant-baseline="middle" fill="black" font-size="12" font-weight="bold">4,4</text>
-<animateMotion dur="1s" path="M0,0" begin="0s;swapPermBack.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
-<animateMotion dur="1s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
-<animateMotion dur="1s" path="M0,0" begin="swapPermFwd.end + 0.5s" />
-<animateMotion dur="2s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
-<animateMotion dur="1s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
-<animateMotion dur="2s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
+<animateMotion dur="0.5s" path="M0,0" begin="0s;swapPermBack.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L-30,0" begin="pauseStart_block_0_0.end" />
+<animateMotion dur="0.5s" path="M-30,0" begin="colShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M-30,0 L0,0" begin="pauseCol_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,0" begin="swapPermFwd.end + 0.25s" />
+<animateMotion dur="1s" path="M0,0 L0,-60" begin="pauseMid_block_0_0.end" />
+<animateMotion dur="0.5s" path="M0,-60" begin="rowShuffleFwd_block_0_0.end" />
+<animateMotion dur="1s" path="M0,-60 L0,0" begin="pauseRow_block_0_0.end" /></g>
 </svg>
 </div>
 
@@ -348,22 +348,22 @@ Note that $x^TPy = \langle x, \underbrace{Py}_{\textcolor{#b45309}{\text{shuffle
 ⟨Pᵀx, y⟩ (shuffle x by Pᵀ)
 <svg width="220" height="146" viewBox="0 0 220 146" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(40 10)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#0d9488">x1</text>
-  <animateTransform attributeName="transform" type="translate" from="40 10" to="40 44" dur="1.2s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="40 44" to="40 10" dur="1.2s" begin="vec_shuffle_x_cycle.begin+5.7s" fill="freeze" /></g>
+  <animateTransform attributeName="transform" type="translate" from="40 10" to="40 44" dur="0.6s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="40 44" to="40 10" dur="0.6s" begin="vec_shuffle_x_cycle.begin+2.85s" fill="freeze" /></g>
 <g transform="translate(40 44)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#b45309">x2</text>
-  <animateTransform attributeName="transform" type="translate" from="40 44" to="40 78" dur="1.2s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="40 78" to="40 44" dur="1.2s" begin="vec_shuffle_x_cycle.begin+5.7s" fill="freeze" /></g>
+  <animateTransform attributeName="transform" type="translate" from="40 44" to="40 78" dur="0.6s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="40 78" to="40 44" dur="0.6s" begin="vec_shuffle_x_cycle.begin+2.85s" fill="freeze" /></g>
 <g transform="translate(40 78)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#e11d48">x3</text>
-  <animateTransform attributeName="transform" type="translate" from="40 78" to="40 10" dur="1.2s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="40 10" to="40 78" dur="1.2s" begin="vec_shuffle_x_cycle.begin+5.7s" fill="freeze" /></g>
+  <animateTransform attributeName="transform" type="translate" from="40 78" to="40 10" dur="0.6s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="40 10" to="40 78" dur="0.6s" begin="vec_shuffle_x_cycle.begin+2.85s" fill="freeze" /></g>
 <g transform="translate(40 112)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#27272a">x4</text>
-  <animateTransform attributeName="transform" type="translate" from="40 112" to="40 112" dur="1.2s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="40 112" to="40 112" dur="1.2s" begin="vec_shuffle_x_cycle.begin+5.7s" fill="freeze" /></g>
+  <animateTransform attributeName="transform" type="translate" from="40 112" to="40 112" dur="0.6s" begin="vec_shuffle_x_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="40 112" to="40 112" dur="0.6s" begin="vec_shuffle_x_cycle.begin+2.85s" fill="freeze" /></g>
 <g transform="translate(140 10)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#e11d48">y3</text></g>
 <g transform="translate(140 44)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#0d9488">y1</text></g>
 <g transform="translate(140 78)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#b45309">y2</text></g>
 <g transform="translate(140 112)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#27272a">y4</text></g>
-<rect x="0" y="0" width="1" height="1" opacity="0"><animate id="vec_shuffle_x_cycle" attributeName="opacity" from="0" to="0" dur="7.4s" begin="0s;vec_shuffle_x_cycle.end" /></rect>
+<rect x="0" y="0" width="1" height="1" opacity="0"><animate id="vec_shuffle_x_cycle" attributeName="opacity" from="0" to="0" dur="3.7s" begin="0s;vec_shuffle_x_cycle.end" /></rect>
 </svg>
 </div>
 <div style="text-align: center;">
@@ -374,18 +374,18 @@ Note that $x^TPy = \langle x, \underbrace{Py}_{\textcolor{#b45309}{\text{shuffle
 <g transform="translate(40 78)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#e11d48">x3</text></g>
 <g transform="translate(40 112)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#27272a">x4</text></g>
 <g transform="translate(140 10)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#e11d48">y3</text>
-  <animateTransform attributeName="transform" type="translate" from="140 10" to="140 78" dur="1.2s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="140 78" to="140 10" dur="1.2s" begin="vec_shuffle_y_cycle.begin+5.7s" fill="freeze" /></g>
+  <animateTransform attributeName="transform" type="translate" from="140 10" to="140 78" dur="0.6s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="140 78" to="140 10" dur="0.6s" begin="vec_shuffle_y_cycle.begin+2.85s" fill="freeze" /></g>
 <g transform="translate(140 44)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#0d9488">y1</text>
-  <animateTransform attributeName="transform" type="translate" from="140 44" to="140 10" dur="1.2s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="140 10" to="140 44" dur="1.2s" begin="vec_shuffle_y_cycle.begin+5.7s" fill="freeze" /></g>
+  <animateTransform attributeName="transform" type="translate" from="140 44" to="140 10" dur="0.6s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="140 10" to="140 44" dur="0.6s" begin="vec_shuffle_y_cycle.begin+2.85s" fill="freeze" /></g>
 <g transform="translate(140 78)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#b45309">y2</text>
-  <animateTransform attributeName="transform" type="translate" from="140 78" to="140 44" dur="1.2s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="140 44" to="140 78" dur="1.2s" begin="vec_shuffle_y_cycle.begin+5.7s" fill="freeze" /></g>
+  <animateTransform attributeName="transform" type="translate" from="140 78" to="140 44" dur="0.6s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="140 44" to="140 78" dur="0.6s" begin="vec_shuffle_y_cycle.begin+2.85s" fill="freeze" /></g>
 <g transform="translate(140 112)"><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="18" fill="#27272a">y4</text>
-  <animateTransform attributeName="transform" type="translate" from="140 112" to="140 112" dur="1.2s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
-  <animateTransform attributeName="transform" type="translate" from="140 112" to="140 112" dur="1.2s" begin="vec_shuffle_y_cycle.begin+5.7s" fill="freeze" /></g>
-<rect x="0" y="0" width="1" height="1" opacity="0"><animate id="vec_shuffle_y_cycle" attributeName="opacity" from="0" to="0" dur="7.4s" begin="0s;vec_shuffle_y_cycle.end" /></rect>
+  <animateTransform attributeName="transform" type="translate" from="140 112" to="140 112" dur="0.6s" begin="vec_shuffle_y_cycle.begin" fill="freeze" />
+  <animateTransform attributeName="transform" type="translate" from="140 112" to="140 112" dur="0.6s" begin="vec_shuffle_y_cycle.begin+2.85s" fill="freeze" /></g>
+<rect x="0" y="0" width="1" height="1" opacity="0"><animate id="vec_shuffle_y_cycle" attributeName="opacity" from="0" to="0" dur="3.7s" begin="0s;vec_shuffle_y_cycle.end" /></rect>
 </svg>
 </div>
 </div>
@@ -409,70 +409,70 @@ As an example, consider a `8-by-8 matrix`. You want to remove the columns `[1,4,
 <div style="display: flex; justify-content: center; margin: 1.5rem 0;">
 <svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
 <g>
-<rect x="0" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion id="pauseStart" dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion id="colShuffle2" dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion id="pauseMid" dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion id="rowShuffle2" dur="2" path="M 0 0 L 0 0" begin="pauseMid.end" /><animateMotion id="pauseEnd" dur="1" path="M 0 0" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="0" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 0" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="0" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 0" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 0" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="0" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 0" begin="rowShuffle2.end" /></rect>
-<rect x="0" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 0 0 L 0 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 0 0" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="30" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 0" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="30" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 0" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 0" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="30" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 0" begin="rowShuffle2.end" /></rect>
-<rect x="0" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 0 0 L 0 150" begin="pauseMid.end" /><animateMotion dur="1" path="M 0 150" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 150" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 150" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 150" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 150" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 150" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 150" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 150" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 150" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 150" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 150" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 150" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 150" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 150" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 150" begin="rowShuffle2.end" /></rect>
-<rect x="0" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 0 0 L 0 90" begin="pauseMid.end" /><animateMotion dur="1" path="M 0 90" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 90" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 90" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 90" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 90" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 90" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 90" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 90" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 90" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 90" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 90" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 90" begin="rowShuffle2.end" /></rect>
-<rect x="0" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 0 0 L 0 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M 0 -60" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="120" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 -60" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -60" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -60" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="120" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 -60" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 -60" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="120" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -60" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 -60" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 -60" begin="rowShuffle2.end" /></rect>
-<rect x="0" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 0 0 L 0 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 0 0" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 0" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 0" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 0" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 0" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 0" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 0" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 0" begin="rowShuffle2.end" /></rect>
-<rect x="0" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 0 0 L 0 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M 0 -90" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="180" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 -90" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -90" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -90" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="180" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 -90" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 -90" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="180" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -90" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 -90" begin="rowShuffle2.end" /></rect>
-<rect x="0" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="2" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 0 0 L 0 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M 0 -90" begin="rowShuffle2.end" /></rect>
-<rect x="30" y="210" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="2" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 180 0 L 180 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M 180 -90" begin="rowShuffle2.end" /></rect>
-<rect x="60" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -90" begin="rowShuffle2.end" /></rect>
-<rect x="90" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -90" begin="rowShuffle2.end" /></rect>
-<rect x="120" y="210" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M 60 0 L 60 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M 60 -90" begin="rowShuffle2.end" /></rect>
-<rect x="150" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -60 0 L -60 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -60 -90" begin="rowShuffle2.end" /></rect>
-<rect x="180" y="210" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -30 -90" begin="rowShuffle2.end" /></rect>
-<rect x="210" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="1" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="2" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="2" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="2" path="M -90 0 L -90 -90" begin="pauseMid.end" /><animateMotion dur="1" path="M -90 -90" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion id="pauseStart" dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion id="colShuffle2" dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion id="pauseMid" dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion id="rowShuffle2" dur="1" path="M 0 0 L 0 0" begin="pauseMid.end" /><animateMotion id="pauseEnd" dur="0.5" path="M 0 0" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="0" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 0" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="0" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 0" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 0" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="0" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="0" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 0" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 0 0 L 0 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 0 0" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="30" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 0" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="30" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 0" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 0" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="30" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="30" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 0" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 0 0 L 0 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 0 150" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 150" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 150" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 150" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 150" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 150" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 150" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="60" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 150" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 150" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 0 0 L 0 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 0 90" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 90" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 90" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 90" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 90" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 90" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 90" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="90" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 90" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 0 0 L 0 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 0 -60" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="120" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 -60" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -60" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -60" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="120" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 -60" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 -60" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="120" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -60" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="120" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 -60" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 -60" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 0 0 L 0 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 0 0" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 0" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 0" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 0" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 0" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="150" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 0" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 0" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 0 0 L 0 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 0 -90" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="180" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 -90" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -90" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -90" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="180" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 -90" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 -90" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="180" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -90" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="180" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 -90" begin="rowShuffle2.end" /></rect>
+<rect x="0" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 0 0" begin="pauseStart.end" /><animateMotion dur="1" path="M0,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 0 0 L 0 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 0 -90" begin="rowShuffle2.end" /></rect>
+<rect x="30" y="210" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 180 0" begin="pauseStart.end" /><animateMotion dur="1" path="M180,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 180 0 L 180 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 180 -90" begin="rowShuffle2.end" /></rect>
+<rect x="60" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -90" begin="rowShuffle2.end" /></rect>
+<rect x="90" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -90" begin="rowShuffle2.end" /></rect>
+<rect x="120" y="210" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L 60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M 60 0 L 60 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M 60 -90" begin="rowShuffle2.end" /></rect>
+<rect x="150" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -60 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-60,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -60 0 L -60 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -60 -90" begin="rowShuffle2.end" /></rect>
+<rect x="180" y="210" width="30" height="30" fill="rgb(100,100,100)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -30 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-30,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -30 0 L -30 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -30 -90" begin="rowShuffle2.end" /></rect>
+<rect x="210" y="210" width="30" height="30" fill="rgb(217 119 6)" stroke="black" opacity="0.8"><animateMotion dur="0.5" path="M0,0" begin="0s;pauseEnd.end" /><animateMotion dur="1" path="M0,0 L -90 0" begin="pauseStart.end" /><animateMotion dur="1" path="M-90,0" begin="colShuffle2.end" /><animateMotion dur="1" path="M -90 0 L -90 -90" begin="pauseMid.end" /><animateMotion dur="0.5" path="M -90 -90" begin="rowShuffle2.end" /></rect>
 </g>
 </svg>
 </div>
