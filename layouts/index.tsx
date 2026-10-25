@@ -99,7 +99,7 @@ export default function Home() {
         <a class="home-credits-pie" href="https://github.com/TinyVolt/pie-ssg" aria-label="pie-ssg" title="pie-ssg">
           <PieLogo />
         </a>{" "}
-        by <a href="https://vinsis.github.io/">Vinay Sisodia</a>.
+        by <a href="https://www.vinaysisodia.com/">Vinay Sisodia</a>.
         Logos designed by <a href="https://www.linkedin.com/in/jo-yun-hsu-5779b690/">Jo Hsu</a>.
       </p>
     </main>
