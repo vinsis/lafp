@@ -126,27 +126,8 @@ function matmulDtype(a: Dtype[][], b: Dtype[][]): Dtype[][] {
 /** The entries [a, b, c, d] of a 2×2 matrix [[a, b], [c, d]]. */
 const entries2x2 = (matrix: AnyNode, keyword: string) => scalarValues(matrix as ArrayNode, keyword).slice(0, 4);
 
-/** HSL (h in [0, 360), s and l in [0, 100]) as `#rrggbb`. */
-function hslToHex(h: number, s: number, l: number): string {
-  const sN = s / 100;
-  const lN = l / 100;
-  const c = (1 - Math.abs(2 * lN - 1)) * sN;
-  const hp = (((h % 360) + 360) % 360) / 60;
-  const x = c * (1 - Math.abs((hp % 2) - 1));
-  let r = 0, g = 0, b = 0;
-  if (hp < 1) { r = c; g = x; }
-  else if (hp < 2) { r = x; g = c; }
-  else if (hp < 3) { g = c; b = x; }
-  else if (hp < 4) { g = x; b = c; }
-  else if (hp < 5) { r = x; b = c; }
-  else { r = c; b = x; }
-  const m = lN - c / 2;
-  const to255 = (v: number) => Math.round((v + m) * 255).toString(16).padStart(2, '0');
-  return `#${to255(r)}${to255(g)}${to255(b)}`;
-}
-
-/** `n` colors whose hues sweep the color wheel, dark enough to read on a light page. */
-const rainbowGradient = (n: number): string[] => Array.from({ length: n }, (_, i) => hslToHex((360 * i) / n, 90, 42));
+/** `n` colors whose hues sweep the color wheel from red, all at the same mid lightness so every hue reads on a light page. */
+const rainbowGradient = (n: number): string[] => Array.from({ length: n }, (_, i) => `oklch(0.55 0.14 ${29 + (360 * i) / n})`);
 
 /** (a·x + b·y, c·x + d·y) for plain numbers x, y. */
 const transform2x2 = ([a, b, c, d]: Dtype[], x: number, y: number) => point(
@@ -722,7 +703,8 @@ export const MarkovSimulation: Node2NodeFunc = {
       distributions.push(p);
     }
 
-    const colorFor = (prob: number) => hslToHex(240 * (1 - Math.min(1, Math.max(0, prob))), 90, 50);
+    // Blue (hue 264) for probability 0 through green and yellow to red (hue 29) for 1, all at the same mid lightness.
+    const colorFor = (prob: number) => `oklch(0.55 0.14 ${264 - 235 * Math.min(1, Math.max(0, prob))})`;
     // A small gap between stacked rectangles keeps the state boundaries visible.
     const gap = colHeight * 0.015;
     const corner = (x: number, y: number) => point(scalar(x), scalar(y));

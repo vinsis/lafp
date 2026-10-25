@@ -178,7 +178,6 @@ This gives us $M = \textcolor{#be185d}{U}\textcolor{#0d9488}{D}\textcolor{#1d4ed
 First let's see how this matrix transforms points on a circle. Draw the map of the unit circle under $M$.
 
 ```python-editor collapsed
-import colorsys
 import numpy as np
 
 pie.clear()
@@ -186,7 +185,7 @@ pie.scalar(70, out='unit')
 GRAY = '#71717a'
 M = [1, 0, 1, 1]
 # Rainbow colors for the 20 lines of a fan
-FAN_COLORS = ['#%02x%02x%02x' % tuple(round(255 * c) for c in colorsys.hls_to_rgb(k / 20, 0.42, 0.9)) for k in range(20)]
+FAN_COLORS = [f'oklch(0.55 0.14 {29 + 18 * k})' for k in range(20)]
 
 # 20 points on the unit circle, each mapped by the 2×2 matrix m (row-major), around (cx, 0)
 def fan_points(m11, m12, m21, m22, cx, n=20):

@@ -13,16 +13,14 @@ const transform = ([x, y]: number[]) => [x * MATRIX[0][0] + y * MATRIX[1][0], x 
 
 const circlePoint = (i: number, n: number) => [Math.cos((2 * Math.PI * i) / n), Math.sin((2 * Math.PI * i) / n)];
 
-/** d3's `interpolateSinebow`. */
-function sinebow(t: number) {
-  t = 0.5 - t;
-  const channel = (shift: number) => Math.round(255 * Math.sin(Math.PI * (t + shift)) ** 2);
-  return `rgb(${channel(0)}, ${channel(1 / 3)}, ${channel(2 / 3)})`;
+/** A rainbow from red at t = 0, all at the same mid lightness so every hue shows on a light background. */
+function rainbow(t: number) {
+  return `oklch(0.55 0.14 ${29 + 360 * t})`;
 }
 
 const arrows = Array.from({ length: NUM_POINTS }, (_, i) => {
   const from = circlePoint(i, NUM_POINTS);
-  return { from, to: transform(from), color: sinebow(i / NUM_POINTS) };
+  return { from, to: transform(from), color: rainbow(i / NUM_POINTS) };
 });
 
 // Motion values for the two dots, sampled at the same angles, so the ellipse dot is always the circle dot times `MATRIX`.

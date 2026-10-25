@@ -11,25 +11,23 @@ export function BookIcon() {
   );
 }
 
-/** A page of text: the blog. */
+/** A pen writing on a page: the blog. */
 export function ArticleIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="5" y="3" width="14" height="18" rx="2" />
-      <path d="M9 8h6" />
-      <path d="M9 12h6" />
-      <path d="M9 16h3" />
+      <path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6" />
+      <path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4z" />
     </svg>
   );
 }
 
-/** Three staggered bars, one after another: the series. */
+/** A stack of cards, one behind another: the series. */
 export function SeriesIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <rect x="3" y="3.5" width="12" height="4" rx="2" />
-      <rect x="9" y="10" width="12" height="4" rx="2" />
-      <rect x="3" y="16.5" width="12" height="4" rx="2" />
+      <path d="M7.5 3h9" />
+      <path d="M5 6.5h14" />
+      <rect x="3" y="10" width="18" height="11" rx="2" />
     </svg>
   );
 }
