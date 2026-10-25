@@ -47,6 +47,11 @@ main :is(h1, h2, h3, h4, h5, h6) {
   color: #0f766e;   /* teal-700 */
 }
 
+/* Links in page text: the hover color. */
+main a:hover {
+  color: #92400e;   /* amber-800 */
+}
+
 /* A page with no canvas has the whole window for its text, so its column is wider.
    Its <main> has no class; a canvas page's has `canvas-page-text`. */
 main:not([class]) {
