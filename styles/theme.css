@@ -213,7 +213,7 @@ main.home h1 {
   font-size: 0.875rem;
   font-weight: 300;
   text-align: center;
-  color: var(--color-muted);
+  color: var(--color-text);
 }
 
 .home-credits a {

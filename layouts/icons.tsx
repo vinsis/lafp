@@ -57,6 +57,17 @@ export function ProgrammableIcon() {
   );
 }
 
+/** pie-ssg's logo, from its `public/logo.svg`, in amber instead of its own teal. Fixed colors, not `currentColor`. */
+export function PieLogo() {
+  return (
+    <svg viewBox="0 21 64 45" aria-hidden="true">
+      <path d="M32 29 L8 29 A24 24 0 0 0 20 49.78 Z" fill="#b45309" />   {/* amber-700 */}
+      <path d="M32 29 L44 49.78 A24 24 0 0 0 56 29 Z" fill="#b45309" />
+      <path d="M32 34 L20 54.78 A24 24 0 0 0 44 54.78 Z" fill="#78350f" />   {/* amber-900 */}
+    </svg>
+  );
+}
+
 /** Git branch: open-source. */
 export function OpenSourceIcon() {
   return (

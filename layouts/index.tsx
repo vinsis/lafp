@@ -1,6 +1,6 @@
 import { For } from "solid-js";
 import site from "../site.yml";
-import { InteractiveIcon, OpenSourceIcon, ProgrammableIcon } from "./icons";
+import { InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon } from "./icons";
 import { LogoTwoLine } from "./logo";
 
 // The figure: points on the unit circle, each with an arrow to where the matrix sends it.
@@ -97,12 +97,7 @@ export default function Home() {
       <p class="home-credits">
         Made with{" "}
         <a class="home-credits-pie" href="https://github.com/TinyVolt/pie-ssg" aria-label="pie-ssg" title="pie-ssg">
-          {/* pie-ssg's logo, from its `public/logo.svg` */}
-          <svg viewBox="0 21 64 45" aria-hidden="true">
-            <path d="M32 29 L8 29 A24 24 0 0 0 20 49.78 Z" fill="#41DBC9" />
-            <path d="M32 29 L44 49.78 A24 24 0 0 0 56 29 Z" fill="#41DBC9" />
-            <path d="M32 34 L20 54.78 A24 24 0 0 0 44 54.78 Z" fill="#0B6B73" />
-          </svg>
+          <PieLogo />
         </a>{" "}
         by <a href="https://vinsis.github.io/">Vinay Sisodia</a>.
         Logos designed by <a href="https://bento.me/johsu">Jo Hsu</a>.
