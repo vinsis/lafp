@@ -1,5 +1,6 @@
 ---
 title: The Khatri-Rao Product Visualized
+description: The Khatri-Rao product as a column-wise Kronecker product, its row-wise variant, and three properties with proofs, including the Hadamard Gram matrix.
 ---
 
 # The Khatri-Rao Product Visualized

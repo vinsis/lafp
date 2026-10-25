@@ -1,5 +1,6 @@
 ---
 title: Minimization of squared norm of a vector sum
+description: Find the x that minimizes the squared norm of a + Mx, with a visual example and a step-by-step solution.
 ---
 
 # Minimization of squared norm of a vector sum

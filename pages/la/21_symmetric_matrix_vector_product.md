@@ -1,5 +1,6 @@
 ---
-title: 21. Symmetric matrix-vector product
+title: Symmetric matrix-vector product as projections
+description: Multiplying a vector by a symmetric matrix is a weighted sum of projections onto its eigenvectors, shown with the eigendecomposition and a visual.
 canvas: left
 ---
 

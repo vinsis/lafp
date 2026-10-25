@@ -1,5 +1,6 @@
 ---
-title: 17. Powers of a matrix
+title: Powers of a matrix and power iteration
+description: Power iteration finds the largest eigenvalue and its eigenvector by applying a matrix again and again. See when and why it converges.
 canvas: left
 ---
 

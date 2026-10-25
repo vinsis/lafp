@@ -1,5 +1,6 @@
 ---
 title: Inverse of a matrix after a row-and-column removal
+description: Update a known matrix inverse after removing one row and column, a trick from the Optimal Brain Compression paper, and when it beats re-inverting.
 ---
 
 # Inverse of a matrix after a row-and-column removal

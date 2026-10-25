@@ -1,5 +1,6 @@
 ---
-title: 25. What next
+title: What to learn after this linear algebra eBook
+description: Topics this eBook did not cover, such as solving linear equations and LU decomposition, and directions to learn and build more.
 ---
 
 # 25. What next

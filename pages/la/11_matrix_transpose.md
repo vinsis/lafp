@@ -1,5 +1,6 @@
 ---
-title: 11. Matrix transpose
+title: Matrix transpose, row space and column space
+description: What the transpose of a matrix is, how rows and columns each explain matrix multiplication, and how to visualize the row space and column space.
 canvas: left
 ---
 

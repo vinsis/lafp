@@ -1,5 +1,6 @@
 ---
 title: Birkhoff-von-Neumann algorithm
+description: An algorithm that writes any doubly stochastic matrix as a convex sum of permutation matrices, based on counting its zeros, with an example.
 canvas: left
 ---
 

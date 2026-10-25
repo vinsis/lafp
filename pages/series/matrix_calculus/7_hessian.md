@@ -1,5 +1,6 @@
 ---
 title: Hessian and the bilinear form
+description: Compute a full Jacobian matrix with batching, then the Hessian, why it is symmetric, its bilinear form, and how to calculate it in PyTorch.
 canvas: left
 ---
 

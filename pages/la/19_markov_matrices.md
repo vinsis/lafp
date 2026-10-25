@@ -1,5 +1,6 @@
 ---
-title: 19. Markov matrices
+title: Markov matrices and stationary distributions
+description: Model a Markov process as a matrix, find its stationary distribution, and see what the eigenvalues and eigenvectors of a Markov matrix tell you.
 canvas: left
 ---
 

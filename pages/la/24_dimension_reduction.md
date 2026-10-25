@@ -1,5 +1,6 @@
 ---
-title: 24. Dimension reduction
+title: Dimension reduction with SVD and the covariance matrix
+description: Store n-dimensional data points with fewer dimensions by taking the SVD of the covariance matrix, worked through on a small dataset.
 canvas: left
 ---
 

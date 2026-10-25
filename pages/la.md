@@ -1,5 +1,6 @@
 ---
 title: eBook
+description: A free interactive eBook on linear algebra for programmers, in 26 chapters, from weighted sums and vectors to eigenvectors, SVD and dimension reduction.
 ---
 
 # eBook

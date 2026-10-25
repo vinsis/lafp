@@ -1,5 +1,6 @@
 ---
 title: Paper: A Flag Decomposition for Hierarchical Datasets
+description: The key idea of the flag decomposition paper by Mankovich et al., a QR-like factorization that keeps the hierarchy of nested data subspaces.
 ---
 
 # Paper: A Flag Decomposition for Hierarchical Datasets

@@ -1,5 +1,6 @@
 ---
 title: Inverse of a block of a matrix and Schur Complement
+description: Given a matrix and its inverse, compute the inverse of a square block after removing k rows and columns, using the Schur complement.
 ---
 
 # Inverse of a block of a matrix and Schur Complement

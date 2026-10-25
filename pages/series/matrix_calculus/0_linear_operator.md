@@ -1,5 +1,6 @@
 ---
 title: Linear operator
+description: Matrix calculus starts with a small change in output for a small change in input. Linear operators, the product and chain rules, and worked examples.
 canvas: left
 ---
 

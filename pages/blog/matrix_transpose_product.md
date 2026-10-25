@@ -1,5 +1,6 @@
 ---
 title: Relationship between AAᵀ and AᵀA
+description: How the eigenvalues and eigenvectors of AAᵀ and AᵀA relate, derived from the SVD of A, with applications.
 ---
 
 # Relationship between AAᵀ and AᵀA

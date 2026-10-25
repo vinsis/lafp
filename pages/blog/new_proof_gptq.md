@@ -1,5 +1,6 @@
 ---
 title: A new solution to GPTQ quantization algorithm
+description: A different, more geometric derivation of the GPTQ and Optimal Brain Compression weight update for post-training quantization, shown to be equivalent.
 ---
 
 # A new solution to GPTQ quantization algorithm

@@ -1,5 +1,6 @@
 ---
 title: A simpler derivation of continuous normalizing flows and its interpretation
+description: A shorter proof of the instantaneous change of variables theorem from the Neural ODEs paper, and why it is the continuity equation in disguise.
 ---
 
 # A simpler derivation of continuous normalizing flows and its interpretation

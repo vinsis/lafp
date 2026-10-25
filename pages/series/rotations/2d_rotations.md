@@ -1,5 +1,6 @@
 ---
 title: 2D rotations
+description: Describe a 2D rotation with a rotation matrix or with complex numbers and the complex exponential.
 canvas: left
 ---
 

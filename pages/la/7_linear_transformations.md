@@ -1,5 +1,6 @@
 ---
-title: 7. Linear transformations
+title: Linear transformations and change of basis
+description: Reach the same point with two different sets of vectors, see matrices as encoders and decoders, and learn how a change of basis works.
 canvas: left
 ---
 

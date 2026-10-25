@@ -1,5 +1,6 @@
 ---
 title: Rotation is linear
+description: Start of a series on rotations, from 2D rotation matrices to quaternions and Lie algebra. Why rotation is linear and preserves lengths and angles.
 canvas: left
 ---
 

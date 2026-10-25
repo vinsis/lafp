@@ -1,5 +1,6 @@
 ---
 title: 5. Geometric algebra (aka Clifford algebra)
+description: The geometric product and bivectors, and how geometric algebra describes reflections and rotations in 2D and 3D, with the Python clifford library.
 canvas: left
 ---
 

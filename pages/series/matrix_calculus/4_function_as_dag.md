@@ -1,5 +1,6 @@
 ---
 title: Function is a DAG
+description: View a function as a directed acyclic graph (DAG) with Jacobians on its edges, the idea behind how autodiff systems compute gradients.
 canvas: left
 ---
 

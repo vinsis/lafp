@@ -1,5 +1,6 @@
 ---
-title: 18. Fibonacci numbers
+title: Fibonacci numbers with matrices and Binet's formula
+description: Write the Fibonacci recurrence as a matrix, derive Binet's closed-form formula from its eigenvalues, and generalize to linear recurrences.
 canvas: left
 ---
 

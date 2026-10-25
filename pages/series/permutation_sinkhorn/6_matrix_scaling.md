@@ -1,5 +1,6 @@
 ---
 title: Matrix scaling
+description: Sinkhorn's theorem that any positive matrix scales to a doubly stochastic one, proof of existence and uniqueness, and Sinkhorn iteration in Python.
 canvas: left
 ---
 

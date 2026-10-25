@@ -1,5 +1,6 @@
 ---
-title: 3. Matrix as a function
+title: A matrix as a function on vectors
+description: See a matrix as a function that maps vectors to vectors, turning lines into lines and circles into ellipses, with interactive visuals.
 canvas: left
 ---
 

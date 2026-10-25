@@ -1,5 +1,6 @@
 ---
 title: Another proof of Fibonacci sequence in classic probability puzzle
+description: A linear algebra proof that the chance no three of n random sticks form a triangle is the product of 1/Fᵢ over the Fibonacci numbers.
 ---
 
 # Another proof of Fibonacci sequence in classic probability puzzle

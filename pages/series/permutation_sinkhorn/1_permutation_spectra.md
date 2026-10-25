@@ -1,5 +1,6 @@
 ---
 title: Permutation spectra
+description: The eigenvalues and eigenvectors of a permutation matrix come from its cycles, with each cycle adding roots of unity.
 canvas: left
 ---
 

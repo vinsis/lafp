@@ -1,5 +1,6 @@
 ---
 title: Blog
+description: Visual articles on matrix tips and tricks, and latest research in linear algebra.
 ---
 
 # Blog
