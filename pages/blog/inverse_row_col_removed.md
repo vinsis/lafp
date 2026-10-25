@@ -41,7 +41,7 @@ You are given an invertible n-by-n matrix $M$ and its inverse $M^{-1}$. Now let'
 import numpy as np
 
 def remove_row(matrix: np.matrix, index: int):
-return np.delete(matrix, index, axis=0)
+    return np.delete(matrix, index, axis=0)
 
 def remove_column(matrix: np.matrix, index: int):
     return np.delete(matrix, index, axis=1)

@@ -63,7 +63,7 @@ $$l_4 = 3l_1 + 2\varepsilon_2 + \varepsilon_3 + \varepsilon_4$$
 
 $$l_5 = 5l_1 + 3\varepsilon_2 + 2\varepsilon_3 + \varepsilon_4 + \varepsilon_5$$
 
-$$l_6 = 8l_1 + 5\varepsilon_2 + 3\varepsilon_3 + 2\varepsilon_4 + \varepsilon_4 + \varepsilon_6$$
+$$l_6 = 8l_1 + 5\varepsilon_2 + 3\varepsilon_3 + 2\varepsilon_4 + \varepsilon_5 + \varepsilon_6$$
 
 $$\cdots$$
 
@@ -107,14 +107,14 @@ In this case, the largest length is $\sum_{i=1}^n x_i$ for positive coefficients
 
 Since these lengths are sampled from the interval $[0,1]$, they have to be less than or equal to one. Applying this condition to each of the largest lengths above we get:
 
-i) $\sum_{i=1}^n \textcolor{#b45309}{F_i} y_i \le 1$: the points that satisfy this condition lie form a volume $V_1$. This is the volume of the simplex formed by origin and vectors $\underbrace{F_i \textcolor{#b45309}{e_i}}_{\text{standard basis vector scaled by} \ F_i}$ for $i$ from 1 to n.
+i) $\sum_{i=1}^n \textcolor{#b45309}{F_i} y_i \le 1$: the points that satisfy this condition form a volume $V_1$. This is the volume of the simplex formed by origin and vectors $\underbrace{\frac{1}{F_i} \textcolor{#b45309}{e_i}}_{\text{standard basis vector scaled by} \ 1/F_i}$ for $i$ from 1 to n.
 
-ii) $\sum_{i=1}^n x_i \le 1$: this is the standard simplex and has a volume $V_2$ of $n!$. The exact area is not needed for the proof though.
+ii) $\sum_{i=1}^n x_i \le 1$: this is the standard simplex and has a volume $V_2$ of $\frac{1}{n!}$. The exact volume is not needed for the proof though.
 
 ---
 
 ## 4. Final step
 
-The probability is given by $\frac{V_1}{V_2}$. How do we find $V_2$ in terms of $V_1$? By defining a map $y_i = x_i / F_i$. It is easy to see that the determinant of Jacobian of this map is $|J| = \Pi_i \frac{1}{F_i}$. Thus the volume $V_1 = |J|V_1$. This gives us the probability to be:
+The probability is given by $\frac{V_1}{V_2}$. How do we find $V_1$ in terms of $V_2$? By defining a map $y_i = x_i / F_i$. It is easy to see that the determinant of Jacobian of this map is $|J| = \Pi_i \frac{1}{F_i}$. Thus the volume $V_1 = |J|V_2$. This gives us the probability to be:
 
 $$\Pi_{i=1}^n \frac{1}{F_i}$$
