@@ -100,7 +100,7 @@ export default function Home() {
           <PieLogo />
         </a>{" "}
         by <a href="https://vinsis.github.io/">Vinay Sisodia</a>.
-        Logos designed by <a href="https://bento.me/johsu">Jo Hsu</a>.
+        Logos designed by <a href="https://www.linkedin.com/in/jo-yun-hsu-5779b690/">Jo Hsu</a>.
       </p>
     </main>
   );
