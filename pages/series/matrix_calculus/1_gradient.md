@@ -59,13 +59,10 @@ Note how the gradient at each point is a unit vector that points in the same dir
 px = pie.lift(lambda q: q[0], pie.Scalar)(p)
 py = pie.lift(lambda q: q[1], pie.Scalar)(p)
 pie.la_vec2d(px, py, out='vp')
+pie.circle(p0, dist, out='circ')
 ```
 
 Since rotation does not change the magnitude of the vector, all these gradients are normal to the circle passing through this point.
-
-```python-editor collapsed
-pie.circle(p0, dist, out='circ')
-```
 
 ---
 

@@ -51,14 +51,10 @@ labels = [
 ]
 for name, value, x, y, size, color in labels:
     pie.text(value, x, y, size, 0, 0, out=name, stroke=color)
-mry = pie.text('∈ Rᵐ', -0.4, -2.9, 14, 0, 0, out='mry')
+mry = pie.text('∈ Rᵐ', -0.4, -2.9, 14, 0, 0, out='mry', stroke=PINK)
 ```
 
 Both the direct edge $J_1$ and the two-step path $J_2 \rightarrow J_3$ are visible in this triangular DAG.
-
-```python-editor collapsed
-pie.set_stroke(mry, PINK)
-```
 
 This is all we need to fully define the chain rule on a graph. In the next example we combine both these cases.
 
@@ -93,14 +89,10 @@ labels = [
 ]
 for name, value, x, y, size, color in labels:
     pie.text(value, x, y, size, 0, 0, out=name, stroke=color)
-mry = pie.text('∈ Rᵐ', -1.9, -2.7, 14, 0, 0, out='mry')
+mry = pie.text('∈ Rᵐ', -1.9, -2.7, 14, 0, 0, out='mry', stroke=PINK)
 ```
 
 Consider a DAG of a function $w = f(x), w \in R, x \in R^n$ with edges $x \xrightarrow{J_2} y$, $x \xrightarrow{J_1} z$, $y \xrightarrow{J_3} z$ and $z \xrightarrow{J_4} w$ (of shapes $(m,n), (p,n), (p,m), (1,p)$ respectively). 
-
-```python-editor collapsed
-pie.set_stroke(mry, PINK)
-```
 
 Then:
 
@@ -144,14 +136,10 @@ labels = [
 ]
 for name, value, x, y, size, color in labels:
     pie.text(value, x, y, size, 0, 0, out=name, stroke=color)
-mry = pie.text('∈ R²', -1.7, -1.35, 14, 0, 0, out='mry')
+mry = pie.text('∈ R²', -1.7, -1.35, 14, 0, 0, out='mry', stroke=PINK)
 ```
 
 Let's revisit the DAG of the variance function.
-
-```python-editor collapsed
-pie.set_stroke(mry, PINK)
-```
 
 There are two paths from $x$ to $\sigma^2$: the direct edge $x \xrightarrow{J_1} \mu$ and the edges through $y$. We calculate the Jacobians along each path and add them up to get the Jacobian of $\sigma^2$ wrt $x$:
 

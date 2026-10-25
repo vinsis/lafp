@@ -150,13 +150,10 @@ arrow_start = pie.point(-0.2, 0, out='arrow_start', hidden=True)
 arrow_end = pie.point(0.6, 0, out='arrow_end', hidden=True)
 pie.annotate_arrow(arrow_start, arrow_end, out='theta_arrow')
 rot_matrix = pie.la_rotation_matrix(theta, out='rot_matrix')
+pie.la_array_to_texts(rot_matrix, 1.2, 0.5, 1, 1, out='rot_matrix_boxes')
 ```
 
 Just from the angle, you can derive the entire rotation matrix.
-
-```python-editor collapsed
-pie.la_array_to_texts(rot_matrix, 1.2, 0.5, 1, 1, out='rot_matrix_boxes')
-```
 
 Modifying it updates the matrix as well.
 

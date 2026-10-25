@@ -46,7 +46,7 @@ def along_triangle(s, a, b, c):
 s = pie.scalar(0, out='s')
 pie.lift(lambda s: along_triangle(s, A, B, C).tolist(), pie.Point)(s, out='moving_point', fill=AMBER)
 mat = pie.lift(lambda s: along_triangle(s, P1, P3, P5), pie.Array[pie.Scalar])(s, out='mat')
-pie.la_array_to_texts(mat, 1.1, 1.55, 0.9090909090909091, 0.4727272727272727, 16, out='arr_0')
+pie.la_array_to_texts(mat, 1.1, 1.55, 0.9090909090909091, 0.4727272727272727, 16, out='arr_0', stroke=AMBER)
 
 # vertex labels: (text, x, y, color)
 labels = [('P1', -2.1, 2.65, TEAL), ('P2', -0.0648, 1.475, GRAY), ('P3', -0.0648, -0.875, TEAL),
@@ -58,24 +58,16 @@ pie.text('The even permutations P₁, P₃, P₅ form a triangle inscribed in th
          'sweeps out a doubly stochastic matrix (1−t)·Pa + t·Pb, shown live on the right.',
          0, 4.5, 14, 7, -1, out='tbox_7')
 tbox_8 = pie.text('Number of zeros: 6 at each vertex (a pure permutation matrix), only 3 along the interior of an edge.',
-                  0, -3.6, 13, 7, -1, out='tbox_8')
+                  0, -3.6, 13, 7, -1, out='tbox_8', stroke=GRAY)
 ```
 
 The six permutation matrices of a length-3 vector sit at the vertices of a hexagon, the Birkhoff polytope for $n=3$. Of these, $P_1$, $P_3$ and $P_5$ are the even permutations, singled out in teal, and they form a triangle inscribed in the hexagon.
 
 An amber point starts at $P_1$, and a live $3\times 3$ readout on the right always shows exactly the matrix the point currently represents, initially $P_1$ itself, a pure permutation matrix with 6 zeros.
 
-```python-editor collapsed
-pie.la_array_to_texts(mat, 1.1, 1.55, 0.9090909090909091, 0.4727272727272727, 16, out='arr_0', stroke=AMBER)
-```
-
 Each vertex is labeled, and moving along an edge sweeps out exactly $M(t) = (1-t)\cdot P_a + t\cdot P_b$, the convex combination of that edge's two endpoint permutation matrices.
 
 Watch the zero count as the point moves along the triangle: 6 zeros at a vertex, a pure permutation matrix, dropping to only 3 zeros along the interior of an edge.
-
-```python-editor collapsed
-pie.set_stroke(tbox_8, GRAY)
-```
 
 If we interpolate along the edge $P_1 \to P_3$, the amber point slides across the polytope and the matrix on the right morphs continuously from $P_1$ to $P_3$. Away from the two endpoints it is no longer a permutation matrix at all, and the number of zeros drops from 6 down to 3.
 

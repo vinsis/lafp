@@ -94,7 +94,7 @@ GRAY, BLUE, GOLD = '#71717a', '#1d4ed8', '#ca8a04'
 p0 = pie.point(0, 0, out='p0', hidden=True)
 x0 = pie.scalar(3, out='x0')
 y0 = pie.scalar(1, out='y0')
-v0 = pie.la_vec2d(x0, y0, 0, 0, out='v0')
+v0 = pie.la_vec2d(x0, y0, 0, 0, out='v0', stroke=GRAY)
 
 # Labels sit at 1.3 times the tip of their vector
 scale = 1.3
@@ -104,20 +104,13 @@ pie.text('v', times(scale, x0), times(scale, y0), out='an0', stroke=GRAY)
 
 - Say we want to rotate this vector
 
-```python-editor collapsed
-pie.set_stroke(v0, GRAY)
-```
-
 - Turn it into a quaternion $\textcolor{#0d9488}{q_{in}}$.
-
-```python-editor collapsed
-qin = [0, x0, y0, 0]
-```
 
 It is essentially this operation:
 $$\begin{bmatrix} x \\ y \end{bmatrix} \;\longmapsto\; \textcolor{#0d9488}{q_{in}} = \begin{bmatrix} 0 \\ x \\ y \\ 0 \end{bmatrix}$$
 
 ```python-editor collapsed
+qin = [0, x0, y0, 0]
 axis = [0, 0, 1]
 deg = pie.scalar(30, out='deg')
 q_theta = pie.ga_rotation_quaternion(axis, deg, out='q_theta')
@@ -127,23 +120,14 @@ prod1 = pie.ga_quaternion_product(q_theta, qin, out='prod1')
 prod2 = pie.ga_quaternion_product(prod1, q_neg_theta, out='prod2')
 x1, y1 = prod1[1], prod1[2]
 x2, y2 = prod2[1], prod2[2]
-v1 = pie.la_vec2d(x1, y1, 0, 0, out='v1')
-v2 = pie.la_vec2d(x2, y2, 0, 0, out='v2')
+v1 = pie.la_vec2d(x1, y1, 0, 0, out='v1', stroke=BLUE)
+v2 = pie.la_vec2d(x2, y2, 0, 0, out='v2', stroke=GOLD)
 pie.text('(qθ)(qin)', times(scale, x1), times(scale, y1), out='an1', stroke=BLUE)
 pie.text('(qθ)(qin)(-qθ)', times(scale, x2), times(scale, y2), out='an2', stroke=GOLD)
 ```
 
 - Rotated vector after the multiplication $\textcolor{#1d4ed8}{q_\theta}\,\textcolor{#0d9488}{q_{in}}$
-
-```python-editor collapsed
-pie.set_stroke(v1, BLUE)
-```
-
 - Rotated vector after the multiplication $\textcolor{#ca8a04}{q_{out}} = \textcolor{#1d4ed8}{q_\theta}\,\textcolor{#0d9488}{q_{in}}\,\textcolor{#be185d}{q_\theta^{-1}}$
-
-```python-editor collapsed
-pie.set_stroke(v2, GOLD)
-```
 
 The reverse mapping simply drops the first (zero) component of $\textcolor{#ca8a04}{q_{out}}$:
 $$\textcolor{#ca8a04}{q_{out}} = \begin{bmatrix} 0 \\ x' \\ y' \\ 0 \end{bmatrix} \;\longmapsto\; \begin{bmatrix} x' \\ y' \end{bmatrix}$$
@@ -173,9 +157,6 @@ pie.translate_scalar_to(deg, 135, animate=True)
 ```python-editor collapsed
 # The first product
 pie.la_array_to_texts(prod1, -4, -2, 1, 1, 14, out='prod1_texts')
-```
-
-```python-editor collapsed
 # The second product
 pie.la_array_to_texts(prod2, -2, -2, 1, 1, 14, out='prod2_texts')
 ```
@@ -188,39 +169,19 @@ Unlike the 2D case, in general all four numbers in the product $\textcolor{#1d4e
 
 #### An example 
 - Turn $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ into a quaternion
+- Use $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$
+- Define the angle in degrees
+- Get the corresponding quaternion
+- Get the quaternion product
+- Display it: You can see all four values are non-zero
 
 ```python-editor
 pie.clear()
 v = [0, 1, 1, 1]
-```
-
-- Use $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$
-
-```python-editor
 axis = [1, 2, 3]
-```
-
-- Define the angle in degrees
-
-```python-editor
 deg = pie.scalar(30, out='deg')
-```
-
-- Get the corresponding quaternion
-
-```python-editor
 q = pie.ga_rotation_quaternion(axis, deg, out='q')
-```
-
-- Get the quaternion product
-
-```python-editor
 vout = pie.ga_quaternion_product(q, v, out='vout')
-```
-
-- Display it: You can see all four values are non-zero
-
-```python-editor
 pie.la_array_to_texts(vout, 0, 0, 1, 1, 14, out='vout_texts')
 ```
 
@@ -230,26 +191,14 @@ $$\textcolor{#ca8a04}{q_{out}} = \textcolor{#1d4ed8}{q_\theta}\,\textcolor{#0d94
 
 #### Continuing the previous example
 - Negate the degree
-
-```python-editor
-neg_deg = pie.lift(lambda d: -d, pie.Scalar)(deg, out='neg_deg')
-```
-
 - Get $q_{-\theta}$
-
-```python-editor
-qneg = pie.ga_rotation_quaternion(axis, neg_deg, out='qneg')
-```
-
 - Get the final product
-
-```python-editor
-vout2 = pie.ga_quaternion_product(vout, qneg, out='vout2')
-```
-
 - Display it: the first value is $0$.
 
 ```python-editor
+neg_deg = pie.lift(lambda d: -d, pie.Scalar)(deg, out='neg_deg')
+qneg = pie.ga_rotation_quaternion(axis, neg_deg, out='qneg')
+vout2 = pie.ga_quaternion_product(vout, qneg, out='vout2')
 pie.la_array_to_texts(vout2, 3, 0, 1, 1, 14, out='vout2_texts')
 ```
 
@@ -275,13 +224,10 @@ deg_text = pie.lift(lambda d: f'Degree of rotation: {round(d, 2):g}', pie.Text)(
 pie.text(deg_text, 0, 5, 14, -1, 0, out='tbox_deg')
 pie.text('Axis of rotation', 5, -3, 14, 1.5, -1, out='tbox_axis')
 pie.la_array_to_texts(axis, 5, -4, 1, 1, 14, out='axis_texts')
+pie.la_cube_from_array(rotated, p0, out='cube')
 ```
 
 - This is the cube we want to rotate about this axis by an angle `deg`, currently set to $0$. 
-
-```python-editor collapsed
-pie.la_cube_from_array(rotated, p0, out='cube')
-```
 
 - Animate degrees `deg` to $150$ to see how the cube rotates.
 

@@ -92,13 +92,10 @@ GRAY, TEAL, GOLD, VIOLET = '#71717a', '#0d9488', '#ca8a04', '#6d28d9'
 p0 = pie.point(0, 0, out='p0', hidden=True)
 pie.circle(p0, 1, out='circ', stroke=GRAY)
 A = [[1.2, 0.2], [0.2, 1.2]]
+pie.la_mat_to_ellipse(A, p0, out='ellA', stroke=GRAY)
 ```
 
 The matrix maps every point on the circle to a point on an ellipse.
-
-```python-editor collapsed
-pie.la_mat_to_ellipse(A, p0, out='ellA', stroke=GRAY)
-```
 
 Reveal its two eigenvector directions.
 

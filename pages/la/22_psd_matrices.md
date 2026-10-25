@@ -75,8 +75,7 @@ pie.text(pie.lift(quadratic_form, pie.Text)(tdeg), -2.6, 2.8, 14, out='lbla', st
 Now rotate the input vector through a full turn and watch the readout: $x^TMx$ dips below zero whenever the output swings more than 90° away from the input. So $M_1$ is _not_ positive semi-definite.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(tdeg, 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, 360, animate=True)
 ```
 
 You can reset the input vector and replay.
@@ -136,8 +135,7 @@ pie.text('Watch the readout: it stays positive at every angle between x and M₂
 - Rotate the input vector through a full turn: this time $x^TMx$ stays positive no matter where $x$ points, so $M_2$ is positive semi-definite.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(tdeg, 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, 360, animate=True)
 ```
 
 - Reset the input vector to replay.
@@ -266,8 +264,7 @@ pie.text('Each line sends a point x on the unit circle to the number xᵀM₁x o
 Then rotate the input around the circle: the output arrow keeps crossing to the negative side of the real line, confirming that $x^TM_1x < 0$ for some inputs.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(tdeg, 40 + 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, 40 + 360, animate=True)
 ```
 
 Reset to replay.
@@ -314,8 +311,7 @@ pie.text('Each line sends a point x on the unit circle to the number xᵀM₂x o
 Rotate the input around the circle: the output arrow never leaves the positive real line, since $x^TM_2x > 0$ for every $x$.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(tdeg, 40 + 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, 40 + 360, animate=True)
 ```
 
 Reset to replay.

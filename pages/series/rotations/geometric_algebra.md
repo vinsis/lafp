@@ -78,15 +78,13 @@ pie.text(pie.lift(wedge_text, pie.Text)(bx, by), 0, -4.6, 16, 7, -1, out='wedge_
 - Now sweep $\theta$ through a full turn: as $\textcolor{#be185d}{b}$ rotates onto $\textcolor{#1d4ed8}{a}$ (or onto its opposite direction), the parallelogram flattens into a line and the printed area shrinks to $0$, exactly the $v \wedge v = 0$ case above. 
 
 ```python-editor collapsed
-for t in [90, 135, 180]:
-    pie.translate_scalar_to(theta, t, animate=True)
+pie.translate_scalar_to(theta, 180, animate=True)
 ```
 
 - As $\textcolor{#be185d}{b}$ crosses over to the other side of $\textcolor{#1d4ed8}{a}$, the sign of $a \wedge b$ flips, which is the geometric picture behind $a \wedge b = -b \wedge a$.
 
 ```python-editor collapsed
-for t in [225, 270, 315]:
-    pie.translate_scalar_to(theta, t, animate=True)
+pie.translate_scalar_to(theta, 315, animate=True)
 ```
 
 #### Usage in Python
@@ -306,8 +304,7 @@ pie.translate_scalar_to(a_deg, 180, animate=True)
 In each case, $pq = e_1e_2 = \cos(\pi/2) + \sin(\pi/2)\,e_1e_2$: $p$ and $q$ sweep together through a full turn while $\theta$ stays fixed, so the $pq$ readout never moves.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(a_deg, 180 + k * 27.5, animate=True)
+pie.translate_scalar_to(a_deg, 180 + 8 * 27.5, animate=True)
 ```
 
 Also note that if $pq$ rotates a vector by $\theta$, then $qp = \cos\theta - \sin\theta\,e_1e_2$ rotates the vector by $-\theta$. This is because:
@@ -321,8 +318,7 @@ p^2 = q^2 &= 1 \\
 (yes, there is a notion of an inverse of a vector, and also a bivector among other objects, in geometric algebra).
 
 ```python-editor collapsed
-for t in [45, 0, -45, -90]:
-    pie.translate_scalar_to(theta_deg, t, animate=True)
+pie.translate_scalar_to(theta_deg, -90, animate=True)
 ```
 
 One last thing to note is that $v(pq)$ rotates the vector $v$ counterclockwise by $\theta$ while $(pq)v$ rotates the vector clockwise by $\theta$. It also means that $v(pq) = (qp)v = (pq)^{-1}v$.

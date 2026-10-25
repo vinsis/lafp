@@ -44,14 +44,10 @@ f_arrow_b = pie.point(3.2, 2.6, out='f_arrow_b', hidden=True)
 pie.annotate_arrow(f_arrow_a, f_arrow_b, 0, out='arrow_f', stroke=GRAY)
 pie.text('x', -5.7, 2.9, 18, out='lab_x', stroke=GRAY)
 pie.text('y', 5.3, 2.9, 18, out='lab_y', stroke=GRAY)
-lab_f = pie.text('f', -0.2, 3.4, 18, out='lab_f')
+lab_f = pie.text('f', -0.2, 3.4, 18, out='lab_f', stroke=GRAY)
 ```
 
 First, the original function $f$ carries a point $X$ in $R^n$ across to its image $y$ in $R^m$ (the grey layer).
-
-```python-editor collapsed
-pie.set_stroke(lab_f, GRAY)
-```
 
 ```python-editor collapsed
 lf_arrow_a = pie.point(-3.2, -1.6, out='lf_arrow_a', hidden=True)
@@ -62,14 +58,10 @@ induce_b = pie.point(0, -0.5, out='induce_b', hidden=True)
 pie.annotate_arrow(induce_a, induce_b, 0, out='arrow_induce', stroke=GRAY)
 pie.text('dx', -6.1, -1.3, 18, out='lab_dx')
 pie.text('dy', 5.3, -1.3, 18, out='lab_dy')
-lab_lf = pie.text('Lf', -0.5, -2.1, 18, out='lab_lf')
+lab_lf = pie.text('Lf', -0.5, -2.1, 18, out='lab_lf', stroke=TEAL)
 ```
 
 Then the linear operator $L_f$ sends the small change $dX$ to the corresponding change $dY$ (the teal layer), the map that $f$ induces at the point $X$.
-
-```python-editor collapsed
-pie.set_stroke(lab_lf, TEAL)
-```
 
 $$\begin{aligned} f(X) &= X^2 \\ L_f[dX] &= X(dX) + (dX)X \end{aligned}$$
 

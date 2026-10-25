@@ -55,13 +55,10 @@ def curve_points(x_of, y_of, start, end, n=200):
     return np.stack([x_of(s), y_of(s)], axis=1)
 
 pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: s**2 - 4, lambda s: s, -4, 4, hidden=True), out='par', stroke=TEAL)
+pie.circle(pie.point(0, 0, out='p0', hidden=True), 3, out='circ', stroke=PINK)
 ```
 
 Consider this sideways parabola, described by the equation $x = y^2 - 4$.
-
-```python-editor collapsed
-pie.circle(pie.point(0, 0, out='p0', hidden=True), 3, out='circ', stroke=PINK)
-```
 
 Or this circle, described by the equation $x^2 + y^2 = 9$.
 
@@ -93,8 +90,7 @@ pie.lift(lambda t: (t, np.sin(t)), pie.Point)(t, out='pt', fill=TEAL)
 pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: s, np.sin, -4, t, hidden=True), out='trail', stroke=TEAL)
 pie.text(pie.lift(lambda t: f'x = t, y = sin t,   t = {t:.2f}', pie.Text)(t), -3.5, 4, 13, out='lbl_rd', stroke=TEAL)
 # Sweep t from -4 to 4
-for k in range(1, 9):
-    pie.translate_scalar_to(t, -4 + k, animate=True)
+pie.translate_scalar_to(t, 4, animate=True)
 ```
 
 - $x = y^2 - 4$: trace $x = t^2 - 4, \; y = t$ as $t$ sweeps from $-3$ to $3$.
@@ -116,8 +112,7 @@ pie.lift(lambda t: (t**2 - 4, t), pie.Point)(t, out='pt2', fill=PINK)
 pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: s**2 - 4, lambda s: s, -3, t, hidden=True), out='trail2', stroke=PINK)
 pie.text(pie.lift(lambda t: f'x = t² − 4, y = t,   t = {t:.2f}', pie.Text)(t), 0, 4.3, 13, out='lbl_rd2', stroke=PINK)
 # Sweep t from -3 to 3
-for k in range(1, 7):
-    pie.translate_scalar_to(t, -3 + k, animate=True)
+pie.translate_scalar_to(t, 3, animate=True)
 ```
 
 - $x^2 + y^2 = 9$: trace $x = 3\cos(t), \; y = 3\sin(t)$ as $t$ sweeps from $0$ to $2\pi$.
@@ -139,8 +134,7 @@ pie.lift(lambda t: (3 * np.cos(t), 3 * np.sin(t)), pie.Point)(t, out='pc', fill=
 pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: 3 * np.cos(s), lambda s: 3 * np.sin(s), 0, t, hidden=True), out='trail3', stroke=GOLD)
 pie.text(pie.lift(lambda t: f'x = 3cos t, y = 3sin t,   t = {t:.2f}', pie.Text)(t), 0, 4.5, 13, out='lbl_rd3', stroke=GOLD)
 # Sweep t from 0 to 2π
-for k in range(1, 9):
-    pie.translate_scalar_to(t, float(k * np.pi / 4), animate=True)
+pie.translate_scalar_to(t, float(2 * np.pi), animate=True)
 ```
 
 #### A pythonic pseudocode for plotting a curve may look like:
@@ -283,8 +277,7 @@ pie.text('B(t)', label_x, label_y, 12, out='lbl_bt', stroke=TEAL)
 As $t$ sweeps from `0` to `1`, this point moves through space; trace its path and you get the teal Bezier curve.
 
 ```python-editor collapsed
-for k in range(1, 11):
-    pie.translate_scalar_to(t, k / 10, animate=True)
+pie.translate_scalar_to(t, 1, animate=True)
 ```
 
 Some observations:
@@ -408,8 +401,7 @@ pie.text('B(t)', label_x, label_y, 12, out='lbl_bt', stroke=TEAL)
 As $t$ sweeps from `0` to `1`, trace its path and you get the teal Bezier curve of degree three.
 
 ```python-editor collapsed
-for k in range(1, 11):
-    pie.translate_scalar_to(t, k / 10, animate=True)
+pie.translate_scalar_to(t, 1, animate=True)
 ```
 
 Some observations:

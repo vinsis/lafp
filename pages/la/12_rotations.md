@@ -89,15 +89,10 @@ pie.la_vec2d(1, 0, out='e1', stroke=GRAY)
 pie.la_vec2d(0, 1, out='e2', stroke=GRAY)
 ```
 
-Draw a unit circle and the two input basis vectors $\textcolor{#71717a}{[1,0]}$ and $\textcolor{#71717a}{[0,1]}$ in grey. Their rotated images are the columns of the rotation matrix. Reveal the first column, where $[1,0]$ lands, which sits at $\textcolor{#1d4ed8}{(\cos\alpha,\; \sin\alpha)}$,
+Draw a unit circle and the two input basis vectors $\textcolor{#71717a}{[1,0]}$ and $\textcolor{#71717a}{[0,1]}$ in grey. Their rotated images are the columns of the rotation matrix. Reveal the first column, where $[1,0]$ lands, which sits at $\textcolor{#1d4ed8}{(\cos\alpha,\; \sin\alpha)}$, and the second column, where $[0,1]$ lands, at $\textcolor{#be185d}{(-\sin\alpha,\; \cos\alpha)}$.
 
 ```python-editor collapsed
 pie.la_vec2d(ca, sa, out='col1', stroke=BLUE)
-```
-
-and the second column, where $[0,1]$ lands, at $\textcolor{#be185d}{(-\sin\alpha,\; \cos\alpha)}$.
-
-```python-editor collapsed
 pie.la_vec2d(nsa, ca, out='col2', stroke=PINK)
 pie.la_array_to_texts([[ca, nsa], [sa, ca]], -2.9, -1.8, 0.95, 0.5, 13, out='rviz')
 ```

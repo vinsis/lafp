@@ -167,13 +167,10 @@ theta = pie.scalar(0, out='theta')
 rot_matrix = pie.la_rotation_matrix(theta, out='rot_matrix')
 angle_label = pie.lift(lambda t: f'theta = {round(t, 2):g} deg', pie.Text)
 pie.text(angle_label(theta), 0, 6, out='angle_text')
+pie.la_grid_transform(rot_matrix, out='grid', stroke=GRID)
 ```
 
 - View how it transforms a grid.
-
-```python-editor collapsed
-pie.la_grid_transform(rot_matrix, out='grid', stroke=GRID)
-```
 
 - First and second basis vectors.
 
@@ -188,8 +185,7 @@ pie.la_vec2d(neg_sin_t, cos_t, 0, 0, out='e2_vec')
 - Animate theta
 
 ```python-editor collapsed
-for k in range(1, 4):
-    pie.translate_scalar_to(theta, 30 * k, animate=True)
+pie.translate_scalar_to(theta, 90, animate=True)
 ```
 
 Note that all the above arguments are valid for rotations in any dimension and basis.

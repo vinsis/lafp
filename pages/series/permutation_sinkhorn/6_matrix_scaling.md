@@ -87,19 +87,12 @@ GRAY, PINK, AMBER, TEAL, VIOLET = '#71717a', '#be185d', '#b45309', '#0d9488', '#
 # A doubly stochastic matrix: every row and every column sums to 1
 S1 = [[0.5, 0.3, 0.2], [0.2, 0.5, 0.3], [0.3, 0.2, 0.5]]
 B_MIN, B_MID, B_MAX = 1, 3, 5
+pie.la_array_to_texts(S1, -5.7, 2.6, 1.3, 0.9, 14, out='s1_boxes')
+pie.line(pie.point(-1, 0, out='axis_p1', hidden=True), pie.point(6.6, 0, out='axis_p2', hidden=True), out='axis', stroke=GRAY)
 ```
 
 - Here is a doubly stochastic matrix $S_1$ with three rows and three columns, each row summing to 1.
-
-```python-editor collapsed
-pie.la_array_to_texts(S1, -5.7, 2.6, 1.3, 0.9, 14, out='s1_boxes')
-```
-
 - Next to it, draw a number line holding the values $b$'s entries can take.
-
-```python-editor collapsed
-pie.line(pie.point(-1, 0, out='axis_p1', hidden=True), pie.point(6.6, 0, out='axis_p2', hidden=True), out='axis', stroke=GRAY)
-```
 
 - Mark $b$'s entries: $\textcolor{#be185d}{b_{min}=1}$, the middle entry, and $\textcolor{#b45309}{b_{max}=5}$.
 
@@ -122,13 +115,10 @@ pie.line(pie.point(B_MAX, -0.5, out='gmax_p1', hidden=True), pie.point(B_MAX, 0.
 # Columns are b's three points (b_k, 0); the weights are row 0 of S1
 b_pts = [[B_MIN, B_MID, B_MAX], [0, 0, 0]]
 pie.la_weighted_sum(b_pts, S1[0], out='row_dot_b', stroke=TEAL)
+pie.text('S₁ (doubly stochastic)', -4.4, 3.5, 14, out='tbox_0')
 ```
 
 - That confirms $S_1$ is doubly stochastic by construction.
-
-```python-editor collapsed
-pie.text('S₁ (doubly stochastic)', -4.4, 3.5, 14, out='tbox_0')
-```
 
 - The weights used above are exactly row $i$ of $S_1$.
 
@@ -143,19 +133,12 @@ pie.rectangle(pie.point(-6.35, 2.15, out='row_frame_bl', hidden=True), 3.9, 0.9,
 pie.text('b_min = 1', B_MIN, 0.9, 14, out='tbox_2', stroke=PINK)
 pie.text('3', B_MID, 0.9, 14, out='tbox_3')
 pie.text('b_max = 5', B_MAX, 0.9, 14, out='tbox_4', stroke=AMBER)
+pie.text('row·b = 2.4 ∈ [1, 5]', 2.4, -0.9, 14, out='tbox_5', stroke=TEAL)
+pie.text("Taking the dot product of any row of a doubly stochastic matrix S with b gives a convex combination of b's entries - it always lands between b's smallest and largest values.", 0, -3.8, 14, 7, -1, out='tbox_6')
 ```
 
 - The resulting dot product, row·b = 2.4, falls squarely inside $[1, 5]$.
-
-```python-editor collapsed
-pie.text('row·b = 2.4 ∈ [1, 5]', 2.4, -0.9, 14, out='tbox_5', stroke=TEAL)
-```
-
 - This is exactly the bound used above: the dot product of any row of a doubly stochastic matrix with $b$ is a convex combination of $b$'s entries, so it can never escape $[b_{min}, b_{max}]$.
-
-```python-editor collapsed
-pie.text("Taking the dot product of any row of a doubly stochastic matrix S with b gives a convex combination of b's entries - it always lands between b's smallest and largest values.", 0, -3.8, 14, 7, -1, out='tbox_6')
-```
 
 Applying this to any row of $AS_1B$ gives us:
 
@@ -175,13 +158,10 @@ pie.scalar(70, out='unit')
 GRAY, PINK, AMBER, VIOLET = '#71717a', '#be185d', '#b45309', '#6d28d9'
 # Where 1/b_max and 1/b_min sit on the number line y = 1
 X_LO, X_HI = -1.85, 2.15
+pie.line(pie.point(-3.35, 1, out='axis2_p1', hidden=True), pie.point(3.35, 1, out='axis2_p2', hidden=True), out='axis2', stroke=GRAY)
 ```
 
 - Draw another number line, this time for the values $a_i$ can take.
-
-```python-editor collapsed
-pie.line(pie.point(-3.35, 1, out='axis2_p1', hidden=True), pie.point(3.35, 1, out='axis2_p2', hidden=True), out='axis2', stroke=GRAY)
-```
 
 - Mark the boundaries $1/b_{max}$ on the left and $1/b_{min}$ on the right.
 
@@ -195,20 +175,13 @@ pie.line(pie.point(X_HI, 0.5, out='pink_guide_p1', hidden=True), pie.point(X_HI,
 ```python-editor collapsed
 pie.point(X_LO, 1, out='amber_pt', fill=AMBER)
 pie.point(X_HI, 1, out='pink_pt', fill=PINK)
-```
-
-- Every $a_i$ must land somewhere between them, purple points squeezed into the same narrow interval.
-
-```python-editor collapsed
 pie.point([-0.85, 0.15, 1.15], 1, out='a_pts', fill=VIOLET)
-```
-
-- The whole interval is exactly $[1/b_{max}, 1/b_{min}]$.
-
-```python-editor collapsed
 # Drawn right to left, so the bracket opens up towards the interval and its label sits below
 pie.annotate_curly_bracket(pie.point(X_HI, 0.3, out='bracket_p2', hidden=True), pie.point(X_LO, 0.3, out='bracket_p1', hidden=True), '1/b_max ≤ a_i ≤ 1/b_min', out='brace_0')
 ```
+
+- Every $a_i$ must land somewhere between them, purple points squeezed into the same narrow interval.
+- The whole interval is exactly $[1/b_{max}, 1/b_{min}]$.
 
 - With concrete numbers this reads $1/b_{max}=0.2$, $1/b_{min}=1.0$, and each $a_i$ trapped in between.
 

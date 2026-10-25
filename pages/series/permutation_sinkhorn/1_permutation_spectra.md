@@ -15,7 +15,7 @@ The spectrum of a permutation matrix is directly related to its cycles: the orde
 pie.clear()
 pie.scalar(52, out='unit')
 BLUE, PINK, GRAY, TEXT = '#1d4ed8', '#be185d', '#71717a', '#27272a'
-tbox_0 = pie.text('[1,2,3,4,5] → [2,4,5,1,3]', 0, 5, 14, out='tbox_0')
+tbox_0 = pie.text('[1,2,3,4,5] → [2,4,5,1,3]', 0, 5, 14, out='tbox_0', stroke=TEXT)
 
 # a grey arrow from (x1, y1) to (x2, y2), with hidden end points
 def flow_arrow(name, x1, y1, x2, y2):
@@ -27,47 +27,31 @@ def flow_arrow(name, x1, y1, x2, y2):
 The whole story of this section fits in one flow diagram. Start from the permutation $[1,2,3,4,5] \to [2,4,5,1,3]$ we want to understand.
 
 ```python-editor collapsed
-pie.set_stroke(tbox_0, TEXT)
-```
-
-```python-editor collapsed
 flow_arrow('arrow_0', 0, 4.45, -3.5, 2.3)
 flow_arrow('arrow_1', 0, 4.45, 3.5, 2.3)
 pie.text('(1→4→2)', -3.5, 1.7, 14, out='tbox_1', stroke=BLUE)
-tbox_2 = pie.text('(3→5)', 3.5, 1.7, 14, out='tbox_2')
+tbox_2 = pie.text('(3→5)', 3.5, 1.7, 14, out='tbox_2', stroke=PINK)
 ```
 
 It decomposes into two disjoint cycles: the order-3 cycle $\textcolor{#1d4ed8}{(1\to4\to2)}$ and the order-2 cycle $\textcolor{#be185d}{(3\to5)}$.
 
 ```python-editor collapsed
-pie.set_stroke(tbox_2, PINK)
-```
-
-```python-editor collapsed
 flow_arrow('arrow_2', -3.5, 1.15, -3.5, -1.05)
 flow_arrow('arrow_3', 3.5, 1.15, 3.5, -1.05)
 pie.text('[λ, λ², λ³]', -3.5, -1.6, 14, out='tbox_3', stroke=BLUE)
-tbox_4 = pie.text('[σ, σ²]', 3.5, -1.6, 14, out='tbox_4')
+tbox_4 = pie.text('[σ, σ²]', 3.5, -1.6, 14, out='tbox_4', stroke=PINK)
 ```
 
 Each cycle contributes its roots of unity: the cubic roots $\textcolor{#1d4ed8}{[\lambda, \lambda^2, \lambda^3]}$ and the square roots $\textcolor{#be185d}{[\sigma, \sigma^2]}$.
 
 ```python-editor collapsed
-pie.set_stroke(tbox_4, PINK)
-```
-
-```python-editor collapsed
 flow_arrow('arrow_4', -3.5, -2.15, -3.5, -4.35)
 flow_arrow('arrow_5', 3.5, -2.15, 3.5, -4.35)
 pie.text('[λ, λ³, 0, λ², 0]', -3.5, -4.9, 14, out='tbox_5', stroke=BLUE)
-tbox_6 = pie.text('[0, 0, σ, 0, σ²]', 3.5, -4.9, 14, out='tbox_6')
+tbox_6 = pie.text('[0, 0, σ, 0, σ²]', 3.5, -4.9, 14, out='tbox_6', stroke=PINK)
 ```
 
 Finally each set of roots is placed at its cycle's indices with zeros elsewhere to give the eigenvector layouts: $\textcolor{#1d4ed8}{[\lambda, \lambda^3, 0, \lambda^2, 0]}$ and $\textcolor{#be185d}{[0, 0, \sigma, 0, \sigma^2]}$.
-
-```python-editor collapsed
-pie.set_stroke(tbox_6, PINK)
-```
 
 ---
 

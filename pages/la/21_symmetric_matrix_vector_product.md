@@ -180,8 +180,7 @@ pie.la_mat_to_ellipse([[3, -3], [-3, 1.8]], porg, out='ellipse', stroke=GRAY)
 Now rotate the input vector $x$ through a full turn and watch the projections, their scaled copies and the output $Mx$ all update together.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(tdeg, 35 + 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, 35 + 360, animate=True)
 ```
 
 You can also rotate it back.

@@ -64,13 +64,10 @@ The canvas shows the same triangle and point again. Now consider a second copy o
 ```python-editor collapsed
 news = [pie.point(0, 0, out='qa'), pie.point(-1, 3, out='qb'), pie.point(-7, -2, out='qc'), pie.point(-1, 1, out='q', fill=GOLD)]
 pie.polyline([news[0], news[1], news[2], news[0]], out='tri2', stroke=BLUE)
-```
-
-These two problems are actually the same problem - every vertex and the point move by the same amount `[-3,0]`, so the position of the point relative to the vertices of the triangle is unchanged:
-
-```python-editor collapsed
 pie.annotate_arrow(olds, news, 0.1, out='shift_arrows')
 ```
+
+These two problems are actually the same problem - every vertex and the point move by the same amount `[-3,0]`, so the position of the point relative to the vertices of the triangle is unchanged.
 
 But it is easier to find the answer of the second problem, which is also the answer of the first problem. So we will now focus on how to solve the second problem: is the point `[-1,1]` inside the triangle with vertices `[0,0]`, `[-1,3]` and `[-7,-2]`?
 

@@ -161,13 +161,10 @@ one_minus = pie.lift(lambda v: 1 - v, pie.Scalar)
 # Columns (a, 1 - a) and (1 - b, b): each sums to 1
 m = [[a, one_minus(b)], [one_minus(a), b]]
 pie.la_array_to_texts(m, 2.0, 1.2, 0.6, 0.6, out='readout')
+pie.la_circle_transform2(m, 20, out='fan')
 ```
 
 For a 2-by-2 Markov matrix this means an input vector $\begin{bmatrix} p & q \end{bmatrix}^T$ is mapped to another point on the line $x + y = p + q$. We can watch this happen by transforming points on a circle and joining each input point to its output point.
-
-```python-editor collapsed
-pie.la_circle_transform2(m, 20, out='fan')
-```
 
 Every joining segment is parallel to the line $x + y = 0$: multiplication by $M$ can only slide a point along the direction that keeps $x + y$ constant.
 

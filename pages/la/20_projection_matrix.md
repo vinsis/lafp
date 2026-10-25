@@ -313,15 +313,13 @@ pie.text('As the subspace rotates, every ellipse point slides along its normal o
 Now rotate the subspace and watch the projections and the matrix update together,
 
 ```python-editor collapsed
-for k in range(1, 5):
-    pie.translate_scalar_to(tdeg, 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, 180, animate=True)
 ```
 
 or rotate it back.
 
 ```python-editor collapsed
-for k in range(3, -1, -1):
-    pie.translate_scalar_to(tdeg, 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, 0, animate=True)
 ```
 
 Here's how it is implemented in Python (elementary operations like matrix-matrix product and matrix-vector product are not shown):

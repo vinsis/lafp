@@ -50,13 +50,10 @@ line_pt = pie.lift(reflect_line_point, pie.Point)
 part_x = pie.lift(lambda phi, part: reflect_line_point(phi, part)[0], pie.Scalar)
 part_y = pie.lift(lambda phi, part: reflect_line_point(phi, part)[1], pie.Scalar)
 mirror = pie.line(line_pt(phi, 'neg_end', out='nep', hidden=True), line_pt(phi, 'end', out='ep', hidden=True), out='mirror', stroke=GRAY, hidden=True)
+pie.la_vec2d(VX, VY, out='vV', stroke=BLUE)
 ```
 
 - This vector $\textcolor{#1d4ed8}{v}$ denotes the point we want to reflect.
-
-```python-editor collapsed
-pie.la_vec2d(VX, VY, out='vV', stroke=BLUE)
-```
 
 - This is the line of reflection. It is represented by a unit vector $u$. 
 
@@ -79,21 +76,17 @@ pie.la_vec2d(par_x, par_y, out='vPar', stroke=GREEN)
 par_x, par_y = part_x(phi, 'par'), part_y(phi, 'par')
 pie.la_vec2d(part_x(phi, 'perp'), part_y(phi, 'perp'), par_x, par_y, out='vPerp', stroke=PINK)
 pie.la_vec2d(part_x(phi, 'neg_perp'), part_y(phi, 'neg_perp'), par_x, par_y, out='neg_vPerp', stroke=PINK)
+pie.la_vec2d(part_x(phi, 'out'), part_y(phi, 'out'), out='vOut', stroke=GOLD)
 ```
 
 - The sum of these two components - the parallel and the negative of perpendicular - gives the reflected vector.
   - The original vector: $\textcolor{#1d4ed8}{v} = \textcolor{#047857}{v_{\parallel}} + \textcolor{#be185d}{v_\perp}$
   - The reflected vector: $\textcolor{#b45309}{v_{out}} = \textcolor{#047857}{v_{\parallel}} - \textcolor{#be185d}{v_\perp} = (2uu^T - I)\textcolor{#1d4ed8}{v}$
 
-```python-editor collapsed
-pie.la_vec2d(part_x(phi, 'out'), part_y(phi, 'out'), out='vOut', stroke=GOLD)
-```
-
 - Animate the line of reflection
 
 ```python-editor collapsed
-for k in range(1, 5):
-    pie.translate_scalar_to(phi, 0.7 + k * (3.1415 - 0.7) / 4, animate=True)
+pie.translate_scalar_to(phi, 3.1415, animate=True)
 ```
 
 
@@ -323,13 +316,10 @@ pie.text('z : rotation axis (fixed line)', 0.3, 3.3, 13, out='tbox_0')
 pie.text('x', 2.7980762, -1.8, 13, out='tbox_1')
 pie.text('y', -3.0980762, -1.8, 13, out='tbox_2')
 pie.text('xy-plane : every reflection stays inside here', -2, -3.6, 13, out='tbox_3')
+pie.text("The two mirror normals span a plane; take it as the xy-plane, so z is the shared rotation axis. Any vector's z-component is left untouched by both reflections, so only its in-plane part moves. Tracking that part in this flat plane loses nothing.", 0, -7, 12, 9.2, -1, out='tbox_4')
 ```
 
 Here is the argument without loss of generality: the two mirror normals span a plane, which we take as the xy-plane, so $z = n_1 \times n_2$ is the fixed rotation axis. 
-
-```python-editor collapsed
-pie.text("The two mirror normals span a plane; take it as the xy-plane, so z is the shared rotation axis. Any vector's z-component is left untouched by both reflections, so only its in-plane part moves. Tracking that part in this flat plane loses nothing.", 0, -7, 12, 9.2, -1, out='tbox_4')
-```
 
 A general $\textcolor{#047857}{v}$ need not lie in this plane, but each normal has no $z$-component, so both reflections leave $\textcolor{#047857}{v}$'s $z$-component untouched. Only its in-plane part $v_\perp$ ever moves, and it stays in the plane. Tracking $v_\perp$ here loses no generality; the axial part just rides along fixed.
 
@@ -338,13 +328,10 @@ To see this on the scaffold itself, add a vector and its rotated image. Here is 
 ```python-editor collapsed
 GREEN, TEAL, LEVEL = '#047857', '#0d9488', '#a1a1aa'
 pie.la_vec2d(1.348063, 0.252281, out='vec_v', stroke=GREEN)
+pie.la_vec2d(-1.348063, 0.252281, out='vec_vr', stroke=TEAL)
 ```
 
 Rotating it about the $z$-axis gives its image $v' = (x', y', z)$: the in-plane part has turned, but the tip does not rise or fall.
-
-```python-editor collapsed
-pie.la_vec2d(-1.348063, 0.252281, out='vec_vr', stroke=TEAL)
-```
 
 The level connector shows both tips sit at one height, so $z$ is unchanged.
 

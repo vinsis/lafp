@@ -38,13 +38,10 @@ for name, (x_top, x_bot, color) in columns.items():
     pie.annotate_arrow(top[name], bot[name], 0.14, out=f'arr_{name}', stroke=GRAY)
     pie.text(name, px(top[name]), py(top[name]), 22, out=f'tlab_{name}', stroke=color)
     pie.text(name, px(bot[name]), py(bot[name]), 22, out=f'blab_{name}', stroke=color)
+pie.text('[a b c d e]  →  [d a e b c]', 0, 3.4, 15, out='tbox_0')
 ```
 
 The permutation $[\textcolor{#1d4ed8}{a},\textcolor{#1d4ed8}{b},\textcolor{#be185d}{c},\textcolor{#1d4ed8}{d},\textcolor{#be185d}{e}] \rightarrow [\textcolor{#1d4ed8}{d},\textcolor{#1d4ed8}{a},\textcolor{#be185d}{e},\textcolor{#1d4ed8}{b},\textcolor{#be185d}{c}]$ can be seen as two different permutations happening concurrently, one arrow per element carrying it from its old slot to its new one:
-
-```python-editor collapsed
-pie.text('[a b c d e]  →  [d a e b c]', 0, 3.4, 15, out='tbox_0')
-```
 
 - $[\textcolor{#1d4ed8}{a},\textcolor{#1d4ed8}{b},\textcolor{#1d4ed8}{d}] \rightarrow [\textcolor{#1d4ed8}{d},\textcolor{#1d4ed8}{a},\textcolor{#1d4ed8}{b}]$ corresponding to the partition $(1, 2, 4)$.
 - $[\textcolor{#be185d}{c},\textcolor{#be185d}{e}] \rightarrow [\textcolor{#be185d}{e},\textcolor{#be185d}{c}]$ corresponding to the partition $(3, 5)$.
@@ -54,14 +51,10 @@ pie.text('[a b c d e]  →  [d a e b c]', 0, 3.4, 15, out='tbox_0')
 pie.translate_point_by([top['c'], top['d'], bot['e'], bot['b']], [2, -2, 2, -2], [0, 0, 0, 0], animate=True)
 div_top = pie.point(1, 2.9, out='div_top', hidden=True)
 div_bot = pie.point(1, -2.9, out='div_bot', hidden=True)
-divider = pie.line(div_top, div_bot, out='divider')
+divider = pie.line(div_top, div_bot, out='divider', stroke=GRAY)
 ```
 
 Reordering the columns so that each cycle sits together makes the structure visible: a grey divider then splits the $3$-cycle on the left from the $2$-cycle on the right.
-
-```python-editor collapsed
-pie.set_stroke(divider, GRAY)
-```
 
 ```python-editor collapsed
 pie.text('3-cycle (a b d)', -2, -3.5, 14, out='tbox_1', stroke=BLUE)

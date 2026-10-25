@@ -129,13 +129,10 @@ a, b, c, d = times(s1, 1.2), times(s1, 0.8), times(s2, 0.8), times(s2, 1.2)
 m = [[a, b], [c, d]]
 pie.la_array_to_texts(m, 1.2, -2, 0.8, 0.4, 15, out='mviz')
 ellipse = pie.la_mat_to_ellipse(m, p0, out='ellipse', stroke=GRAY)
+fan = pie.la_circle_transform2(m, 36, out='fan')
 ```
 
 The matrix maps every point on the circle to a point on an ellipse - each colored segment joins an input point to its output point.
-
-```python-editor collapsed
-fan = pie.la_circle_transform2(m, 36, out='fan')
-```
 
 This is nothing new. What's interesting here is the relationship between the shape of the ellipse and the row vectors. 
 

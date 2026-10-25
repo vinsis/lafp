@@ -89,15 +89,11 @@ npoints = 10
 fanin = pie.la_circle_transform(identity, npoints, out='fanin')
 fanout = pie.la_circle_transform(matrix, npoints, out='fanout')
 theta_text = pie.lift(lambda t: f'theta = {round(t, 2):g}', pie.Text)(theta, out='theta_text')
-theta_box = pie.text(theta_text, 0, 3, 14, 2.6, -1, out='theta_box')
+theta_box = pie.text(theta_text, 0, 3, 14, 2.6, -1, out='theta_box', stroke=AMBER)
 pie.text('This is theta*S applied once, a scaled quarter turn (not a rotation)', 0, -3, 12, 3.6, -1, out='note_box')
 ```
 
 - Applying the step matrix $\theta S$ once maps each point on the ring to a new one.
-
-```python-editor collapsed
-pie.set_stroke(theta_box, AMBER)
-```
 
 - Note that for any input point, the output point is perpendicular to it. 
   - First input-output pair
@@ -144,23 +140,14 @@ py = (r * np.sin(angles)).tolist()
 sc = 0.55
 txs = [-sc * y for y in py]
 tys = [sc * x for x in px]
+pie.circle(p0, r, out='circ', stroke=GRAY)
+pie.point(px, py, out='pts', fill=BLUE)
+pie.la_vec2d(txs, tys, px, py, out='tangents', stroke=GREEN)
 ```
 
 > Geometrically, a skew-symmetric step pushes every point in a direction perpendicular to its position vector. 
 
 On the unit circle, take a ring of points and draw the step each one would take.
-
-```python-editor collapsed
-pie.circle(p0, r, out='circ', stroke=GRAY)
-```
-
-```python-editor collapsed
-pie.point(px, py, out='pts', fill=BLUE)
-```
-
-```python-editor collapsed
-pie.la_vec2d(txs, tys, px, py, out='tangents', stroke=GREEN)
-```
 
 Every arrow lands along the tangent, so a small step never leaves the circle.
 
@@ -246,21 +233,15 @@ pie.arc(origin, 1, 0, THETA_DEG, out='arc', stroke=PINK)
 t = math.radians(THETA_DEG)
 pie.point(math.cos(t), math.sin(t), out='ptarget', fill=PINK)
 pie.text('Pink: the true rotation. Blue: N Euler steps, each landing just outside the circle. More steps hug the arc.', 0, 2, 14, 4, -1, out='desc_box')
+pie.lift(euler_steps, pie.Array[pie.Point])(nsteps, THETA_DEG, out='spts', fill=BLUE)
+pie.text(pie.lift(lambda n: f'N = {round(n)}', pie.Text)(nsteps), 0, -1.6, 16, out='tbox0')
 ```
 
 We can watch this convergence directly. On the unit circle, start from the point at (1, 0). The true rotation carries it along an arc to its final position.
 
 Each Euler step $I + \frac{\theta S}{N}$ instead lands slightly outside the circle, so a run of $N$ steps traces a string of points that spirals outward and lags behind.
 
-```python-editor collapsed
-pie.lift(euler_steps, pie.Array[pie.Point])(nsteps, THETA_DEG, out='spts', fill=BLUE)
-```
-
 a readout of $N$ shows the current step count.
-
-```python-editor collapsed
-pie.text(pie.lift(lambda n: f'N = {round(n)}', pie.Text)(nsteps), 0, -1.6, 16, out='tbox0')
-```
 
 - Increase the number of steps `nsteps = 10` and you get a better approximation to the rotation.
 

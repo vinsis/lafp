@@ -160,20 +160,13 @@ pie.text('dy₂', 2.4, 1.5, 18, out='mRdy2')
 pie.text('The bilinear form is the difference', 0, -3.1, 18, out='mCap', stroke=GRAY)
 pie.text('dy₂', -0.55, -3.95, 18, out='mCdy2', stroke=TEAL)
 pie.text('−', 0, -3.95, 18, out='mCminus', stroke=GRAY)
-cdy1 = pie.text('dy₁', 0.55, -3.95, 18, out='mCdy1')
+cdy1 = pie.text('dy₁', 0.55, -3.95, 18, out='mCdy1', stroke=TEAL)
+pie.text('dy₂ {', -4.2, 2.65, 18, out='mLdy2')
 ```
 
 First apply $\textcolor{#b45309}{dx_g}$, then measure the change $\textcolor{#e11d48}{dx_f}$ at each end: this gives $dy_1$ and $dy_2$.
 
-```python-editor collapsed
-pie.text('dy₂ {', -4.2, 2.65, 18, out='mLdy2')
-```
-
 Now swap the order, applying $\textcolor{#e11d48}{dx_f}$ first and then $\textcolor{#b45309}{dx_g}$: the bilinear form is the same difference $dy_2 - dy_1$.
-
-```python-editor collapsed
-pie.set_stroke(cdy1, '#0d9488')
-```
 
 Hessian is used in optimization by using second order approximation:
 

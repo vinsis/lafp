@@ -34,19 +34,15 @@ pie.text('n-dimensional space', 3.2, -3, 14, out='cap_right', stroke=PINK)
 pie.text('each vertex is a permutation matrix; each interior point is a doubly stochastic matrix',
          -3.2, -4.2, 12, 4.4, -1, out='rd_left', stroke=TEAL)
 rd_right = pie.text('each vertex is a permutation vector; each interior point is a convex combination of them',
-                    3.2, -4.2, 12, 4.4, -1, out='rd_right')
+                    3.2, -4.2, 12, 4.4, -1, out='rd_right', stroke=PINK)
 
 arc_ctrl = pie.point(0, 3.6, out='arc_ctrl', hidden=True)
-pie.annotate_curved_arrow(lv0, rv0, arc_ctrl, 0.06, 'P ↦ Px', out='arr_P')
+pie.annotate_curved_arrow(lv0, rv0, arc_ctrl, 0.06, 'P ↦ Px', out='arr_P', stroke=GRAY)
 arc_ctrl_d = pie.point(0, -1.8, out='arc_ctrl_d', hidden=True)
-pie.annotate_curved_arrow(pt_D, pt_Dx, arc_ctrl_d, 0.05, 'D ↦ Dx', out='arr_D')
+pie.annotate_curved_arrow(pt_D, pt_Dx, arc_ctrl_d, 0.05, 'D ↦ Dx', out='arr_D', stroke=AMBER)
 ```
 
 Picture two spaces side by side: the polytope on the left lives in $(n \times n)$-dimensional space where $n=3$, and its six vertices are the six permutation matrices $P$.
-
-```python-editor collapsed
-pie.set_stroke(rd_right, PINK)
-```
 
 The polytope on the right lives in $n$-dimensional space, and its six vertices are the corresponding permutation vectors $Px$. 
 
@@ -55,16 +51,7 @@ Inside each polytope sits an amber point:
 - $\textcolor{#b45309}{Dx}$ on the right is its image.
 
 - Each permutation matrix $P$ at a teal vertex maps to a permutation vector $Px$ at the matching pink vertex, drawn here as the grey arrow $P \mapsto Px$.
-
-```python-editor collapsed
-pie.annotate_curved_arrow(lv0, rv0, arc_ctrl, 0.06, 'P ↦ Px', out='arr_P', stroke=GRAY)
-```
-
 - The interior doubly stochastic matrix $\textcolor{#b45309}{D}$, being a convex combination of the vertices, maps to the point $\textcolor{#b45309}{Dx}$ inside the right polytope, which is that same convex combination of the permutation vectors.
-
-```python-editor collapsed
-pie.annotate_curved_arrow(pt_D, pt_Dx, arc_ctrl_d, 0.05, 'D ↦ Dx', out='arr_D', stroke=AMBER)
-```
 
 #### Python implementation
 

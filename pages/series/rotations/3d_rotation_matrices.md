@@ -53,16 +53,13 @@ origin2 = pie.point(3, 0, out='origin2', hidden=True)
 pie.la_ortho_axes(origin2, 1, out='axes2')
 cube2 = pie.la_cube_array(out='cube2')
 y_cube2 = pie.la_matmul(r2, cube2, out='y_cube2')
+pie.la_cube_from_array(y_cube2, origin2, out='cube2_rotated')
 
 pie.text('Rₓ then Rᵧ', -3, 3, 14, out='tbox_0')
 pie.text('Rᵧ then Rₓ', 3, 3, 14, out='tbox_1')
 ```
 
 - Set up two cubes
-
-```python-editor collapsed
-pie.la_cube_from_array(y_cube2, origin2, out='cube2_rotated')
-```
 
 Rotate the left cube first: $R_x$ then $R_y$:
 - Rotate the left cube by 60 degrees about x-axis.

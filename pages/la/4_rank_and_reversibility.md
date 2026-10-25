@@ -81,15 +81,12 @@ w = pie.scalar(0.5, out='w')
 pie.line(pie.point(-6, -9, out='far1', hidden=True), pie.point(6, 9, out='far2', hidden=True), out='dir_line', stroke=GRAY)
 v = pie.la_vec2d(2, 3, out='v')
 pie.la_scale_vec2d(v, w, out='wv', stroke=GOLD)
+pie.text('This line is the entire space covered by weighted sums of the vector: a 1-dimensional space, since the weighted sum can never leave the line', -2, -3, 12, 4, -1, out='box_cap')
 ```
 
 This may seem like an obvious fact: you cannot get a 3-dimensional vector by adding two or more 2-dimensional vectors. Thus the dimensionality of the output space cannot be greater than two.
 
-Can it be smaller than two? Absolutely! All weighted sums of a _single_ 2-dimensional vector just cover a line. E.g. the weighted sum of the vector $\begin{bmatrix} 2 \\ 3 \end{bmatrix}$ with a weight $w$ is the gold vector $\begin{bmatrix} 2w \\ 3w \end{bmatrix}$. As you change the value of $w$, its tip traces out different points of the grey line $3x - 2y = 0$ — a 1-dimensional space:
-
-```python-editor collapsed
-pie.text('This line is the entire space covered by weighted sums of the vector: a 1-dimensional space, since the weighted sum can never leave the line', -2, -3, 12, 4, -1, out='box_cap')
-```
+Can it be smaller than two? Absolutely! All weighted sums of a _single_ 2-dimensional vector just cover a line. E.g. the weighted sum of the vector $\begin{bmatrix} 2 \\ 3 \end{bmatrix}$ with a weight $w$ is the gold vector $\begin{bmatrix} 2w \\ 3w \end{bmatrix}$. As you change the value of $w$, its tip traces out different points of the grey line $3x - 2y = 0$ — a 1-dimensional space.
 
 Change $w$: `1.5` increases it, `-1.5` decreases it, `0.5` resets it
 
@@ -270,13 +267,10 @@ p_in = pie.point(1, 1, out='p_in')
 p_out = pie.point(3, 3, out='p_out')
 pie.text('input point (1, 1)', 2.2, 0.6, 12, out='box_in')
 pie.text('output point (3, 3)', 4.3, 2.6, 12, out='box_out')
+pie.annotate_arrow(p_in, p_out, 0.1, out='fa0')
 ```
 
 Since both the input and the output points lie in the same 2d plane, we can draw them in the same plane. We can draw an arrow from the input point to the output point to show the transformation by the matrix $\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$.
-
-```python-editor collapsed
-pie.annotate_arrow(p_in, p_out, 0.1, out='fa0')
-```
 
 ```python-editor collapsed
 import numpy as np
@@ -298,13 +292,10 @@ m_in = pie.la_mat_from_points(pts_in, out='m_in')
 m_out = pie.la_matmul(m, m_in, out='m_out')
 q_out = pie.la_mat_to_points(m_out, out='q_out', fill=PINK)
 pie.text('M stretches the circle of radius 2 into an ellipse', 0, -5.5, 12, 6, -1, out='cap_ellipse')
+pie.annotate_arrow(pts_in, q_out, 0.05, out='arrows', stroke=GOLD)
 ```
 
 We can also do this for not just one but a set of input points. Here we sample points on a circle of radius $2$ and map each one through the matrix $\begin{bmatrix} 2 & 1 \\ 1 & 2 \end{bmatrix}$. For each input point, we calculate the output point, and draw an arrow from each input point to its output point. The arrows show how the input points on the circle are mapped to points on an ellipse.
-
-```python-editor collapsed
-pie.annotate_arrow(pts_in, q_out, 0.05, out='arrows', stroke=GOLD)
-```
 
 ---
 
@@ -394,6 +385,7 @@ def value_text(prefix, value, suffix):
 
 rank_text = pie.lift(value_text, pie.Text)('m₂₂ = ', m22, ': rank 1 (plane squished onto a line) exactly when m₂₂ = 0.4')
 pie.text(rank_text, -4, 5.5, 12, 4, -1, out='lbl_rank')
+pie.annotate_arrow(pts_in, q_out, 0.05, out='squish_arrows', stroke=GOLD)
 ```
 
 A function can have the same output for two different inputs. But it can never have two different outputs for the same input. Remember that a matrix is just a function.
@@ -407,10 +399,6 @@ In fact, a rank-one `2-by-2` matrix squishes the entire 2d plane into a line. Th
 $$M = \begin{bmatrix} 1.2 & 0.6 \\ 0.8 & 0.4 \end{bmatrix}$$
 
 whose second column is just $0.5$ times its first column — a rank-one matrix. The input points sampled on a circle all land on output points on a single line. Join each input point to its output point to see the squish in action — and note how the entire transformed grid collapses onto that same line.
-
-```python-editor collapsed
-pie.annotate_arrow(pts_in, q_out, 0.05, out='squish_arrows', stroke=GOLD)
-```
 
 - Make it rank 2: the second column stops being a multiple of the first, and the transformed grid spans the whole plane again.
 

@@ -100,8 +100,7 @@ pie.text('grey = candidate subspace; teal = projections', 5.0, -6.0, 12, 3.6, -1
 Now sweep the subspace through all possible directions and watch how the projections spread out or bunch up.
 
 ```python-editor collapsed
-for k in range(1, 5):
-    pie.translate_scalar_to(tdeg, 90 - 45 * k, animate=True)
+pie.translate_scalar_to(tdeg, -90, animate=True)
 ```
 
 Finally align the subspace with the direction in which the points vary the most: this is where the projections stay most spread out and the joining lines are shortest, so the least information is lost.
@@ -267,8 +266,7 @@ pie.line(pts, ppts, out='nlines2', stroke=LIGHT_GRAY)
 Now sweep the subspace around,
 
 ```python-editor collapsed
-for k in range(1, 4):
-    pie.translate_scalar_to(tdeg, 75 - 40 * k, animate=True)
+pie.translate_scalar_to(tdeg, -45, animate=True)
 ```
 
 then align it with the first eigenvector: the best approximation is obtained when the input points are projected on the eigenvector with the largest eigenvalue.

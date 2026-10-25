@@ -51,13 +51,10 @@ pie.circle(p0, 1, out='circ', stroke=GRAY)
 A = [[1.5, 0.1], [0.5, 0.5]]
 pie.la_mat_to_ellipse(A, p0, out='ellipseA', stroke=GRAY)
 pie.la_array_to_texts(A, 3, 3, 0.8, 0.5, out='mviz')
+pie.la_circle_transform2(A, 40, out='fan')
 ```
 
 The matrix maps every point on the circle to a point on an ellipse, each colored segment joins an input point to its output point.
-
-```python-editor collapsed
-pie.la_circle_transform2(A, 40, out='fan')
-```
 
 Notice that most segments are slanted: the output points in a _different_ direction than the input. But along a couple of special directions the segments lie flat against a radial line, meaning input and output are collinear there.
 
@@ -94,8 +91,7 @@ pie.text('Along a violet eigenvector, Ax stays collinear with x. Everywhere else
 Right now the input sits on the first eigenvector, so the two arrows are collinear and $Ax$ is simply $x$ stretched by $\lambda \approx 1.54$. Sweep the input all the way around the circle and watch the gold output swing away from the teal input almost everywhere.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(t, 0.445 + k * math.pi / 4, animate=True)
+pie.translate_scalar_to(t, 0.445 + 2 * math.pi, animate=True)
 ```
 
 Line it up with the second eigenvector and the two arrows fall onto the same violet line again, this time with the output _shorter_ than the input ($\lambda \approx 0.45$).
@@ -124,13 +120,10 @@ B = [[1, 0], [1, 1]]
 pie.la_mat_to_ellipse(B, p0, out='ellipseB', stroke=GRAY)
 pie.la_array_to_texts(B, 3, 3, 0.8, 0.5, out='mviz')
 pie.text('Shear: y grows by x, the y-axis stays put', -2, 2, 12, 2, -1, out='shear_txt', stroke=GRAY)
+pie.la_circle_transform2(B, 40, out='fanB')
 ```
 
 which maps the circle to a slanted ellipse.
-
-```python-editor collapsed
-pie.la_circle_transform2(B, 40, out='fanB')
-```
 
 This vertical shear pushes each point up by an amount equal to its $x$-coordinate, so the only direction that stays put is the y-axis (where $x = 0$). Reveal its single eigenvector, with eigenvalue $\lambda = 1$: every point on the y-axis maps exactly to itself.
 
@@ -160,8 +153,7 @@ pie.text('Bx', coord(t, 1.2, 'out', 'x', 0.35), coord(t, 1.2, 'out', 'y'), 13, o
 Sweep the input around and, apart from that one vertical direction, the output never lines up with the input again. So $B$ has exactly **one** eigenvector.
 
 ```python-editor collapsed
-for k in range(1, 9):
-    pie.translate_scalar_to(t, math.pi / 2 + k * math.pi / 4, animate=True)
+pie.translate_scalar_to(t, math.pi / 2 + 2 * math.pi, animate=True)
 ```
 
 ---
@@ -182,13 +174,10 @@ C = [[0.8, -1.386], [1.386, 0.8]]
 pie.la_mat_to_ellipse(C, p0, out='ellipseC', stroke=GRAY)
 pie.la_array_to_texts(C, 3, 3, 0.9, 0.5, out='mviz')
 pie.text('Rotation: no real eigenvalues or eigenvectors', -3, 3, 12, 2, -1, out='rot_txt', stroke=GRAY)
+pie.la_circle_transform2(C, 40, out='fanC')
 ```
 
 which turns every input by $60^\circ$ while stretching it. Because a rotation moves _every_ direction, there is no direction left pointing where it started.
-
-```python-editor collapsed
-pie.la_circle_transform2(C, 40, out='fanC')
-```
 
 Draw the input $\textcolor{#0d9488}{x}$ and its output $\textcolor{#ca8a04}{Cx}$ and sweep the input all the way around: the gold output is _always_ turned away from the teal input by $60^\circ$.
 
@@ -206,8 +195,7 @@ pie.la_vec2d(coord(t, 1, 'in', 'x'), coord(t, 1, 'in', 'y'), out='invecC', strok
 pie.la_vec2d(coord(t, 1, 'out', 'x'), coord(t, 1, 'out', 'y'), out='outvecC', stroke=GOLD)
 pie.text('x', coord(t, 1.2, 'in', 'x'), coord(t, 1.2, 'in', 'y'), 13, out='lab_x_c', stroke=TEAL)
 pie.text('Cx', coord(t, 1.2, 'out', 'x'), coord(t, 1.2, 'out', 'y'), 13, out='lab_cx_c', stroke=GOLD)
-for k in range(1, 9):
-    pie.translate_scalar_to(t, k * math.pi / 4, animate=True)
+pie.translate_scalar_to(t, 2 * math.pi, animate=True)
 pie.text('No direction survives a rotation: zero real eigenvectors.', -3.0, -3.5, 13, 2.6, -1, out='cap_box_c', stroke=GRAY)
 ```
 

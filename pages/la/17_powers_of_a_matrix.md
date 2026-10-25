@@ -77,13 +77,10 @@ pie.scalar(100, out='unit')
 GRAY, TEAL, GOLD, VIOLET = '#71717a', '#0d9488', '#ca8a04', '#6d28d9'
 p0 = pie.point(0, 0, out='p0', hidden=True)
 pie.circle(p0, 1, out='circ', stroke=GRAY)
+pie.la_mat_to_ellipse([[1.5, 0.1], [0.5, 0.5]], p0, out='ellA', stroke=GRAY)
 ```
 
 First see how $A$ stretches the unit circle into an ellipse,
-
-```python-editor collapsed
-pie.la_mat_to_ellipse([[1.5, 0.1], [0.5, 0.5]], p0, out='ellA', stroke=GRAY)
-```
 
 then reveal the dominant eigenvector direction, the direction stretched the most.
 
@@ -102,26 +99,14 @@ pie.text('x₀', 2.5, 2.5, 13, out='lblX0', stroke=TEAL)
 ```
 
 - Apply $A$ and renormalize.
-
-```python-editor collapsed
-pie.la_vec2d(2.54, 1.59, out='x1', stroke=TEAL)
-```
-
 - Again.
-
-```python-editor collapsed
-pie.la_vec2d(2.66, 1.39, out='x2', stroke=TEAL)
-```
-
 - Again.
-
-```python-editor collapsed
-pie.la_vec2d(2.69, 1.32, out='x3', stroke=TEAL)
-```
-
 - And once more.
 
 ```python-editor collapsed
+pie.la_vec2d(2.54, 1.59, out='x1', stroke=TEAL)
+pie.la_vec2d(2.66, 1.39, out='x2', stroke=TEAL)
+pie.la_vec2d(2.69, 1.32, out='x3', stroke=TEAL)
 pie.la_vec2d(2.70, 1.30, out='x4', stroke=GOLD)
 pie.text('x₄', 3.2, 1.5, 13, out='lblX4', stroke=GOLD)
 pie.text('The iteration converges onto the dominant eigenvector, the direction [0.90, 0.43].', 0, -2, 12, 2.4, -1, out='sumA', stroke=GOLD)
@@ -146,13 +131,10 @@ pie.scalar(50, out='unit')
 GRAY, TEAL, GOLD = '#71717a', '#0d9488', '#ca8a04'
 p0 = pie.point(0, 0, out='p0', hidden=True)
 pie.circle(p0, 1, out='circ', stroke=GRAY)
+pie.la_mat_to_ellipse([[0.8, -1.386], [1.386, 0.8]], p0, out='ellB', stroke=GRAY)
 ```
 
 See how $B$ maps the unit circle.
-
-```python-editor collapsed
-pie.la_mat_to_ellipse([[0.8, -1.386], [1.386, 0.8]], p0, out='ellB', stroke=GRAY)
-```
 
 Then iterate:
 
