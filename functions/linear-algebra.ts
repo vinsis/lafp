@@ -437,6 +437,9 @@ export const ArrayToTexts: Node2NodeFunc = {
           x: { type: 'Scalar', value: scalar(x + c * cellWidth) },
           y: { type: 'Scalar', value: scalar(y - r * cellHeight) },
           fontSize,
+          // w = h = 0: plain text, no border
+          w: { type: 'Scalar', value: scalar(0) },
+          h: { type: 'Scalar', value: scalar(0) },
         };
         keys.push(key);
       }

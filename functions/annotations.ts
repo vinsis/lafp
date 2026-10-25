@@ -46,7 +46,11 @@ const scalarNode = (value: number) => ({ type: 'Scalar', value: scalar(value) })
 /** Adds a label centered at `at` as `result.label`, unless `text` is empty. */
 function addLabel(result: Record<string, BlueprintNode>, text: string, at: XY) {
   if (text !== '') {
-    result.label = { type: 'Text', value: text, x: scalarNode(at[0]), y: scalarNode(at[1]), fontSize: scalarNode(LABEL_SIZE) };
+    // w = h = 0: plain text, no border
+    result.label = {
+      type: 'Text', value: text, x: scalarNode(at[0]), y: scalarNode(at[1]), fontSize: scalarNode(LABEL_SIZE),
+      w: scalarNode(0), h: scalarNode(0),
+    };
   }
   return result;
 }
