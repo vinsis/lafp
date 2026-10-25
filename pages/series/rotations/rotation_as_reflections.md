@@ -179,7 +179,7 @@ pie.clear()
 pie.scalar(70, out='unit')
 GRAY, BLUE, PINK, GOLD, GREEN = '#71717a', '#1d4ed8', '#be185d', '#ca8a04', '#047857'
 origin = pie.point(0, 0, out='origin', hidden=True)
-circ = pie.circle(origin, 2, out='circ', stroke=GRAY, hidden=True)
+circ = pie.circle(origin, 2, out='circ', stroke=GRAY)
 theta = pie.scalar(0.6, out='theta')
 BETA, RR, MLEN = 0.35, 2, 2.6
 V0 = (RR * math.cos(BETA), RR * math.sin(BETA))
@@ -210,61 +210,44 @@ def two_mirrors_point(theta, key):
 fig_pt = pie.lift(two_mirrors_point, pie.Point)
 fig_x = pie.lift(lambda theta, key: two_mirrors_point(theta, key)[0], pie.Scalar)
 fig_y = pie.lift(lambda theta, key: two_mirrors_point(theta, key)[1], pie.Scalar)
-mirror1 = pie.line(pie.point(-MLEN, 0, out='ne1p', hidden=True), pie.point(MLEN, 0, out='e1p', hidden=True), out='mirror1', stroke=GRAY, hidden=True)
-mirror2 = pie.line(fig_pt(theta, 'ne2', out='ne2p', hidden=True), fig_pt(theta, 'e2', out='e2p', hidden=True), out='mirror2', stroke=GRAY, hidden=True)
-```
+mirror1 = pie.line(pie.point(-MLEN, 0, out='ne1p', hidden=True), pie.point(MLEN, 0, out='e1p', hidden=True), out='mirror1', stroke=GRAY)
+mirror2 = pie.line(fig_pt(theta, 'ne2', out='ne2p', hidden=True), fig_pt(theta, 'e2', out='e2p', hidden=True), out='mirror2', stroke=GRAY)
 
-We start with the vector we want to rotate. Here is the input $\textcolor{#1d4ed8}{v}$.
-
-```python-editor collapsed
+# The input v
 pie.la_vec2d(V0[0], V0[1], out='vV', stroke=BLUE)
 pie.text('v', 1.18 * V0[0], 1.18 * V0[1], 16, out='vlab', stroke=BLUE)
-```
 
-Now place two mirror lines through the origin. The first, axis $L_1$, is fixed along the horizontal.
-
-```python-editor collapsed
+# The mirror labels and the angle θ between them
 pie.text('L1', 1.08 * MLEN, 0, 15, out='l1lab', stroke=GRAY)
-pie.show(mirror1)
-```
-
-The second, axis $L_2$, is tilted away from it.
-
-```python-editor collapsed
 pie.text('L2', fig_x(theta, 'l2'), fig_y(theta, 'l2'), 15, out='l2lab', stroke=GRAY)
-pie.show(mirror2)
-```
-
-The angle $\theta$ between the two axes is marked by the arc.
-
-```python-editor collapsed
 pie.arc(origin, 0.75, 0, pie.lift(math.degrees, pie.Scalar)(theta), out='arc_theta', stroke=GRAY)
 pie.text('θ', fig_x(theta, 'thl'), fig_y(theta, 'thl'), 16, out='thlab', stroke=GRAY)
-```
 
-- Reflecting $\textcolor{#1d4ed8}{v}$ across $L_1$ gives $\textcolor{#be185d}{v_1}$.
-
-```python-editor collapsed
+# v reflected across L1, then across L2
 pie.la_vec2d(fig_x(theta, 'v1'), fig_y(theta, 'v1'), out='vV1', stroke=PINK)
 pie.text('v1', fig_x(theta, 'lv1'), fig_y(theta, 'lv1'), 16, out='v1lab', stroke=PINK)
-```
-
-- Reflecting $\textcolor{#be185d}{v_1}$ across $L_2$ gives $\textcolor{#b45309}{v_2}$, which lands back on the guide circle of radius $|v|$, since a reflection preserves length.
-
-```python-editor collapsed
 pie.la_vec2d(fig_x(theta, 'v2'), fig_y(theta, 'v2'), out='vV2', stroke=GOLD)
 pie.text('v2', fig_x(theta, 'lv2'), fig_y(theta, 'lv2'), 16, out='v2lab', stroke=GOLD)
-pie.show(circ)
-```
 
-Now check the claim. Rotate the original $\textcolor{#1d4ed8}{v}$ directly by $2\theta$: the green vector lands exactly on top of $\textcolor{#b45309}{v_2}$, and its arc is twice the $\theta$ arc between the mirrors.
-
-```python-editor collapsed
+# v rotated directly by 2θ
 pie.la_vec2d(fig_x(theta, 'vr'), fig_y(theta, 'vr'), out='vRot', stroke=GREEN)
 end_deg = pie.lift(lambda theta: math.degrees(BETA + 2 * theta), pie.Scalar)
 pie.arc(origin, 1.5, math.degrees(BETA), end_deg(theta), out='arc_two', stroke=GREEN)
 pie.text('2θ', fig_x(theta, 't2l'), fig_y(theta, 't2l'), 16, out='t2lab', stroke=GREEN)
 ```
+
+We start with the vector we want to rotate. Here is the input $\textcolor{#1d4ed8}{v}$.
+
+Now place two mirror lines through the origin. The first, axis $L_1$, is fixed along the horizontal.
+
+The second, axis $L_2$, is tilted away from it.
+
+The angle $\theta$ between the two axes is marked by the arc.
+
+- Reflecting $\textcolor{#1d4ed8}{v}$ across $L_1$ gives $\textcolor{#be185d}{v_1}$.
+- Reflecting $\textcolor{#be185d}{v_1}$ across $L_2$ gives $\textcolor{#b45309}{v_2}$, which lands back on the guide circle of radius $|v|$, since a reflection preserves length.
+
+Now check the claim. Rotate the original $\textcolor{#1d4ed8}{v}$ directly by $2\theta$: the green vector lands exactly on top of $\textcolor{#b45309}{v_2}$, and its arc is twice the $\theta$ arc between the mirrors.
 
 Two reflections equal one rotation by twice the inter-mirror angle.
 
@@ -305,19 +288,25 @@ pie.polygon(corners, out='ground', fill=GROUND, stroke=GROUND_EDGE)
 pie.line(pie.point(0, -3, out='z_bot', hidden=True), pie.point(0, 3.4, out='z_top', hidden=True), out='z_axis', stroke=DARK)
 pie.la_vec2d(2.5980762, -1.5, out='scaffold_x', stroke=GRAY)
 pie.la_vec2d(-2.5980762, -1.5, out='scaffold_y', stroke=GRAY)
-```
 
-Choose coordinates and look at the xy-plane as a faint ground. Perpendicular to it stands the z-axis, which we take as the fixed rotation axis. The in-plane x and y directions span that ground.
-
-Labelling the axis, the triad and the plane fixes the frame.
-
-```python-editor collapsed
+# Labels for the axis, the triad and the plane
 pie.text('z : rotation axis (fixed line)', 0.3, 3.3, 13, out='tbox_0')
 pie.text('x', 2.7980762, -1.8, 13, out='tbox_1')
 pie.text('y', -3.0980762, -1.8, 13, out='tbox_2')
 pie.text('xy-plane : every reflection stays inside here', -2, -3.6, 13, out='tbox_3')
 pie.text("The two mirror normals span a plane; take it as the xy-plane, so z is the shared rotation axis. Any vector's z-component is left untouched by both reflections, so only its in-plane part moves. Tracking that part in this flat plane loses nothing.", 0, -7, 12, 9.2, -1, out='tbox_4')
+
+# A vector v, its image rotated about z, and a level line joining their tips
+GREEN, TEAL, LEVEL = '#047857', '#0d9488', '#a1a1aa'
+pie.la_vec2d(1.348063, 0.252281, out='vec_v', stroke=GREEN)
+pie.la_vec2d(-1.348063, 0.252281, out='vec_vr', stroke=TEAL)
+pie.line(pie.point(1.348063, 0.252281, out='vtip', hidden=True), pie.point(-1.348063, 0.252281, out='vrtip', hidden=True), out='level', stroke=LEVEL)
+pie.text('same height, so same z', 0, 1, 12, out='tbox_z')
 ```
+
+Choose coordinates and look at the xy-plane as a faint ground. Perpendicular to it stands the z-axis, which we take as the fixed rotation axis. The in-plane x and y directions span that ground.
+
+Labelling the axis, the triad and the plane fixes the frame.
 
 Here is the argument without loss of generality: the two mirror normals span a plane, which we take as the xy-plane, so $z = n_1 \times n_2$ is the fixed rotation axis. 
 
@@ -325,20 +314,9 @@ A general $\textcolor{#047857}{v}$ need not lie in this plane, but each normal h
 
 To see this on the scaffold itself, add a vector and its rotated image. Here is a vector $\textcolor{#047857}{v} = (x, y, z)$, lifted off the ground to height $z$.
 
-```python-editor collapsed
-GREEN, TEAL, LEVEL = '#047857', '#0d9488', '#a1a1aa'
-pie.la_vec2d(1.348063, 0.252281, out='vec_v', stroke=GREEN)
-pie.la_vec2d(-1.348063, 0.252281, out='vec_vr', stroke=TEAL)
-```
-
 Rotating it about the $z$-axis gives its image $v' = (x', y', z)$: the in-plane part has turned, but the tip does not rise or fall.
 
 The level connector shows both tips sit at one height, so $z$ is unchanged.
-
-```python-editor collapsed
-pie.line(pie.point(1.348063, 0.252281, out='vtip', hidden=True), pie.point(-1.348063, 0.252281, out='vrtip', hidden=True), out='level', stroke=LEVEL)
-pie.text('same height, so same z', 0, 1, 12, out='tbox_z')
-```
 
 Thus we can use the same visualization as for the 2D case to illustrate the connection between rotations and composition of two reflections in the general case. 
 
