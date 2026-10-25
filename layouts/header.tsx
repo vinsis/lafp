@@ -1,3 +1,5 @@
+import { onMount } from "solid-js";
+import { inject } from "@vercel/analytics";
 import site from "../site.yml";
 import { ArticleIcon, BookIcon, SeriesIcon } from "./icons";
 import { LogoOneLine } from "./logo";
@@ -7,6 +9,8 @@ const REPO_URL = "https://github.com/OWNER/REPO";
 
 /** The site logo, shown at the top of every page, and icon links to the sections and the source on the right. */
 export default function Header() {
+  // Browser only: loads Vercel Analytics, which counts page views.
+  onMount(() => inject());
   return (
     <header class="site-header">
       <a class="site-header-title" href="/" aria-label={site.title}>
