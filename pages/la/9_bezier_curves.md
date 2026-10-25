@@ -55,7 +55,7 @@ def curve_points(x_of, y_of, start, end, n=200):
     return np.stack([x_of(s), y_of(s)], axis=1)
 
 pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: s**2 - 4, lambda s: s, -4, 4, hidden=True), out='par', stroke=TEAL)
-pie.circle(pie.point(0, 0, out='p0', hidden=True), 3, out='circ', stroke=PINK)
+pie.circle(pie.point(0, 0, out='origin', hidden=True), 3, out='circ', stroke=PINK)
 ```
 
 Consider this sideways parabola, described by the equation $x = y^2 - 4$.
