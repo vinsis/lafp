@@ -65,7 +65,8 @@ function animated(target: Accessor<number[][]>): Accessor<number[][]> {
       if (t < 1) frame = requestAnimationFrame(step);
     });
   }, { defer: true }));
-  onCleanup(() => cancelAnimationFrame(frame));
+  // `frame` is 0 on the server, which has no `cancelAnimationFrame`: effects run only in the browser.
+  onCleanup(() => frame && cancelAnimationFrame(frame));
   return shown;
 }
 
@@ -185,7 +186,7 @@ export default function Home() {
       </div>
       <section class="home-try">
         <p>
-          Try it: change the matrix and press Run.
+          Try it: change the matrix.
           See <a href="/la/3_mat_vec_mul#333-circle-ellipse">chapter 3</a> for why it works.
         </p>
         <TryPython code={MATRIX_CODE} store={store} />
