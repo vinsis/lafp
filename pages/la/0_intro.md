@@ -113,9 +113,6 @@ pie.la_vec2d(2, 2, out='vec')
 
 Editors on a page share the same canvas and the same Python variables, so an editor can build on the figure drawn by the one above it. Run them in order.
 
-#### Open source implementation
-The implementation of these commands is [fully open source](https://github.com/TinyVolt/geomatic-math-extensions/blob/main/src/linear-algebra.ts). You can also define your own functions and play with them in the editor using extensions.
-
 ---
 
 [1. Weighted means →](/la/1_weighted_means)
