@@ -4,7 +4,6 @@ import site from "../site.yml";
 import { ArticleIcon, BookIcon, SeriesIcon } from "./icons";
 import { LogoOneLine } from "./logo";
 
-// TODO: set to the repo URL once it is public.
 const REPO_URL = "https://github.com/vinsis/lafp";
 
 /** The site logo, shown at the top of every page, and icon links to the sections and the source on the right. */
