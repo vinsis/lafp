@@ -338,6 +338,19 @@ main > pre {
   list-style: none;
 }
 
+/* Table of contents: the box is as wide as its longest heading, not the whole text column.
+   Dark grey border, as rounded as the Python editors. */
+.toc {
+  width: fit-content;
+  max-width: 100%;
+  border-color: var(--color-muted);
+  border-radius: 6px;
+}
+
+.toc a {
+  color: var(--color-muted);
+}
+
 /* Collapsed text: room above and below what <details> shows when open. */
 main details[open] > summary {
   margin-bottom: 0.75rem;
