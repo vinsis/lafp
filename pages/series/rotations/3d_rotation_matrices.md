@@ -2,6 +2,7 @@
 title: 2. 3D rotation matrices
 description: Why 3D rotations do not commute, intrinsic and extrinsic rotations, and Euler angles, with Python examples using scipy.
 canvas: left
+sidebar: _series.md
 ---
 
 # 2. 3D rotation matrices
@@ -31,6 +32,7 @@ Rotating about the x-axis and then the y-axis gives a different result than rota
 
 ```python-editor collapsed
 pie.clear()
+pie.scalar(0, out='gridOpacity')
 # Rotation angles in degrees
 alpha1 = pie.scalar(0, out='alpha1')
 beta1 = pie.scalar(0, out='beta1')
@@ -114,6 +116,7 @@ import math
 
 pie.clear()
 pie.scalar(90, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, DARK, PINK, AMBER = '#71717a', '#27272a', '#be185d', '#b45309'
 p0 = pie.point(0, 0, out='p0', hidden=True)
 xaxisp1 = pie.point(-10, 0, out='xaxisp1', hidden=True)
@@ -198,6 +201,7 @@ import math
 
 pie.clear()
 pie.scalar(90, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, DARK = '#71717a', '#27272a'
 p0 = pie.point(0, 0, out='p0', hidden=True)
 # Angles in degrees: rz about the z-axis, which turns the x- and y-axes and the vector together,

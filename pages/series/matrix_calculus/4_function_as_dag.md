@@ -2,6 +2,7 @@
 title: Function is a DAG
 description: View a function as a directed acyclic graph (DAG) with Jacobians on its edges, the idea behind how autodiff systems compute gradients.
 canvas: left
+sidebar: _series.md
 ---
 
 # Function is a DAG
@@ -22,6 +23,7 @@ Consider a function that calculates the variance of $n$ variables $\sigma^2 = \f
 ```python-editor collapsed
 pie.clear()
 pie.scalar(40, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, TEAL = '#71717a', '#0d9488'
 # Edges of the DAG, as (tail, head)
 EDGES = [
@@ -54,6 +56,7 @@ In the previous example, every node in the DAG of variance function was a scalar
 ```python-editor collapsed
 pie.clear()
 pie.scalar(40, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, TEAL, PINK = '#71717a', '#0d9488', '#be185d'
 # Edges of the DAG, as (tail, head)
 EDGES = [

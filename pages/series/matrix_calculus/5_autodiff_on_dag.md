@@ -2,6 +2,7 @@
 title: Autodiff on a DAG
 description: The chain rule on a computation graph, forward and reverse ways to compute gradients, and why full Jacobians are overkill for autodiff.
 canvas: left
+sidebar: _series.md
 ---
 
 # Autodiff on a DAG
@@ -31,6 +32,7 @@ The first path is $J_2 \rightarrow J_3$ and the second path is $J_1$. Written wi
 ```python-editor collapsed
 pie.clear()
 pie.scalar(40, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, AMBER, TEAL, PINK = '#71717a', '#b45309', '#0d9488', '#be185d'
 
 # An arrow between two hidden points
@@ -66,6 +68,7 @@ This is all we need to fully define the chain rule on a graph. In the next examp
 ```python-editor collapsed
 pie.clear()
 pie.scalar(40, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, AMBER, TEAL, PINK = '#71717a', '#b45309', '#0d9488', '#be185d'
 
 # An arrow between two hidden points
@@ -111,6 +114,7 @@ A path product is the product of all Jacobians along a path.
 
 ```python-editor collapsed
 pie.clear()
+pie.scalar(0, out='gridOpacity')
 GRAY, AMBER, TEAL, PINK = '#71717a', '#b45309', '#0d9488', '#be185d'
 
 # An arrow between two hidden points

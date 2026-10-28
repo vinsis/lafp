@@ -2,6 +2,7 @@
 title: Barycentric coordinates and the point-in-triangle test
 description: Use barycentric coordinates and a matrix inverse to check whether a point lies inside a triangle, then extend the idea to polygons.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 5. Barycentric coordinates

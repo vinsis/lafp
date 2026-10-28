@@ -1,6 +1,7 @@
 ---
 title: VJP and JVP
 description: Vector-Jacobian products (VJP) and Jacobian-vector products (JVP), directional derivatives, and forward-mode autodiff, with Python code.
+sidebar: _series.md
 ---
 
 # VJP and JVP

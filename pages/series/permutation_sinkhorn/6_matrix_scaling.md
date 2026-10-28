@@ -2,6 +2,7 @@
 title: Matrix scaling
 description: Sinkhorn's theorem that any positive matrix scales to a doubly stochastic one, proof of existence and uniqueness, and Sinkhorn iteration in Python.
 canvas: left
+sidebar: _series.md
 ---
 
 # Matrix scaling
@@ -84,6 +85,7 @@ To see why this bound holds, picture a concrete doubly stochastic matrix $S_1$ a
 ```python-editor collapsed
 pie.clear()
 pie.scalar(38, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, PINK, AMBER, TEAL, VIOLET = '#71717a', '#be185d', '#b45309', '#0d9488', '#6d28d9'
 # A doubly stochastic matrix: every row and every column sums to 1
 S1 = [[0.5, 0.3, 0.2], [0.2, 0.5, 0.3], [0.3, 0.2, 0.5]]
@@ -156,6 +158,7 @@ The same squeeze argument pins down $B$ precisely. Since $\textcolor{#e11d48}{a_
 ```python-editor collapsed
 pie.clear()
 pie.scalar(70, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, PINK, AMBER, VIOLET = '#71717a', '#be185d', '#b45309', '#6d28d9'
 # Where 1/b_max and 1/b_min sit on the number line y = 1
 X_LO, X_HI = -1.85, 2.15

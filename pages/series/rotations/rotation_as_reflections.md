@@ -2,6 +2,7 @@
 title: 4. Thinking of rotations in terms of reflections
 description: Reflection matrices around lines and hyperplanes, and how any rotation is two reflections, shown algebraically and in 2D and 3D.
 canvas: left
+sidebar: _series.md
 ---
 
 # 4. Thinking of rotations in terms of reflections
@@ -278,6 +279,7 @@ $$\begin{bmatrix} x \\ y \\ \textcolor{#0d9488}{z} \end{bmatrix} \to \begin{bmat
 ```python-editor collapsed
 pie.clear()
 pie.scalar(32, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, GROUND, GROUND_EDGE, DARK = '#71717a', '#d4d4d8', '#a1a1aa', '#27272a'
 corners = [
     pie.point(0, 3, out='gnd_a', hidden=True),

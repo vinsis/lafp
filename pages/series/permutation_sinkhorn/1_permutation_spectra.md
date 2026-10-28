@@ -2,6 +2,7 @@
 title: Permutation spectra
 description: The eigenvalues and eigenvectors of a permutation matrix come from its cycles, with each cycle adding roots of unity.
 canvas: left
+sidebar: _series.md
 ---
 
 # Permutation spectra
@@ -15,6 +16,7 @@ The spectrum of a permutation matrix is directly related to its cycles: the orde
 ```python-editor collapsed
 pie.clear()
 pie.scalar(52, out='unit')
+pie.scalar(0, out='gridOpacity')
 BLUE, PINK, GRAY, TEXT = '#1d4ed8', '#be185d', '#71717a', '#27272a'
 tbox_0 = pie.text('[1,2,3,4,5] → [2,4,5,1,3]', 0, 5, 14, out='tbox_0', stroke=TEXT)
 

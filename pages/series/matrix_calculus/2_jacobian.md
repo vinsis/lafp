@@ -2,6 +2,7 @@
 title: Jacobian of a function
 description: The Jacobian of a vector-valued function, the Jacobian of a composition of functions, the Jacobian determinant and the Jacobian inverse.
 canvas: left
+sidebar: _series.md
 ---
 
 # Jacobian of a function
@@ -17,10 +18,11 @@ Let $f: R^n \rightarrow R^2$ be a vector-valued function. One can actually think
 ```python-editor collapsed
 pie.clear()
 pie.scalar(50, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY, GOLD = '#71717a', '#ca8a04'
-pie.circle(pie.point(-5, 3.3, out='c_in_c', hidden=True), 1.3, out='c_in')
-pie.circle(pie.point(-0.5, 3.3, out='c_out_c', hidden=True), 1.3, out='c_out')
-pie.annotate_arrow(pie.point(-3.5, 3.3, out='fa', hidden=True), pie.point(-1.8, 3.3, out='fb', hidden=True), 0, out='arrow_f')
+pie.circle(pie.point(-5, 3.3, out='c_in_c', hidden=True), 1.3, out='c_in', stroke=GRAY)
+pie.circle(pie.point(-0.5, 3.3, out='c_out_c', hidden=True), 1.3, out='c_out', stroke=GRAY)
+pie.annotate_arrow(pie.point(-3.5, 3.3, out='fa', hidden=True), pie.point(-1.8, 3.3, out='fb', hidden=True), 0, out='arrow_f', stroke=GRAY)
 pie.text('Rⁿ', -5.4, 3.0, 20, out='lab_rn', stroke=GOLD)
 pie.text('R²', -0.9, 3.0, 20, out='lab_r2', stroke=GOLD)
 pie.text('f', -2.75, 4.1, 20, out='lab_f', stroke=GOLD)

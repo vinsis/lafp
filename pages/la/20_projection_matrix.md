@@ -2,6 +2,7 @@
 title: Projection matrix onto a subspace
 description: Project a vector onto a line, a plane and any subspace, derive the projection matrix, and see why it is idempotent.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 20. Projection matrix

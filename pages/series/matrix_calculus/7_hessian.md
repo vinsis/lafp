@@ -2,6 +2,7 @@
 title: Hessian and the bilinear form
 description: Compute a full Jacobian matrix with batching, then the Hessian, why it is symmetric, its bilinear form, and how to calculate it in PyTorch.
 canvas: left
+sidebar: _series.md
 ---
 
 # Hessian and the bilinear form
@@ -127,6 +128,7 @@ The obvious interpretation of this value is that it is the change in (change in 
 ```python-editor collapsed
 pie.clear()
 pie.scalar(40, out='unit')
+pie.scalar(0, out='gridOpacity')
 AMBER, PINK, TEAL, GRAY, FAINT = '#b45309', '#be185d', '#0d9488', '#71717a', '#a1a1aa'
 
 def arrow(name, a, b, color):

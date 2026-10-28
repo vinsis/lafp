@@ -2,6 +2,7 @@
 title: 3. Quaternions
 description: Quaternion algebra, how to rotate a vector with a quaternion, visuals of quaternion rotations, and the matrix form of a quaternion.
 canvas: left
+sidebar: _series.md
 ---
 
 # 3. Quaternions
@@ -178,6 +179,7 @@ Unlike the 2D case, in general all four numbers in the product $\textcolor{#1d4e
 
 ```python-editor
 pie.clear()
+pie.scalar(0, out='gridOpacity')
 v = [0, 1, 1, 1]
 axis = [1, 2, 3]
 deg = pie.scalar(30, out='deg')
@@ -207,6 +209,7 @@ One can visualize 3D rotations by rotating a cube.
 
 ```python-editor collapsed
 pie.clear()
+pie.scalar(0, out='gridOpacity')
 GRAY = '#71717a'
 p0 = pie.point(0, 0, out='p0', hidden=True)
 pie.la_ortho_axes(p0, 5, out='axes')
@@ -223,7 +226,7 @@ rotated = pie.ga_batch_quaternion_rotation(qs, axis, deg, out='rotated')
 
 deg_text = pie.lift(lambda d: f'Degree of rotation: {round(d, 2):g}', pie.Text)(deg, out='text_deg')
 pie.text(deg_text, 0, 5, 14, -1, 0, out='tbox_deg')
-pie.text('Axis of rotation', 5, -3, 14, 1.5, -1, out='tbox_axis')
+pie.text('Axis of rotation', 5, -3, 14, 2.5, -1, out='tbox_axis')
 pie.la_array_to_texts(axis, 5, -4, 1, 1, 14, out='axis_texts')
 pie.la_cube_from_array(rotated, p0, out='cube')
 ```

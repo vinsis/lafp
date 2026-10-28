@@ -2,6 +2,7 @@
 title: Polynomials are vectors in disguise
 description: A polynomial is defined by its coefficients, so it is a vector. See how adding and scaling polynomials looks as curves.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 8. Polynomials are vectors in disguise

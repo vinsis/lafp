@@ -2,6 +2,7 @@
 title: Gradient of a function
 description: The gradient of a scalar-valued function of a vector or matrix, the Frobenius inner product, trace identities, and gradients of the norm and determinant.
 canvas: left
+sidebar: _series.md
 ---
 
 # Gradient of a function

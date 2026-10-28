@@ -2,6 +2,7 @@
 title: Transforming normal vectors with a matrix
 description: Why a normal vector stops being perpendicular when you transform it with the same matrix, and which matrix keeps it perpendicular.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 13. Normal vectors

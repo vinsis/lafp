@@ -81,7 +81,7 @@ export default function Home() {
           </svg>
         </h1>
         <div class="home-buttons">
-          <a class="home-button" href="/la">eBook</a>
+          <a class="home-button" href="/la/0_intro">eBook</a>
           <a class="home-button" href="/blog">Blog</a>
           <a class="home-button" href="/series">Series</a>
         </div>

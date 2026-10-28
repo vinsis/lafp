@@ -247,4 +247,4 @@ def calculate_smaller_matrix_inverse(matrix_inverse: np.matrix, row_index: int, 
 ## Related articles:
 
 - [Inverse of a block of a matrix and Schur Complement](/blog/inverse_matrix_block)
-- [Read the e-book 📖](/la) — to learn linear algebra from scratch through a series of visual essays.
+- [Read the e-book 📖](/la/0_intro) — to learn linear algebra from scratch through a series of visual essays.

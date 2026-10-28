@@ -1,6 +1,7 @@
 ---
 title: Birkhoff polytope
 description: The Birkhoff polytope is the convex hull of all n-by-n permutation matrices. Its edges, faces, and the points inside it.
+sidebar: _series.md
 ---
 
 # Birkhoff polytope

@@ -3,8 +3,6 @@ title: eBook
 description: A free interactive eBook on linear algebra for programmers, in 26 chapters, from weighted sums and vectors to eigenvectors, SVD and dimension reduction.
 ---
 
-# eBook
-
 - [0. Introduction](/la/0_intro)
 - [1. Weighted means](/la/1_weighted_means)
 - [2. Geometry of weighted sums](/la/2_spacewalk)

@@ -2,6 +2,7 @@
 title: 2D rotations
 description: Describe a 2D rotation with a rotation matrix or with complex numbers and the complex exponential.
 canvas: left
+sidebar: _series.md
 ---
 
 # 2D rotations
@@ -145,11 +146,13 @@ A 2D rotation matrix has **one** free variable. In other words, if we know just 
 
 ```python-editor collapsed
 pie.clear()
+pie.scalar(0, out='gridOpacity')
+GRAY = '#71717a'
 theta = pie.scalar(30, out='theta')
 pie.text(pie.lift(lambda v: f'theta = {round(v, 2):g}', pie.Text)(theta), -1.5, 0, 14, out='theta_label')
 arrow_start = pie.point(-0.2, 0, out='arrow_start', hidden=True)
 arrow_end = pie.point(0.6, 0, out='arrow_end', hidden=True)
-pie.annotate_arrow(arrow_start, arrow_end, out='theta_arrow')
+pie.annotate_arrow(arrow_start, arrow_end, out='theta_arrow', stroke=GRAY)
 rot_matrix = pie.la_rotation_matrix(theta, out='rot_matrix')
 pie.la_array_to_texts(rot_matrix, 1.2, 0.5, 1, 1, out='rot_matrix_boxes')
 ```

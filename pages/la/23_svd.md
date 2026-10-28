@@ -2,6 +2,7 @@
 title: Singular value decomposition (SVD), visualized
 description: SVD answers one question: can a matrix map perpendicular vectors to perpendicular vectors? Derive and visualize it for matrices of any shape.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 23. SVD

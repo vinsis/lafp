@@ -2,6 +2,7 @@
 title: 5. Geometric algebra (aka Clifford algebra)
 description: The geometric product and bivectors, and how geometric algebra describes reflections and rotations in 2D and 3D, with the Python clifford library.
 canvas: left
+sidebar: _series.md
 ---
 
 # 5. Geometric algebra (aka Clifford algebra)
@@ -123,6 +124,7 @@ For example, consider the parallelogram created by the vectors $\begin{bmatrix} 
 ```python-editor collapsed
 pie.clear()
 pie.scalar(48, out='unit')
+pie.scalar(0, out='gridOpacity')
 BLUE, PINK, GREEN, AMBER, VIOLET, GRAY = '#1d4ed8', '#be185d', '#047857', '#b45309', '#6d28d9', '#71717a'
 PANEL = '#f4f4f5'
 pie.text('Extending the idea of components of a vector to components of a plane', 3.9, -2, 15, 4, -1, out='title_box')
@@ -445,13 +447,15 @@ To show why, let's use a small trick: define the quantity $\textcolor{#0d9488}{R
 The angle between $\textcolor{#1d4ed8}{p},\textcolor{#be185d}{q}$ is $\theta$,
 
 ```python-editor collapsed
-pie.show([pq_mark, pq_mark_label])
+for node in [pq_mark, pq_mark_label]:
+    pie.show(node)
 ```
 
 and the angle between $\textcolor{#be185d}{q},\textcolor{#047857}{r}$ is also $\theta$. Then we can write:
 
 ```python-editor collapsed
-pie.show([r_arrow, r_label, qr_mark, qr_mark_label])
+for node in [r_arrow, r_label, qr_mark, qr_mark_label]:
+    pie.show(node)
 ```
 
 $$\textcolor{#0d9488}{B} = \textcolor{#1d4ed8}{p}\textcolor{#be185d}{q} = \textcolor{#be185d}{q}\textcolor{#047857}{r} \quad \text{because} \quad \textcolor{#1d4ed8}{p} \cdot \textcolor{#be185d}{q} = \textcolor{#be185d}{q} \cdot \textcolor{#047857}{r}, \ \ \textcolor{#1d4ed8}{p} \wedge \textcolor{#be185d}{q} = \textcolor{#be185d}{q} \wedge \textcolor{#047857}{r}$$
@@ -466,7 +470,8 @@ $$\begin{aligned}
 Multiplying $\textcolor{#1d4ed8}{p}$ by $\textcolor{#0d9488}{R}$ lands exactly on $\textcolor{#be185d}{q}$,
 
 ```python-editor collapsed
-pie.hide([pq_mark, pq_mark_label, qr_mark, qr_mark_label])
+for node in [pq_mark, pq_mark_label, qr_mark, qr_mark_label]:
+    pie.hide(node)
 ctrl_pq = pie.point(polar(pq_mid, 1.35 * radius, 'x'), polar(pq_mid, 1.35 * radius, 'y'), out='ctrl_pq', hidden=True)
 pie.annotate_curved_arrow(p_pt, q_pt, ctrl_pq, 0.15, 'R', out='pr_eq_q', stroke=TEAL)
 ```
@@ -481,7 +486,8 @@ pie.annotate_curved_arrow(q_pt, r_pt, ctrl_qr, 0.15, 'R', out='qr_eq_r', stroke=
 So, given $v = \alpha \textcolor{#1d4ed8}{p} + \beta \textcolor{#be185d}{q}$ as any vector in the plane, drawn here as the amber combination of $\textcolor{#1d4ed8}{p}$ and $\textcolor{#be185d}{q}$:
 
 ```python-editor collapsed
-pie.show([v_arrow, v_label, v_readout])
+for node in [v_arrow, v_label, v_readout]:
+    pie.show(node)
 ```
 
 $$\begin{aligned}
@@ -493,7 +499,8 @@ v\textcolor{#0d9488}{R} &= (\alpha \textcolor{#1d4ed8}{p} + \beta \textcolor{#be
 which rotates the vector $v$ by $\theta$ in the plane defined by $\textcolor{#0d9488}{B}$, landing on $vR = \alpha \textcolor{#be185d}{q} + \beta \textcolor{#047857}{r}$, the orange combination of $\textcolor{#be185d}{q}$ and $\textcolor{#047857}{r}$.
 
 ```python-editor collapsed
-pie.show([vr_arrow, vr_label, vr_readout])
+for node in [vr_arrow, vr_label, vr_readout]:
+    pie.show(node)
 ```
 
 That is, once $\textcolor{#0d9488}{R}$ rotates the basis vectors $\textcolor{#1d4ed8}{p}\to\textcolor{#be185d}{q}$ and $\textcolor{#be185d}{q}\to\textcolor{#047857}{r}$, every vector in the plane inherits the same rotation by $\theta$.
@@ -608,7 +615,8 @@ We cover reflection about a line first. Let's say the reflection of a vector $\t
 This reflection can be seen as a rotation of $2\theta$ where $\theta$ is the angle from $\textcolor{#1d4ed8}{v}$ to $u$. This rotation happens in the plane defined by $u$ and $\textcolor{#1d4ed8}{v}$.
 
 ```python-editor collapsed
-pie.show([theta_mark, theta_mark_label])
+for node in [theta_mark, theta_mark_label]:
+    pie.show(node)
 ```
 
 Rotating $\textcolor{#1d4ed8}{v}$ by $2\theta$ about $u$ lands exactly on the reflected vector $\textcolor{#047857}{v_r}$.
@@ -623,7 +631,8 @@ pie.text(readout(theta_deg), 0, -5.6, 14, 7, -1, out='readout_box')
 Indeed, the total angle swept from $\textcolor{#1d4ed8}{v}$ to $\textcolor{#047857}{v_r}$ is $2\theta$, twice the angle to the mirror line. Writing $\textcolor{#1d4ed8}{\hat{v}} = \textcolor{#1d4ed8}{v}/\|v\|$ for the unit vector along $\textcolor{#1d4ed8}{v}$, we can describe this reflection as:
 
 ```python-editor collapsed
-pie.hide([theta_mark, theta_mark_label])
+for node in [theta_mark, theta_mark_label]:
+    pie.hide(node)
 twotheta_label = pie.lift(lambda t: f'2θ = {round(2 * t)}°', pie.Text)(theta_deg, out='twotheta_label')
 pie.annotate_angle_mark(line_ov, line_ovr, twotheta_label, out='total_angle_mark')
 ```

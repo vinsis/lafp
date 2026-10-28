@@ -2,6 +2,7 @@
 title: Matrix-matrix multiplication, visualized
 description: How to multiply two matrices, why it is associative but usually not commutative, and how to see it as composing and factorizing transformations.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 6. Matrix-matrix multiplication

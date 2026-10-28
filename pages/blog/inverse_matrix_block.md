@@ -129,4 +129,4 @@ We want to calculate the inverse of a matrix from which any $k$ rows and $k$ col
 ## Related articles:
 
 - [Inverse of a matrix after a row-and-column removal](/blog/inverse_row_col_removed)
-- [Read the e-book 📖](/la) — to learn linear algebra from scratch through a series of visual essays.
+- [Read the e-book 📖](/la/0_intro) — to learn linear algebra from scratch through a series of visual essays.

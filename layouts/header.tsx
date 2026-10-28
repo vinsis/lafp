@@ -19,7 +19,7 @@ export default function Header() {
         </svg>
       </a>
       <nav class="site-header-links">
-        <a class="site-header-link" href="/la" aria-label="eBook" title="eBook">
+        <a class="site-header-link" href="/la/0_intro" aria-label="eBook" title="eBook">
           <BookIcon />
         </a>
         <a class="site-header-link" href="/blog" aria-label="Blog" title="Blog">

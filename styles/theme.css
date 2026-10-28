@@ -35,6 +35,7 @@
   --content-width: 40rem;    /* page text column, about 70 characters */
   --wide-content-width: 56rem; /* page text column on pages with no canvas */
   --home-width: 48rem;       /* homepage column */
+  --sidebar-width: 13rem;    /* eBook chapter list; the built-in is 16rem */
 }
 
 /* Less empty space below the last line of a page; the built-in is 4rem. */
@@ -269,6 +270,42 @@ main > pre {
   height: 1.5rem;
   background: var(--color-bg);
   border-color: var(--color-code-border);
+}
+
+/* Sidebar divider: a 1px line. Without `min-width: 0` it stretches to the toggle button's width.
+   The button floats over it: centered on the line when open, and over the page when closed.
+   On narrow screens the open sidebar covers the page and the line stays at the left edge, so the button isn't moved. */
+.sidebar-edge {
+  min-width: 0;
+}
+
+.sidebar-page--open:not(.sidebar-page--drawer) .sidebar-toggle {
+  margin-left: calc(0.5px - 0.75rem);
+}
+
+/* Toggle button: teal with a white arrow, like the homepage buttons. */
+.sidebar-toggle {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.sidebar-toggle:hover {
+  background: var(--color-hover);
+  border-color: var(--color-hover);
+  color: #fff;
+}
+
+/* Sidebar text: smaller than the page text (1rem). */
+.sidebar-text {
+  font-size: 0.875rem;
+}
+
+/* Sidebar chapter list: links only, no bullets. */
+.sidebar-text ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
 }
 
 /* Collapsed text: room above and below what <details> shows when open. */

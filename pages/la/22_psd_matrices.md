@@ -2,6 +2,7 @@
 title: Positive semi-definite (PSD) matrices
 description: Symmetric positive semi-definite matrices have non-negative eigenvalues. Their properties, the meaning of xᵀMx, and uses in optimization.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 22. Positive symmetric definite matrices

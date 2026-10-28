@@ -2,6 +2,7 @@
 title: Markov matrices and stationary distributions
 description: Model a Markov process as a matrix, find its stationary distribution, and see what the eigenvalues and eigenvectors of a Markov matrix tell you.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 19. Markov matrices
@@ -58,6 +59,7 @@ Start a random 4-state Markov process from the uniform distribution.
 ```python-editor collapsed
 pie.clear()
 pie.scalar(50, out='unit')
+pie.scalar(0, out='gridOpacity')
 GRAY = '#71717a'
 iterations = pie.scalar(5, out='iter')
 m = pie.la_markov_matrix(4, out='m')

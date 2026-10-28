@@ -2,6 +2,7 @@
 title: The dot product, angles and projections
 description: The dot product of two vectors, how it encodes the angle between them, when it is zero, and its role in projections and matrix-vector multiplication.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 10. Dot product

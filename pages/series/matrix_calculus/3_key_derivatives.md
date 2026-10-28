@@ -1,6 +1,7 @@
 ---
 title: Key matrix derivatives
 description: Derivatives of singular values, elementwise functions, softmax and row-wise vector functions, each checked in Python.
+sidebar: _series.md
 ---
 
 # Key matrix derivatives

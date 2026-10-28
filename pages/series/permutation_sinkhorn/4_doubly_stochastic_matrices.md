@@ -2,6 +2,7 @@
 title: Doubly stochastic matrices
 description: Properties of doubly stochastic matrices, majorization, and Muirhead's inequality, with Python checks.
 canvas: left
+sidebar: _series.md
 ---
 
 # Doubly stochastic matrices
@@ -13,6 +14,7 @@ import math
 
 pie.clear()
 pie.scalar(50, out='unit')
+pie.scalar(0, out='gridOpacity')
 TEAL, PINK, AMBER, GRAY = '#0d9488', '#be185d', '#b45309', '#71717a'
 
 # The 6 corners of a regular hexagon: center (cx, cy), radius r, first corner at `rotation` degrees
@@ -195,6 +197,7 @@ The picture below lays out all six terms at once. The exponents ${a}, {b}, {c}$ 
 ```python-editor collapsed
 pie.clear()
 pie.scalar(55, out='unit')
+pie.scalar(0, out='gridOpacity')
 AMBER, GRAY = '#b45309', '#71717a'
 
 pie.text('μ(a,x) = (1/3!) · Σ of the 6 terms below', 0, 4.6, 16, out='title_box')

@@ -2,6 +2,7 @@
 title: Overview and permutation cycles
 description: An overview of the series from permutations to Sinkhorn distances, starting with how to decompose a permutation into cycles.
 canvas: left
+sidebar: _series.md
 ---
 
 # Overview and permutation cycles
@@ -24,6 +25,7 @@ A permutation can be seen as a movement of an element $x$ from index $x_i$ to in
 ```python-editor collapsed
 pie.clear()
 pie.scalar(50, out='unit')
+pie.scalar(0, out='gridOpacity')
 BLUE, PINK, GRAY = '#1d4ed8', '#be185d', '#71717a'
 
 # x and y of a point, so a label can follow it

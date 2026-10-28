@@ -2,6 +2,7 @@
 title: Birkhoff-von-Neumann algorithm
 description: An algorithm that writes any doubly stochastic matrix as a convex sum of permutation matrices, based on counting its zeros, with an example.
 canvas: left
+sidebar: _series.md
 ---
 
 # Birkhoff-von-Neumann algorithm
@@ -22,6 +23,7 @@ import numpy as np
 
 pie.clear()
 pie.scalar(55, out='unit')
+pie.scalar(0, out='gridOpacity')
 TEAL, GRAY, AMBER = '#0d9488', '#71717a', '#b45309'
 
 # The hexagon's vertices P1 ... P6; the odd ones are the even permutations

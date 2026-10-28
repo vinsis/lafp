@@ -2,6 +2,7 @@
 title: Eigenvectors and eigenvalues, visualized
 description: What happens when a matrix maps a vector to the same direction. The algebra and geometry of Ax = λx, with interactive 2-by-2 examples.
 canvas: left
+sidebar: _ebook.md
 ---
 
 # 14. Eigenvectors and eigenvalues
