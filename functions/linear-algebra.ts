@@ -1,5 +1,5 @@
 import { BlueprintNode, Node2NodeFunc } from '~/lib/nodes/functions/Node2NodeFunc';
-import { AnyNode, ArrayNode, PointNode, ScalarNode } from '~/lib/nodes/state/Node';
+import { AnyNode, ArrayNode, PointNode, ScalarNode, TextNode } from '~/lib/nodes/state/Node';
 import { Dtype, add, atan2, cos, div, maximum, mul, num, ref, scalar, sin, sqrt, sub } from '~/lib/nodes/jax';
 import type { ArrowNode } from '../nodes/linear-algebra';
 
@@ -264,16 +264,21 @@ export const MatMul: Node2NodeFunc = {
  * plus the resultant from the origin.
  * @param matrix - Array of scalars, shape [2, n]; its columns are the vectors
  * @param weights - Array of n scalars
+ * @param colors - Array of n texts, one color per scaled column; default teal for all
  * @returns Arrow node: the resultant (amber)
  * @auxiliaryNodes term_<i> (Arrow nodes, the scaled columns, teal)
  */
 export const VisualizeWeightSum: Node2NodeFunc = {
   keyword: 'la_weighted_sum', outputType: 'Arrow',
-  parameters: [{ name: 'matrix', type: 'Array' }, { name: 'weights', type: 'Array' }],
+  parameters: [
+    { name: 'matrix', type: 'Array' }, { name: 'weights', type: 'Array' },
+    { name: 'colors', type: 'Array', defaultValue: null },
+  ],
   compute(inputs: AnyNode[]) {
     const matrix = inputs[0] as ArrayNode;
     const values = scalarValues(matrix, 'la_weighted_sum');
     const w = scalarValues(inputs[1] as ArrayNode, 'la_weighted_sum');
+    const colors = (inputs[2] as ArrayNode | undefined)?.items.map((item) => (item as TextNode).value);
     const n = matrix.shape[1];
 
     // pts[0] is the origin; pts[i + 1] is the running sum after column i.
@@ -286,7 +291,7 @@ export const VisualizeWeightSum: Node2NodeFunc = {
     }
 
     const result: Record<string, BlueprintNode> = {};
-    for (let i = 0; i < n; i++) result[`term_${i}`] = arrow(pts[i], pts[i + 1]);
+    for (let i = 0; i < n; i++) result[`term_${i}`] = arrow(pts[i], pts[i + 1], colors?.[i]);
     result.main = arrow(pts[0], pts[n], SUM_COLOR);
     return result;
   },

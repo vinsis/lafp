@@ -7,20 +7,50 @@ sidebar: _ebook.md
 
 # 1. Weighted means
 
-Let's start with calculating a weighted sum for an array of numbers $\textcolor{#1d4ed8}{x} = [\textcolor{#1d4ed8}{x_1}, \textcolor{#1d4ed8}{x_2}, \textcolor{#1d4ed8}{x_3}]$ where the weights are given by the array $\textcolor{#0d9488}{w} = [\textcolor{#0d9488}{w_1}, \textcolor{#0d9488}{w_2}, \textcolor{#0d9488}{w_3}]$
+Let's start with calculating a weighted sum for an array of numbers $\textcolor{#1d4ed8}{x} = [\textcolor{#1d4ed8}{x_1}, \textcolor{#1d4ed8}{x_2}, \textcolor{#1d4ed8}{x_3}]$ where the weights are given by the array $\textcolor{#115e59}{w} = [\textcolor{#115e59}{w_1}, \textcolor{#115e59}{w_2}, \textcolor{#115e59}{w_3}]$
 
-$$\text{weighted\_sum}(\textcolor{#1d4ed8}{x},\textcolor{#0d9488}{w}) = \underbrace{\textcolor{#0d9488}{w_1} \textcolor{#1d4ed8}{x_1}}_{\text{scaled } \textcolor{#1d4ed8}{x_1}} + \underbrace{\textcolor{#0d9488}{w_2} \textcolor{#1d4ed8}{x_2}}_{\text{scaled } \textcolor{#1d4ed8}{x_2}} + \underbrace{\textcolor{#0d9488}{w_3} \textcolor{#1d4ed8}{x_3}}_{\text{scaled } \textcolor{#1d4ed8}{x_3}}$$
+$$\text{weighted\_sum}(\textcolor{#1d4ed8}{x},\textcolor{#115e59}{w}) = \underbrace{\textcolor{#115e59}{w_1} \textcolor{#1d4ed8}{x_1}}_{\text{scaled } \textcolor{#1d4ed8}{x_1}} + \underbrace{\textcolor{#115e59}{w_2} \textcolor{#1d4ed8}{x_2}}_{\text{scaled } \textcolor{#1d4ed8}{x_2}} + \underbrace{\textcolor{#115e59}{w_3} \textcolor{#1d4ed8}{x_3}}_{\text{scaled } \textcolor{#1d4ed8}{x_3}}$$
 
-```python
+```python-editor
 def get_weighted_sum(values, weights):
     return sum((v*w) for (v,w) in zip(values, weights))
+
+print(get_weighted_sum([1, 2, 3], [0.2, 0.3, 0.5]))
+```
+
+It can be seen as a two step process:
+
+a) we scale each value by its corresponding weight <br />
+b) we add the scaled values up
+
+```python-editor
+def scale(value, weight):
+    return value * weight
+
+def add(scaled_values):
+    return sum(scaled_values)
+
+def get_weighted_sum(values, weights):
+    return add(scale(v, w) for (v, w) in zip(values, weights))
+
+print(get_weighted_sum([1, 2, 3], [0.2, 0.3, 0.5]))
+```
+
+One thing we achieve by doing so is separation of logic for scaling the values and adding them. For instance, you can provide your own definitions of `scaling` and `adding` and pass them as parameters to `get_weighted_sum`:
+
+```python-editor
+def get_weighted_sum(values, weights, *, scale_function, add_function):
+    return add_function(
+        scale_function(v, w) 
+        for (v, w) in zip(values, weights)
+    )
 ```
 
 ```python-editor collapsed
 pie.clear()
 pie.scalar(50, out='unit')
 pie.scalar(0, out='gridOpacity')
-BLUE, TEAL, VIOLET, GREEN, GRAY = '#1d4ed8', '#0d9488', '#6d28d9', '#047857', '#71717a'
+BLUE, TEAL, VIOLET, GREEN, GRAY = '#1d4ed8', '#115e59', '#6d28d9', '#047857', '#3f3f46'
 
 # Step 1: scale each value by its weight
 for k, cx in enumerate([-4, 0, 4]):
@@ -48,93 +78,15 @@ pie.text('weighted_sum(x, w)', 0, -3.5, 14, 4.6, -1, out='sum_label', stroke=GRE
 pie.text('Two-step pipeline: first scale each xᵢ by its weight wᵢ, then add the three scaled terms to get the weighted sum.', 0, 5.35, 12, 9, -1, out='caption', stroke=GRAY)
 ```
 
-It can be seen as a two step process:
-
-a) we scale each value by its corresponding weight <br />
-b) we add the scaled values up
-
-```python
-def scale(value, weight):
-    return value * weight
-
-def add(scaled_values):
-    return sum(scaled_values)
-
-def get_weighted_sum(values, weights):
-    return add(scale(v, w) for (v, w) in zip(values, weights))
-```
-
-One thing we achieve by doing so is separation of logic for scaling the values and adding them. For instance, you can provide your own definitions of `scaling` and `adding` and pass them as parameters to `get_weighted_sum`:
-
-```python
-def get_weighted_sum(values, weights, *, scale_function, add_function):
-    return add_function(
-        scale_function(v, w) 
-        for (v, w) in zip(values, weights)
-    )
-```
-
 ---
 
 ## 1.1. How to scale and add
 
 Now we can simply focus on different ways to scale and add two values together. You already saw the `scale` and `add` functions above. But there are many other possible ways to scale and add. 
 
-```python-editor collapsed
-pie.clear()
-pie.scalar(32, out='unit')
-pie.scalar(0, out='gridOpacity')
-TEAL, TEAL_DARK, GRAY, LIGHT_GRAY = '#0d9488', '#115e59', '#71717a', '#d4d4d8'
-
-def label(name, text, x, y, size, color=None, w=0, h=0):
-    pie.text(text, x, y, size, w, h, out=name, stroke=color)
-
-# Column dividers
-pie.line(pie.point(-3.4, 7.4, out='div1_top', hidden=True), pie.point(-3.4, -3.2, out='div1_bottom', hidden=True), out='div1', stroke=LIGHT_GRAY)
-pie.line(pie.point(3.4, 7.4, out='div2_top', hidden=True), pie.point(3.4, -3.2, out='div2_bottom', hidden=True), out='div2', stroke=LIGHT_GRAY)
-label('head1', '① The dictionary', -6.65, 6.25, 15, TEAL_DARK)
-label('head2', '② Worked example', 0, 6.25, 15, TEAL_DARK)
-label('head3', "③ Why it's geometry", 6.5, 6.25, 15, TEAL_DARK)
-
-# ① The dictionary
-label('classical', 'classical', -8, 4.55, 12, GRAY)
-label('tropical', 'tropical', -5.3, 4.55, 12, TEAL)
-label('mul_classical', '⊗ = ×', -8, 3.15, 13, GRAY)
-label('mul_tropical', '⊗ = +', -5.3, 3.15, 13, TEAL)
-label('add_classical', '⊕ = +', -8, 1.75, 13, GRAY)
-label('add_tropical', '⊕ = max', -5.3, 1.75, 13, TEAL)
-pie.annotate_arrow(pie.point(-7.3, 3.15, out='mul_from', hidden=True), pie.point(-6, 3.15, out='mul_to', hidden=True), 0.04, out='mul_arrow', stroke=TEAL)
-pie.annotate_arrow(pie.point(-7.3, 1.75, out='add_from', hidden=True), pie.point(-6, 1.75, out='add_to', hidden=True), 0.04, out='add_arrow', stroke=TEAL)
-label('dictionary', 'multiply → plus,  add → max', -6.65, 0.55, 11, GRAY)
-
-# ② Worked example
-rows = [('values  = [1, 2, 3]', 4.55, 13, GRAY), ('weights = [6, 1, 3]', 3.85, 13, GRAY),
-        ('tropical scale  ⊗ = + :', 2.85, 12, GRAY), ('1 + 6 = 7', 2.15, 13, TEAL_DARK), ('2 + 1 = 3', 1.45, 13, TEAL), ('3 + 3 = 6', 0.75, 13, TEAL),
-        ('tropical add  ⊕ = max :', -0.25, 12, GRAY), ('max(7, 3, 6) = 7', -0.95, 13, TEAL_DARK), ('weighted_sum = 7', -2.15, 13, TEAL_DARK)]
-for k, (row, y, size, color) in enumerate(rows):
-    label(f'example{k}', row, 0, y, size, color)
-
-# ③ A tropical polynomial is the upper envelope of lines
-pie.line(pie.point(4.925, -2.24, out='axis_bottom', hidden=True), pie.point(4.925, 4.42, out='axis_top', hidden=True), out='axis', stroke=LIGHT_GRAY)
-pie.line(pie.point(4.925, 0.55, out='a0_start', hidden=True), pie.point(8.075, 0.55, out='a0_end', hidden=True), out='a0', stroke=GRAY)
-pie.line(pie.point(4.925, -0.35, out='a1_start', hidden=True), pie.point(8.075, 2.8, out='a1_end', hidden=True), out='a1', stroke=GRAY)
-pie.line(pie.point(4.925, -2.15, out='a2_start', hidden=True), pie.point(8.075, 4.15, out='a2_end', hidden=True), out='a2', stroke=GRAY)
-corner_one = pie.point(5.825, 0.55, out='corner_one', fill=TEAL)
-corner_two = pie.point(6.725, 1.45, out='corner_two', fill=TEAL)
-envelope_start = pie.point(4.925, 0.55, out='envelope_start', hidden=True)
-envelope_end = pie.point(8.075, 4.15, out='envelope_end', hidden=True)
-pie.polyline([envelope_start, corner_one, corner_two, envelope_end], out='envelope', stroke=TEAL)
-label('poly_label', 'p(x) = max(a₀, a₁+x, a₂+2x)', 6.5, 5.25, 11, TEAL)
-label('a0_label', 'a₀', 8.6, 0.55, 11, TEAL_DARK)
-label('a1_label', 'a₁+x', 8.6, 2.8, 11, TEAL_DARK)
-label('a2_label', 'a₂+2x', 8.6, 4.15, 11, TEAL_DARK)
-label('creases', 'breakpoints = creases (max switches line)', 6.9, -3.9, 11, TEAL_DARK, 3.4, -1)
-label('caption', 'This max-plus substitution IS the tropical semiring   •   worked example gives weighted_sum = 7', 0, -7.7, 12, TEAL_DARK, 15, -1)
-```
-
 One way is described below (this leads to the exciting area of [Tropical Geometry](https://en.wikipedia.org/wiki/Tropical_geometry)). Here is an overview of it. 
 
-```python
+```python-editor
 def tropical_scale(value, weight):
     return value + weight
 
@@ -158,15 +110,16 @@ But **we are going to get creative with _what_ to scale and add**.
 
 How do we scale an array `array_of_numbers` with a given weight `weight`? Scale each value in the array with the given weight.
 
-```python
+```python-editor
 def scale_array(array_of_numbers, weight):
     return [number * weight for number in array_of_numbers]
 ```
 
 How do we add two or more arrays of numbers? Do an elementwise addition (all arrays need to have the same length).
 
-```python
+```python-editor
 def add_arrays(array_of_arrays):
+    array_of_arrays = list(array_of_arrays)
     result = [0] * len(array_of_arrays[0])
     for array in array_of_arrays:
         result = [(r+v) for (r,v) in zip(result, array)]
@@ -187,14 +140,14 @@ import math
 pie.clear()
 pie.scalar(32, out='unit')
 pie.scalar(0, out='gridOpacity')
-BLUE, AMBER, TEAL, CYAN, GRAY, LIGHT_GRAY = '#1d4ed8', '#b45309', '#0d9488', '#0e7490', '#71717a', '#d4d4d8'
+BLUE, AMBER, TEAL, CYAN, GRAY = '#1d4ed8', '#b45309', '#115e59', '#0e7490', '#3f3f46'
 
 def label(name, text, x, y, size, color=None, w=0, h=0):
     pie.text(text, x, y, size, w, h, out=name, stroke=color)
 
 label('title', '1.2 · Weighted sums are everywhere', 0, 9, 17)
-pie.line(pie.point(-9.5, 0, out='div_left', hidden=True), pie.point(9.5, 0, out='div_right', hidden=True), out='div_h', stroke=LIGHT_GRAY)
-pie.line(pie.point(0, -8.7, out='div_bottom', hidden=True), pie.point(0, 8, out='div_top', hidden=True), out='div_v', stroke=LIGHT_GRAY)
+pie.line(pie.point(-9.5, 0, out='div_left', hidden=True), pie.point(9.5, 0, out='div_right', hidden=True), out='div_h', stroke=GRAY)
+pie.line(pie.point(0, -8.7, out='div_bottom', hidden=True), pie.point(0, 8, out='div_top', hidden=True), out='div_v', stroke=GRAY)
 
 def cell(name, cx, y, color):
     """A 1.3-wide square whose top half holds the entry at (cx, y)."""
@@ -266,7 +219,7 @@ label('springs_formula', 'rest point = weighted_sum(anchors, normalized stiffnes
 
 Given an array `array = [x,y,z]`, its `i-th` element (counting from 0) is `array[i]`. This can be seen as a weighted sum where the weight corresponding to the `i-th` element is 1 and all other weights are zero.
 
-```python
+```python-editor
 array, weights = [2,3,5], [0,0,1]
 index = 2
 # this is the same as 
@@ -282,12 +235,15 @@ array_at_index = get_weighted_sum(
 
 Given a six-sided die with values $[1,2,3,4,5,6]$ and probabilities $[p_1, p_2, p_3, p_4, p_5, p_6]$, the expected value is:
 
-```python
+```python-editor
+values = [1, 2, 3, 4, 5, 6]
+probs = [1/6] * 6
 expected_value = get_weighted_sum(
     values, probs, 
     scale_function = scale, 
     add_function = add
 )
+print(expected_value)
 ```
 
 ---
@@ -298,16 +254,17 @@ Now let's look at some examples of weighted sums of arrays of numbers:
 
 A point on a unit circle with center at origin is given by $[\cos(\theta), \sin(\theta)]$. It can be seen as a weighted sum of two arrays $[1,0]$ and $[0,1]$ (what are the corresponding weights?):
 
-```python
+```python-editor
 import math
 v1, v2 = [1,0], [0,1]
 angle_in_radians = math.pi / 6
 weights = [math.cos(angle_in_radians), math.sin(angle_in_radians)]
-get_weighted_sum(
+point = get_weighted_sum(
     [v1, v2], weights, 
     scale_function = scale_array, 
     add_function = add_arrays
 )
+print(point)
 ```
 
 ### 1.2.4. Polynomials
@@ -325,9 +282,9 @@ their sum is given by:
 
 $$p(x) + q(x) = (\textcolor{#1d4ed8}{p_1} + \textcolor{#1d4ed8}{q_1}) + (\textcolor{#be185d}{p_2} + \textcolor{#be185d}{q_2}).x + (\textcolor{#047857}{p_3} + \textcolor{#047857}{q_3}).x^2 + (\textcolor{#b45309}{p_4} + \textcolor{#b45309}{q_4}).x^3$$
 
-Similarly, a polynomial can be scaled by a weight $\textcolor{#0d9488}{w}$ like so:
+Similarly, a polynomial can be scaled by a weight $\textcolor{#115e59}{w}$ like so:
 
-$$\textcolor{#0d9488}{w} . p(x) = \textcolor{#0d9488}{w}.\textcolor{#1d4ed8}{p_1} + \textcolor{#0d9488}{w}.\textcolor{#be185d}{p_2}x + \textcolor{#0d9488}{w}.\textcolor{#047857}{p_3}x^2 + \textcolor{#0d9488}{w}.\textcolor{#b45309}{p_4}x^3$$
+$$\textcolor{#115e59}{w} . p(x) = \textcolor{#115e59}{w}.\textcolor{#1d4ed8}{p_1} + \textcolor{#115e59}{w}.\textcolor{#be185d}{p_2}x + \textcolor{#115e59}{w}.\textcolor{#047857}{p_3}x^2 + \textcolor{#115e59}{w}.\textcolor{#b45309}{p_4}x^3$$
 
 ---
 
@@ -339,7 +296,7 @@ $$\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix}$$
 
 The format for scaling `[x1,x2,x3]` with a weight `w` is:
 
-$$\textcolor{#0d9488}{w} . \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} \textcolor{#0d9488}{w} . x_1 \\ \textcolor{#0d9488}{w} . x_2 \\ \textcolor{#0d9488}{w} . x_3 \end{bmatrix}$$
+$$\textcolor{#115e59}{w} . \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} \textcolor{#115e59}{w} . x_1 \\ \textcolor{#115e59}{w} . x_2 \\ \textcolor{#115e59}{w} . x_3 \end{bmatrix}$$
 
 The format for adding two (or more) arrays `[x1, x2, x3]` and `[y1, y2, y3]`
 
@@ -351,12 +308,12 @@ $$\begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} + \begin{bmatrix} y_1 \\ y_2 \
 
 First thing to note with this choice of scale and add - each item is itself a weighted mean
 
-$$\textcolor{#0d9488}{w_1} . \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} + \textcolor{#0d9488}{w_2} . \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} \textcolor{#0d9488}{w_1}.x_1 + \textcolor{#0d9488}{w_2}.y_1 \\ \textcolor{#0d9488}{w_1}.x_2 + \textcolor{#0d9488}{w_2}.y_2 \\ \underbrace{\textcolor{#0d9488}{w_1}.x_3 + \textcolor{#0d9488}{w_2}.y_3}_{\text{\textcolor{#1d4ed8}{weighted sum}}} \end{bmatrix}$$
+$$\textcolor{#115e59}{w_1} . \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} + \textcolor{#115e59}{w_2} . \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} = \begin{bmatrix} \textcolor{#115e59}{w_1}.x_1 + \textcolor{#115e59}{w_2}.y_1 \\ \textcolor{#115e59}{w_1}.x_2 + \textcolor{#115e59}{w_2}.y_2 \\ \underbrace{\textcolor{#115e59}{w_1}.x_3 + \textcolor{#115e59}{w_2}.y_3}_{\text{\textcolor{#1d4ed8}{weighted sum}}} \end{bmatrix}$$
 
 This observation allows us to implement `get_weighted_sum` for an array of arrays in yet another way which is hard to understand:
 
 #### Hard to understand implementation
-```python
+```python-editor
 def get_weighted_sum_for_array_of_arrays(array_of_arrays, weights):
     return [
         get_weighted_sum(
@@ -383,11 +340,11 @@ $$\text{weighted\_sum}(\begin{bmatrix} \begin{bmatrix} \textcolor{#1d4ed8}{x_1} 
 
 Note that an array of numbers `values = [x,y,z]` scaled by `weights = [w1, w2, w3]` and then summed up is the same as `weights` scaled by `values` and then summed up:
 
-$$\text{weighted\_sum}(\textcolor{#1d4ed8}{values},\textcolor{#0d9488}{weights}) = \text{weighted\_sum}(\textcolor{#0d9488}{weights},\textcolor{#1d4ed8}{values})$$
+$$\text{weighted\_sum}(\textcolor{#1d4ed8}{values},\textcolor{#115e59}{weights}) = \text{weighted\_sum}(\textcolor{#115e59}{weights},\textcolor{#1d4ed8}{values})$$
 
 Using our new format, we can show this as:
 
-$$\begin{bmatrix} \textcolor{#1d4ed8}{x} & \textcolor{#1d4ed8}{y} & \textcolor{#1d4ed8}{z} \end{bmatrix} \begin{bmatrix} \textcolor{#0d9488}{w_1} \\ \textcolor{#0d9488}{w_2} \\ \textcolor{#0d9488}{w_3} \end{bmatrix} = \begin{bmatrix} \textcolor{#0d9488}{w_1} & \textcolor{#0d9488}{w_2} & \textcolor{#0d9488}{w_3} \end{bmatrix} \begin{bmatrix} \textcolor{#1d4ed8}{x} \\ \textcolor{#1d4ed8}{y} \\ \textcolor{#1d4ed8}{z} \end{bmatrix}$$
+$$\begin{bmatrix} \textcolor{#1d4ed8}{x} & \textcolor{#1d4ed8}{y} & \textcolor{#1d4ed8}{z} \end{bmatrix} \begin{bmatrix} \textcolor{#115e59}{w_1} \\ \textcolor{#115e59}{w_2} \\ \textcolor{#115e59}{w_3} \end{bmatrix} = \begin{bmatrix} \textcolor{#115e59}{w_1} & \textcolor{#115e59}{w_2} & \textcolor{#115e59}{w_3} \end{bmatrix} \begin{bmatrix} \textcolor{#1d4ed8}{x} \\ \textcolor{#1d4ed8}{y} \\ \textcolor{#1d4ed8}{z} \end{bmatrix}$$
 
 This seemingly innocous equation has some really beautiful interpretations as we will see next. 
 

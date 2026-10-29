@@ -351,6 +351,200 @@ main > pre {
   color: var(--color-muted);
 }
 
+/* The `label` in front of every `pie.ui.*` UI: smaller and grey, so it reads as a caption. */
+.python-editor-ui-label {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+
+/* Slider (`pie.ui.slider`): a thin grey track and a teal knob.
+   `display: block` stops the input sitting on the text baseline, so it lines up with its label. */
+.python-editor-ui input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 10rem;
+  height: 1.25rem;
+  margin: 0 0 0 0.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.python-editor-ui input[type=range]:focus {
+  outline: none;
+}
+
+.python-editor-ui input[type=range]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--color-code-border);
+  border-radius: 999px;
+}
+
+.python-editor-ui input[type=range]::-moz-range-track {
+  height: 4px;
+  background: var(--color-code-border);
+  border-radius: 999px;
+}
+
+/* The knob: teal with a ring in the page color, so it stands off the track. */
+.python-editor-ui input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;   /* centers it on the 4px track */
+  background: var(--color-accent);
+  border: 2px solid var(--color-bg);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--color-accent), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.12s, background 0.12s;
+}
+
+.python-editor-ui input[type=range]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  background: var(--color-accent);
+  border: 2px solid var(--color-bg);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--color-accent), 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.12s, background 0.12s;
+}
+
+.python-editor-ui input[type=range]:hover::-webkit-slider-thumb,
+.python-editor-ui input[type=range]:active::-webkit-slider-thumb {
+  background: var(--color-hover);
+  transform: scale(1.15);
+}
+
+.python-editor-ui input[type=range]:hover::-moz-range-thumb,
+.python-editor-ui input[type=range]:active::-moz-range-thumb {
+  background: var(--color-hover);
+  transform: scale(1.15);
+}
+
+/* Keyboard focus: a soft teal halo. */
+.python-editor-ui input[type=range]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px var(--color-accent), 0 0 0 5px rgba(13, 148, 136, 0.25);
+}
+
+.python-editor-ui input[type=range]:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 1px var(--color-accent), 0 0 0 5px rgba(13, 148, 136, 0.25);
+}
+
+/* Checkboxes (`pie.ui.checkboxes`) and radio buttons (`pie.ui.radio`): each button and its label sit together in one pill.
+   A chosen pill turns light teal with a teal border. A ticked box fills teal with a white tick;
+   a chosen radio button gets a teal ring with a teal dot. */
+.pie-ui-choices {
+  gap: 0.5rem;
+}
+
+.pie-ui-choices label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.7rem 0.2rem 0.5rem;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 999px;
+  color: var(--color-muted);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+}
+
+.pie-ui-choices label:hover {
+  border-color: var(--color-accent);
+}
+
+.pie-ui-choices label:has(input:checked) {
+  background: rgba(13, 148, 136, 0.14);
+  border-color: var(--color-accent);
+  color: #0f766e;   /* teal-700, as the headings */
+}
+
+.pie-ui-choices input[type=checkbox] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex-shrink: 0;
+  width: 0.875rem;
+  height: 0.875rem;
+  margin: 0;
+  background: var(--color-bg) center / 0.625rem no-repeat;
+  border: 1.5px solid var(--color-border-hover);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.12s, border-color 0.12s;
+}
+
+.pie-ui-choices label:hover > input[type=checkbox] {
+  border-color: var(--color-accent);
+}
+
+.pie-ui-choices input[type=checkbox]:checked {
+  background-color: var(--color-accent);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.5 9.5 3.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  border-color: var(--color-accent);
+}
+
+.pie-ui-choices input[type=checkbox]:checked:hover {
+  background-color: var(--color-hover);
+  border-color: var(--color-hover);
+}
+
+/* Radio buttons: one bar holding every option, so all the choices show together and read as "pick one".
+   The chosen option is a solid teal pill inside the bar. The round buttons are hidden but still take
+   clicks through their labels and the arrow keys. */
+.pie-ui-choices:has(input[type=radio]) {
+  gap: 2px;
+  padding: 2px;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 1rem;
+}
+
+.pie-ui-choices label:has(input[type=radio]) {
+  position: relative;
+  padding: 0.2rem 0.8rem;
+  background: transparent;
+  border-color: transparent;
+}
+
+.pie-ui-choices label:has(input[type=radio]):hover {
+  background: var(--color-code-bar);
+  border-color: transparent;
+  color: var(--color-text);
+}
+
+.pie-ui-choices label:has(input[type=radio]:checked) {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.pie-ui-choices input[type=radio] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Keyboard focus: the same soft teal halo as the slider, around the whole pill. */
+.pie-ui-choices input:focus-visible {
+  outline: none;
+}
+
+.pie-ui-choices label:has(input:focus-visible),
+.pie-ui-choices label:has(input[type=radio]:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+}
+
 /* Collapsed text: room above and below what <details> shows when open. */
 main details[open] > summary {
   margin-bottom: 0.75rem;

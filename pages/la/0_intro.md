@@ -64,7 +64,7 @@ Linear algebra is one of the most useful topics you will ever learn if you work 
 
 ---
 
-## What can one do with it
+## What can one do with it?
 Linear Algebra provides a powerful set of problem-solving tools. By mastering it and integrating it with programming, one will gain invaluable problem-solving skills that can be applied in a multitude of real-world scenarios.
 
 #### Detour: the lens of linearity
@@ -97,18 +97,43 @@ Some other great resources worth mentioning here are:
 - [Essence of Linear Algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab) by 3blue1brown: It's a great starting point but it only provides a basic introduction to the topic.
 
 Why this series then?
-- It covers more applied topics and problems like Barycentric co-ordinates, Bezier curves, inverse of transpose of a matrix etc.
-- The digital medium allows using visual aids, animations and an interactive format to convey information in a more engaging and intuitive way.
-- It is fully contained and comprehensive - by the end of this series, you will know enough linear algebra required to become a data scientist.
+- The main reason is: it provides an unparalleled interactivity, and **access to Python with `numpy`, `scipy` and `matplotlib`**.
+- It covers more applied topics and problems like **Barycentric coordinates**, **Bezier curves**, inverse of transpose of a matrix etc.
+
+```python-editor
+import numpy as np
+import matplotlib.pyplot as plt
+
+A = np.array([[2, 1], [0, 1]])
+print('A =\n', A)
+print('det(A) =', np.linalg.det(A))
+
+t = np.linspace(0, 2 * np.pi, 100)
+circle = np.array([np.cos(t), np.sin(t)])
+ellipse = A @ circle
+
+plt.plot(*circle, label='unit circle')
+plt.plot(*ellipse, label='A @ circle')
+plt.axis('equal')
+plt.legend()
+plt.show()
+```
 
 ---
 
 ## Visualization and interactivity
-Each page has a canvas, and the text has Python editors that draw on it. Press Run in the editor below to draw a simple vector. You can change the code and run it again.
+Each page has a canvas, and the text has Python editors that can draw shapes on the canvas and add UI component to interact with it:
 
 ```python-editor
+import numpy as np
+
 pie.clear()
-pie.la_vec2d(2, 2, out='vec')
+v = np.array([2.0, 2.0])
+s = pie.scalar(1, out='s')
+scale = pie.lift(lambda s: s * v, out_type=pie.Array[pie.Scalar])
+sv = scale(s, out='sv')
+pie.la_vec2d(sv[0], sv[1], out='vec')
+pie.ui.slider(s, min=-2, max=2, label='scale')
 ```
 
 Editors on a page share the same canvas and the same Python variables, so an editor can build on the figure drawn by the one above it. Run them in order.
