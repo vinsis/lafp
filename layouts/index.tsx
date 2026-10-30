@@ -164,6 +164,12 @@ export default function Home() {
   const matrix = animated(createMemo<number[][]>(prev => readMatrix(store) ?? prev, MATRIX));
   return (
     <main class="home">
+      <details class="home-ai">
+        <summary>Is this AI slop?</summary>
+        <p>
+          No. This website predates ChatGPT. All articles continue to be written by <a href="https://www.vinaysisodia.com/">me</a>. AI wrote the code for visualizations while porting to <a href="https://pie.tinyvolt.com">Pie</a>, and also modified some text. I am reviewing and fixing it page by page.
+        </p>
+      </details>
       <div class="home-hero">
         <h1 aria-label={site.title}>
           <svg class="home-logo" viewBox="0 0 548 126" aria-hidden="true">

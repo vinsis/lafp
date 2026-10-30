@@ -239,6 +239,30 @@ main.home h1 {
   overflow-wrap: anywhere;
 }
 
+/* "Is this AI slop?": click to show the answer. Small and light, as the credits. */
+.home-ai {
+  max-width: 32rem;
+  margin: 0 auto 2rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.home-ai summary {
+  cursor: pointer;
+  text-align: center;
+}
+
+.home-ai summary:hover {
+  color: var(--color-hover);
+}
+
+.home-ai p {
+  margin: 0;
+  font-size: 0.8rem;
+  text-align: justify;
+}
+
 .home-credits {
   margin: 2rem 0 0;
   font-size: 0.875rem;
