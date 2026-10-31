@@ -10,18 +10,20 @@ sidebar: _ebook.md
 <details>
 <summary>Review</summary>
 
-A matrix-vector product $Mv$ is a weighted sum of the columns of $M$, and at the same time, $M$ is a function that maps the point $v$ to the point $Mv$. In the last chapter we used the inverse $M^{-1}$, the function that undoes $M$, to check whether a point lies inside a triangle.
+A matrix-vector product $Mv$ can be viewed as a weighted sum of the columns of $M$. The matrix $M$ can also be viewed as a function that maps the point $v$ to the point $Mv$. In the last chapter we used the inverse $M^{-1}$, the function that undoes $M$, to check whether a point lies inside a triangle.
 
 </details>
+
+---
 
 In this chapter we multiply a matrix with another matrix, and meet the powerful idea of _composing_ and _decomposing_ transformations.
 
 ---
 
 ## 6.1 The two lenses of matrix-vector multiplication
-We introduced matrix-vector multiplication by taking a weighted sum of vectors. Then we changed our perspective to view a matrix as a function that eats a vector and outputs another vector. Viewing through this lens allowed us to say things like _"a matrix maps point A to point B"_ or _"a matrix transforms a circle into an ellipse"_.
+We introduced matrix-vector multiplication by taking a weighted sum of vectors. Then we changed our perspective to view a matrix as a function that takes in a vector and outputs another vector. Viewing through this lens allowed us to say things like _"a matrix maps point A to point B"_ or _"a matrix transforms a circle into an ellipse"_.
 
-We will follow a similar approach here - we will look at _a_ way to multiply two matrices. Then we will look at matrix-matrix multiplication through an entirely different lens which will enable us to see some insightful (and pretty!) visuals.
+We will follow a similar approach here: we will look at _a_ way to multiply two matrices. Then we will look at matrix-matrix multiplication through an entirely different lens which will enable us to see some insightful (and pretty!) visuals.
 
 ### 6.1.1 Let's bring in some notation
 We will use an upper case letter like $M$ to denote a matrix, and a lower case letter like $v$ to denote a vector. If we are dealing with more than one matrices or vectors, we will either use different names like $M, N, v, w, ...$ or use subscripts $M_1, M_2, ...$ and $v_1, v_2, ...$
@@ -35,12 +37,17 @@ The matrix-vector product of $M$ and $v$ will be written as $Mv$.
 ### 6.1.2 Remember that matrix-vector multiplication is linear
 It follows the two rules of linearity:
 
-1. $M(u + v + ...) = Mu + Mv + ...$ : Adding vectors in the input space followed by a matrix transformation is the same as adding the vectors transformed by the matrix.
-2. $M(u \cdot c) = (Mu) \cdot c$ : Scaling a vector in the input space followed by a matrix transformation is the same as doing the matrix transformation first and then scaling the output vector by the same amount.
+1. Adding vectors in the input space followed by a matrix transformation is the same as transforming the input vectors first and then adding them up.
+
+   $$\underbrace{M\underbrace{(\textcolor{#1d4ed8}{u} + \textcolor{#be185d}{v} + \cdots)}_{\text{add the inputs}}}_{\text{then transform}} = \underbrace{\underbrace{\textcolor{#1d4ed8}{Mu}}_{\text{transform}} + \underbrace{\textcolor{#be185d}{Mv}}_{\text{transform}} + \cdots}_{\text{then add the outputs}}$$
+
+2. Scaling a vector in the input space followed by a matrix transformation is the same as doing the matrix transformation first and then scaling the output vector by the same amount.
+
+   $$\underbrace{M\underbrace{(\textcolor{#1d4ed8}{u} \cdot \textcolor{#047857}{c})}_{\text{scale the input}}}_{\text{then transform}} = \underbrace{\underbrace{(\textcolor{#1d4ed8}{Mu})}_{\text{transform}} \cdot \textcolor{#047857}{c}}_{\text{then scale the output}}$$
 
 Let's write down some functions to perform matrix-vector multiplication:
 
-```python
+```python-editor
 Vector = [float]
 Matrix = [[float]]
     
@@ -75,9 +82,14 @@ But a matrix is just an _array_ or an ordered collection of vectors. This means 
 
 Once you have the function to calculate a matrix-vector product, `get_matrix_vector_product`, it is really easy to implement a matrix-matrix product using it:
 
-```python
+```python-editor
 def get_matrix_matrix_product(A:Matrix, B:Matrix) -> Matrix:
     return [get_matrix_vector_product(A,v) for v in B]
+
+# Each inner list is a column
+A = [[1, 0], [1, 1]]
+B = [[-1, 1], [1, 1]]
+print(get_matrix_matrix_product(A, B))  # [[0, 1], [2, 1]]
 ```
 
 Note that this function is meant to illustrate what matrix-matrix multiplication is - it is not an efficient implementation. You should use the native functions to multiply two matrices (especially if they are large matrices).
@@ -152,7 +164,7 @@ current = [[s11, s12], [s21, s22]]
 pie.la_grid_transform(current, out='grid', stroke=GRID)
 pie.la_vec2d(s11, s21, out='v1', stroke=BLUE)
 pie.la_vec2d(s12, s22, out='v2', stroke=PINK)
-pie.la_array_to_texts(current, -5.5, -4, 1.5, 1, 16, out='curviz')
+pie.la_array_to_texts(current, -5, -4, 1, 1, 16, out='curviz')
 ```
 
 We have already seen some visual examples of how `2-by-2` matrices transform the input space (points, lines, circles etc). Note that if `A` and `B` are `2-by-2` matrices, their products `AB` and `BA` are also `2-by-2` matrices. Thus we can visualize how these matrices `AB` and `BA` transform the input space.
@@ -210,44 +222,40 @@ pie.translate_scalar_to(S, [1, 1, 0, 1], animate=True)
 pie.translate_scalar_to(S, [-1, 0, 1, 2], animate=True)
 ```
 
-The end result is different from `AB` - a visual confirmation that $AB \neq BA$. You can flip between the transformation by $AB$ and the transformation by $BA$ to compare them directly:
+The end result is different from $AB$ - a visual confirmation that $AB \neq BA$. You can flip between the transformation by $AB$ and the transformation by $BA$ to compare them directly:
 
 ```python-editor collapsed
-pie.translate_scalar_to(S, [0, 2, 1, 1])   # AB
-```
+# One weight per product. The chosen one's is 1, so each entry moves between its AB and BA value.
+choice = pie.scalar([1, 0], out='choice')
+blend = pie.lift(lambda w_ab, w_ba, ab, ba: w_ab * ab + w_ba * ba, pie.Scalar)
+for out, ab, ba in [('s11', 0, -1), ('s12', 2, 0), ('s21', 1, 1), ('s22', 1, 2)]:
+    blend(choice[0], choice[1], ab, ba, out=out)
 
-```python-editor collapsed
-pie.translate_scalar_to(S, [-1, 0, 1, 2])  # BA
+A_TEX = r'\begin{bmatrix} 1 & 1 \\ 0 & 1 \end{bmatrix}'
+B_TEX = r'\begin{bmatrix} -1 & 1 \\ 1 & 1 \end{bmatrix}'
+
+def product_tex(s11, s12, s21, s22):  # columns colored like the arrows
+    return r'\begin{bmatrix} \textcolor{#1d4ed8}{%d} & \textcolor{#be185d}{%d} \\ \textcolor{#1d4ed8}{%d} & \textcolor{#be185d}{%d} \end{bmatrix}' % (s11, s12, s21, s22)
+
+AB_TEX = 'AB = ' + A_TEX + B_TEX + ' = ' + product_tex(0, 2, 1, 1)
+BA_TEX = 'BA = ' + B_TEX + A_TEX + ' = ' + product_tex(-1, 0, 1, 2)
+
+pie.ui.animated_radio(choice, options=['AB', 'BA'], label='Product:')
+pie.ui.latex(pie.lift(lambda w_ab: AB_TEX if w_ab > 0.5 else BA_TEX, pie.Text)(choice[0]))
 ```
 
 ---
 
 ## 6.5 The idea of "factorizing" a matrix into a product of two matrices
-In many cases, decomposing the transformation of a matrix `M` into two or more transformations `A, B, C, ...` makes it easier to understand how `M` transforms the input space. This is especially the case if the matrix transformations `A, B, C, ...` are simpler to understand. We can simply _compose_ multiple simple transformations to get a complicated transformation.
+In many cases, decomposing the transformation of a matrix $M$ into two or more transformations $A, B, C, ...$ makes it easier to understand how $M$ transforms the input space. This is especially the case if the matrix transformations $A, B, C, ...$ are simpler to understand. We can simply _compose_ multiple simple transformations to get a complicated transformation.
 
-In other words, for a given matrix `M` we want to find matrices `A, B, C, ...` such that `M = ABC...`. Let's look at some decompositions of the matrix
+In other words, for a given matrix $M$ we want to find matrices $A, B, C, ...$ such that $M = ABC...$. Let's look at some decompositions of the matrix
 
 $$M = \begin{bmatrix} -1 & 0 \\ 1 & 2 \end{bmatrix}$$
 
-This is the same matrix as `BA` from the previous section, but let's call it `M` for the sake of simplicity.
+This is the same matrix as $BA$ from the previous section, but let's call it $M$ for the sake of simplicity.
 
 ### 6.5.1 Different decompositions of M
-
-```python-editor collapsed
-pie.clear()
-BLUE, PINK, GRID = '#1d4ed8', '#be185d', '#a1a1aa'
-# The current matrix, row-major. It starts as the identity.
-s11 = pie.scalar(1, out='s11')
-s12 = pie.scalar(0, out='s12')
-s21 = pie.scalar(0, out='s21')
-s22 = pie.scalar(1, out='s22')
-S = [s11, s12, s21, s22]
-current = [[s11, s12], [s21, s22]]
-pie.la_grid_transform(current, out='grid', stroke=GRID)
-pie.la_vec2d(s11, s21, out='v1', stroke=BLUE)
-pie.la_vec2d(s12, s22, out='v2', stroke=PINK)
-pie.la_array_to_texts(current, -5.5, -4, 1.5, 1, 16, out='curviz')
-```
 
 Note that
 
@@ -271,50 +279,57 @@ $$
 
 Let $Q_1 = \begin{bmatrix} -1 & 0 \\ 0 & 1 \end{bmatrix}$ and $Q_2 = \begin{bmatrix} 1 & 0 \\ 0 & 2 \end{bmatrix}$. In other words, $Q = Q_1 Q_2$.
 
-Each of these factors is a very simple transformation: $Q_2$ stretches the plane vertically by `2`, $Q_1$ flips it horizontally, and $P$ is a vertical _shear_ (it slides each point vertically in proportion to its x-coordinate). Let's compose them on the canvas and watch the complicated transformation `M` emerge from simple steps:
-
-- Transform the identity by $Q$: a horizontal flip plus a vertical stretch.
+Each of these factors is a very simple transformation: $Q_2$ stretches the plane vertically by `2`, $Q_1$ flips it horizontally, and $P$ is a vertical _shear_ (it slides each point vertically in proportion to its x-coordinate). Let's compose them on the canvas and watch the complicated transformation $M$ emerge from simple steps:
 
 ```python-editor collapsed
-pie.translate_scalar_to(S, [-1, 0, 0, 2], animate=True)
+import numpy as np
+
+pie.clear()
+BLUE, PINK, GRID = '#1d4ed8', '#be185d', '#a1a1aa'
+
+I = np.array([[1, 0], [0, 1]])
+P = np.array([[1, 0], [-1, 1]])
+Q1 = np.array([[-1, 0], [0, 1]])
+Q2 = np.array([[1, 0], [0, 2]])
+Q = Q1 @ Q2
+M = P @ Q
+PRODUCTS = np.array([I, Q2, Q, M])
+
+# One weight per product. The chosen one's is 1, so the current matrix moves between products.
+choice = pie.scalar([1, 0, 0, 0], out='choice')
+
+def blend(weights):
+    return np.tensordot(weights, PRODUCTS, axes=1)
+
+current = pie.lift(blend, pie.Array[pie.Scalar])(choice, out='current')
+pie.la_grid_transform(current, out='grid', stroke=GRID)
+pie.la_vec2d(current[0, 0], current[1, 0], out='v1', stroke=BLUE)
+pie.la_vec2d(current[0, 1], current[1, 1], out='v2', stroke=PINK)
+pie.la_array_to_texts(current, -5, -4, 1, 1, 16, out='curviz')
+
+def tex(m):
+    return r'\begin{bmatrix} %d & %d \\ %d & %d \end{bmatrix}' % tuple(m.ravel())
+
+def product_tex(m):  # columns colored like the arrows
+    return r'\begin{bmatrix} \textcolor{#1d4ed8}{%d} & \textcolor{#be185d}{%d} \\ \textcolor{#1d4ed8}{%d} & \textcolor{#be185d}{%d} \end{bmatrix}' % tuple(m.ravel())
+
+LATEX = [
+    'I = ' + product_tex(I),
+    'Q_2 = ' + product_tex(Q2),
+    'Q = Q_1 Q_2 = ' + tex(Q1) + tex(Q2) + ' = ' + product_tex(Q),
+    'M = PQ = P Q_1 Q_2 = ' + tex(P) + tex(Q1) + tex(Q2) + ' = ' + product_tex(M),
+]
+
+pie.ui.animated_radio(choice, options=['I', 'Q₂', 'Q₁Q₂ = Q', 'PQ₁Q₂ = PQ = M'], label='Product:')
+pie.ui.latex(pie.lift(lambda weights: LATEX[int(np.argmax(weights))], pie.Text)(choice))
 ```
 
-- Then transform by $P$: the grid is now transformed by $PQ = M$.
-
-```python-editor collapsed
-pie.translate_scalar_to(S, [-1, 0, 1, 2], animate=True)
-```
-
-And with the finer decomposition $M = P Q_1 Q_2$, applied right-to-left in three steps:
-
-- Reset to the identity first.
-
-```python-editor collapsed
-pie.translate_scalar_to(S, [1, 0, 0, 1], animate=True)
-```
-
-- Transform by $Q_2$: a vertical stretch by `2`.
-
-```python-editor collapsed
-pie.translate_scalar_to(S, [1, 0, 0, 2], animate=True)
-```
-
-- Then by $Q_1$: a horizontal flip - the grid is now transformed by $Q_1 Q_2 = Q$.
-
-```python-editor collapsed
-pie.translate_scalar_to(S, [-1, 0, 0, 2], animate=True)
-```
-
-- And finally by $P$: the shear - the grid is now transformed by $P Q_1 Q_2 = M$.
-
-```python-editor collapsed
-pie.translate_scalar_to(S, [-1, 0, 1, 2], animate=True)
-```
+Pick $I$, then $Q$, then $M$ to apply $M = PQ$ in two steps. Pick $I$, then $Q_2$, then $Q$, then $M$ to apply $M = P Q_1 Q_2$ in three steps.
 
 A key takeaway from this section is that decomposition of a matrix into other matrices is a useful tool. We will explore this tool in greater detail later when we cover a particular decomposition: `Singular Value Decomposition`.
 
 ### 6.5.2 Another simple decomposition
-$AA^{-1} = A^{-1}A$ is equal to a square matrix whose diagonal elements are `1` and non-diagonal elements are `0`. This is also called the `Identity Matrix`. If `A` is a `2-by-2` matrix then
+$AA^{-1} = A^{-1}A$ is equal to a square matrix whose diagonal elements are `1` and non-diagonal elements are `0`. This is also called the `Identity Matrix`. If $A$ is a `2-by-2` matrix then
 
 $$
 \begin{aligned}
@@ -328,7 +343,7 @@ This can be understood by noticing that $A^{-1}$ just does the opposite of $A$. 
 ---
 
 ## 6.6 Algebraic equations involving matrices
-If two matrices `X` and `C` are equal, we can multiply both sides by another matrix:
+If two matrices $X$ and $C$ are equal, we can multiply both sides by another matrix:
 
 $$X = C \Rightarrow MX = MC \text{ and } XM = CM$$
 
