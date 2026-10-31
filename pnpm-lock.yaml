@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@tinyvolt/pie':
-        specifier: 0.7.0
-        version: 0.7.0(crossws@0.4.15(srvx@0.11.22))(solid-js@1.9.14)(vite@8.1.4(@types/node@24.19.2))
+        specifier: 0.8.0
+        version: 0.8.0(crossws@0.4.15(srvx@0.11.22))(solid-js@1.9.14)(vite@8.1.4(@types/node@24.19.2))
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1
@@ -588,8 +588,8 @@ packages:
       '@solidjs/router':
         optional: true
 
-  '@tinyvolt/pie@0.7.0':
-    resolution: {integrity: sha512-s/IX2PyfVy2Rk1WSScZBy41L1VPt4OgE9EmN457FXDcDd1Ad3U1EOl47yKmj6vMMD+w52zGbaTq/Hdm5ZJkeXw==}
+  '@tinyvolt/pie@0.8.0':
+    resolution: {integrity: sha512-1VJxKuWJaHKCs6xb1/kRTv+BwkqfGTfMcDz1E7jlsO1uzLdMql9i6SHy2cAWfu6/D4zLIu4bvFJLzLfBNREySg==}
     engines: {node: ^24}
     hasBin: true
     peerDependencies:
@@ -2084,7 +2084,7 @@ snapshots:
       - ocache
       - supports-color
 
-  '@tinyvolt/pie@0.7.0(crossws@0.4.15(srvx@0.11.22))(solid-js@1.9.14)(vite@8.1.4(@types/node@24.19.2))':
+  '@tinyvolt/pie@0.8.0(crossws@0.4.15(srvx@0.11.22))(solid-js@1.9.14)(vite@8.1.4(@types/node@24.19.2))':
     dependencies:
       '@codemirror/lang-python': 6.2.1
       '@codemirror/view': 6.43.14
