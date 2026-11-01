@@ -7,13 +7,6 @@ sidebar: _ebook.md
 
 # 10. Dot product
 
-<details>
-<summary>Review</summary>
-
-A Bezier curve is nothing but a weighted sum of its anchor points, where the weights are the basis polynomials $\textcolor{#1d4ed8}{(1-t)^2}, \textcolor{#be185d}{2t(1-t)}, \textcolor{#047857}{t^2}$ (for degree two) that are non-negative and add up to `1` for every $t \in [0,1]$.
-
-</details>
-
 In this chapter we study one of the most important operations in linear algebra - the dot product. It takes two vectors and returns a single number, and hidden inside that number is both the geometry of angles and the mechanics of matrix-vector multiplication.
 
 ---
@@ -62,7 +55,7 @@ ptb = pie.point(-0.866, 0.5, out='ptb', hidden=True)
 pie.line(ptb, pta, out='cside', stroke=GOLD)
 pie.text('a', 0.28, 0.55, 16, out='label_a', stroke=TEAL)
 pie.text('b', -0.5, 0.35, 16, out='label_b', stroke=PINK)
-pie.text('c = a − b', -0.4, 0.85, 16, out='label_c', stroke=GOLD)
+pie.text('c = a − b', -0.4, 0.75, 16, out='label_c', stroke=GOLD)
 pie.arc(p0, 0.3, 60, 150, out='theta_arc', stroke=GOLD)
 pie.text('θ', -0.05, 0.38, 16, out='theta_label')
 ```
@@ -119,22 +112,15 @@ pie.text('A', 1.15, 0, 14, out='lbl_a', stroke=TEAL)
 pie.la_vec2d(on_circle(angle_b, 1, 'x'), on_circle(angle_b, 1, 'y'), out='vecB', stroke=PINK)
 pie.text('B', on_circle(angle_b, 1.15, 'x'), on_circle(angle_b, 1.15, 'y'), 14, out='lbl_b', stroke=PINK)
 # ⟨A,B⟩ = 1·cos(angle_b) + 0·sin(angle_b)
-pie.text(pie.lift(lambda angle: f'⟨A,B⟩ = {math.cos(angle):.2f}', pie.Text)(angle_b), 0, -1.2, 16, out='dbox')
+pie.text(pie.lift(lambda angle: f'θ = {math.degrees(angle):.0f}°,  ⟨A,B⟩ = {math.cos(angle):.2f}', pie.Text)(angle_b), 0, -1.2, 16, out='dbox')
+
+pie.ui.slider(angle_b, min=-math.pi, max=math.pi, step=0.01, label='θ')
 ```
 
-Here `A` points along the x-axis and `B` starts at `60°`. The readout shows their dot product $\langle A, B \rangle$, which equals $\cos\theta$ since both are unit vectors. 
+Here `A` points along the x-axis and `B` starts at `60°`. The readout shows their dot product $\langle A, B \rangle$, which equals $\cos\theta$ since both are unit vectors. Use the slider to rotate `B`:
 
 - Rotate `B` away from `A` and watch the dot product shrink - it passes through **zero** the moment `B` becomes perpendicular to `A`, then turns **negative** as the angle exceeds `90°`. 
-
-```python-editor collapsed
-pie.translate_scalar_to(angle_b, math.pi, animate=True)
-```
-
 - Rotate `B` back toward `A` and the dot product climbs back up toward `1` (the maximum, reached when the vectors point the same way).
-
-```python-editor collapsed
-pie.translate_scalar_to(angle_b, -0.55, animate=True)
-```
 
 ---
 
