@@ -7,13 +7,6 @@ sidebar: _ebook.md
 
 # 8. Polynomials are vectors in disguise
 
-<details>
-<summary>Review</summary>
-
-The same point can be expressed in two different ways using two different sets of basis vectors: a point written as $x$ in the basis of $A$ is the point $Ax$, and the same point written in the basis of $B$ is $B^{-1}Ax$.
-
-</details>
-
 In this chapter we meet an object that does not look like a vector at all - the polynomial - and discover that it is a vector in disguise.
 
 ---
@@ -83,27 +76,38 @@ The idea of an n-dimensional space where each point is a vector is _one_ geometr
 
 ## 8.3 _Another_ geometry of vectors: polynomial curves
 
-```python-editor collapsed
-pie.clear()
-BLUE, PINK, GREEN, GOLD = '#1d4ed8', '#be185d', '#047857', '#ca8a04'
-pie.polynomial([1, 2], out='poly1', stroke=BLUE)
-pie.text('1 + 2x', 2.0, 5.4, 12, out='box_blue_lbl', stroke=BLUE)
-pie.polynomial([-1, 2, 1], out='poly2', stroke=PINK)
-pie.text('-1 + 2x + x²', -2.5, 0.55, 12, out='box_pink_lbl', stroke=PINK)
-pie.polynomial([1, 2, -1.6, 0.3], out='poly3', stroke=GREEN)
-pie.text('1 + 2x - 1.6x² + 0.3x³', 3.5, 1.7, 12, out='box_green_lbl', stroke=GREEN)
-pie.polynomial([-3, 1, -0.3, 0.5, 1], out='poly4', stroke=GOLD)
-pie.text('-3 + x - 0.3x² + 0.5x³ + x⁴', -0.9, -4.3, 12, out='box_gold_lbl', stroke=GOLD)
-```
-
 A polynomial of degree `n` can be seen as a vector of dimensionality `n+1`. For example $f(x) = a + bx + cx^2$ is a polynomial of degree `2`, which can also be seen as a 3-dimensional vector $\begin{bmatrix} a \\ b \\ c \end{bmatrix}$.
 
 Next thing to note is that we can plot any polynomial on a 2d-plane. Here are some examples of polynomials corresponding to 2-dimensional, 3-dimensional, 4-dimensional and 5-dimensional vectors, plotted on the canvas as plain functions:
 
-- The blue line is the polynomial $1 + 2x$, i.e. the vector $\textcolor{#1d4ed8}{\begin{bmatrix} 1 \\ 2 \end{bmatrix}}$
-- The pink curve is the polynomial $-1 + 2x + x^2$, i.e. the vector $\textcolor{#be185d}{\begin{bmatrix} -1 \\ 2 \\ 1 \end{bmatrix}}$
-- The green curve is the polynomial $1 + 2x - 1.6x^2 + 0.3x^3$, i.e. the vector $\textcolor{#047857}{\begin{bmatrix} 1 \\ 2 \\ -1.6 \\ 0.3 \end{bmatrix}}$
-- The gold curve is the polynomial $-3 + x - 0.3x^2 + 0.5x^3 + x^4$, i.e. the vector $\textcolor{#ca8a04}{\begin{bmatrix} -3 \\ 1 \\ -0.3 \\ 0.5 \\ 1 \end{bmatrix}}$
+- The polynomial $1 + 2x$, i.e. the vector $\textcolor{#115e59}{\begin{bmatrix} 1 \\ 2 \end{bmatrix}}$
+- The polynomial $-1 + 2x + x^2$, i.e. the vector $\textcolor{#115e59}{\begin{bmatrix} -1 \\ 2 \\ 1 \end{bmatrix}}$
+- The polynomial $1 + 2x - 1.6x^2 + 0.3x^3$, i.e. the vector $\textcolor{#115e59}{\begin{bmatrix} 1 \\ 2 \\ -1.6 \\ 0.3 \end{bmatrix}}$
+- The polynomial $-3 + x - 0.3x^2 + 0.5x^3 + x^4$, i.e. the vector $\textcolor{#115e59}{\begin{bmatrix} -3 \\ 1 \\ -0.3 \\ 0.5 \\ 1 \end{bmatrix}}$
+
+```python-editor collapsed
+import numpy as np
+
+pie.clear()
+TEAL = '#115e59'
+
+# The polynomials' coefficients, padded with zeros to one length
+POLYNOMIALS = np.array([
+    [1, 2, 0, 0, 0],
+    [-1, 2, 1, 0, 0],
+    [1, 2, -1.6, 0.3, 0],
+    [-3, 1, -0.3, 0.5, 1],
+])
+LABELS = ['1 + 2x', '-1 + 2x + x²', '1 + 2x - 1.6x² + 0.3x³', '-3 + x - 0.3x² + 0.5x³ + x⁴']
+
+# One weight per polynomial. The chosen one's is 1, so the plotted curve morphs into it.
+choice = pie.scalar([1, 0, 0, 0], out='choice')
+
+pie.polynomial(pie.lift(lambda weights: weights @ POLYNOMIALS, pie.Array[pie.Scalar])(choice), out='poly', stroke=TEAL)
+pie.text(pie.lift(lambda weights: LABELS[int(np.argmax(weights))], pie.Text)(choice), 0, 4.5, 14, out='lbl_poly', stroke=TEAL)
+
+pie.ui.animated_radio(choice, options=LABELS, label='Polynomial:')
+```
 
 ---
 
@@ -124,23 +128,15 @@ pie.text('scaled coefficients:', -6, 4.5, 12, out='box_cv')
 pie.la_array_to_texts(coefficients, -6, 3.5, 1, 1, 16, out='sviz')
 # The label sits just above the gold curve at x = 1, where the curve is at c · 1.7
 pie.text('c · (1 + 2x - 1.6x² + 0.3x³)', 1, pie.lift(lambda c: 1.7 * c + 0.4, pie.Scalar)(c), 12, out='box_gold_lbl', stroke=GOLD)
+
+pie.ui.slider(c, min=-2, max=3, step=0.05, label='c')
 ```
 
 Let's scale the polynomial $1 + 2x - 1.6x^2 + 0.3x^3$ by a scalar value $c$.
 
-The gold curve is the scaled polynomial $c \cdot \begin{bmatrix} 1 \\ 2 \\ -1.6 \\ 0.3 \end{bmatrix}$, which starts at $c = 1$ - exactly on top of the grey original. You can see the effect of scaling both visually and algebraically (the scaled coefficient vector is shown on the canvas). `0.25` increases $c$, `-0.25` decreases it:
+The gold curve is the scaled polynomial $c \cdot \begin{bmatrix} 1 \\ 2 \\ -1.6 \\ 0.3 \end{bmatrix}$, which starts at $c = 1$ - exactly on top of the grey original. You can see the effect of scaling both visually and algebraically (the scaled coefficient vector is shown on the canvas). Use the slider to change $c$.
 
-```python-editor
-pie.translate_scalar_by(c, 0.25, animate=True)
-```
-
-Reset $c$ to `1`:
-
-```python-editor collapsed
-pie.translate_scalar_to(c, 1, animate=True)
-```
-
-Note what happens as you scale: every point of the curve moves vertically by the same factor, the roots (where the curve crosses the x-axis) stay put, and at $c = 0$ the whole curve flattens into the zero polynomial.
+Note what happens as you scale: every point of the curve scales vertically by the same factor, the roots (where the curve crosses the x-axis) stay put, and at $c = 0$ the whole curve flattens into the zero polynomial.
 
 ---
 

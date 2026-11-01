@@ -9,8 +9,9 @@ import { expectNode, StoreContext, type UiArg } from '~/lib/ui/nodeHandle';
  * `pie.ui.animated_radio(mask, options=['a', 'b'])`: one radio button per item of the Array of Scalars `mask`.
  * Choosing one moves its item to 1 and every other item to 0 over half a second, like
  * `translate_scalar_to(..., animate=True)`. Unlike `pie.ui.radio`, `mask` holds one weight per option, not an index.
+ * With `snap=True`, the other items drop to 0 at once and only the chosen one moves.
  */
-export function AnimatedRadio(props: { args: UiArg[]; options?: string[] }) {
+export function AnimatedRadio(props: { args: UiArg[]; options?: string[]; snap?: boolean }) {
   const [mask] = expectNode<ArrayNode>(props.args[0], ['Array']);
   const store = useContext(StoreContext)!;
   // Groups the buttons, so choosing one unchecks the others.
@@ -25,7 +26,7 @@ export function AnimatedRadio(props: { args: UiArg[]; options?: string[] }) {
     return array.items as ScalarNode[];
   };
   const choose = (chosen: number) => {
-    const tracks = items().flatMap((item, i) => replaceNode(store, item, { value: scalar(i === chosen ? 1 : 0) }, true) ?? []);
+    const tracks = items().flatMap((item, i) => replaceNode(store, item, { value: scalar(i === chosen ? 1 : 0) }, i === chosen || !props.snap) ?? []);
     play(tracks);
   };
 

@@ -14,55 +14,76 @@ A polynomial is a vector: the polynomial $a_0 + a_1t + a_2t^2 + ... + a_nt^n$ is
 
 </details>
 
+---
+
 In this chapter we put polynomial vectors to work and build one of the most widely used tools in computer graphics - the Bezier curve.
 
 ---
 
 ## 9.1 A general guideline to describe curves
 
+By describing a curve, we mean writing down one or more (algebraic) equations that, when plotted on a 2D plane or a 3D space, give rise to the curve they describe. A simple description of the curve can have the format $y = f(x)$, possibly with some constraints on the value of $x$ - for example $y = \sin(x)$, a wavier $y = x\sin(2x)$, or this polynomial curve $y = 0.5x^3 - 2x$.
+
 ```python-editor collapsed
 import numpy as np
 
 pie.clear()
 pie.scalar(50, out='unit')
-TEAL, PINK, GOLD = '#0d9488', '#be185d', '#ca8a04'
+TEAL = '#115e59'
 
-# Points (x(s), y(s)) for s from start to end
-def curve_points(x_of, y_of, start, end, n=200):
-    s = np.linspace(start, end, n)
-    return np.stack([x_of(s), y_of(s)], axis=1)
+CURVES = [np.sin, lambda x: x * np.sin(2 * x), lambda x: 0.5 * x**3 - 2 * x]
+LABELS = ['y = sin x', 'y = x·sin 2x', 'y = 0.5x³ − 2x']
 
-curve = pie.lift(curve_points, pie.Array[pie.Point])
-pie.polyline(curve(lambda s: s, np.sin, -8, 8, hidden=True), out='psin', stroke=TEAL)
-pie.text('y = sin x', -5, 1.8, 12, out='lbl_sin', stroke=TEAL)
-pie.polyline(curve(lambda s: s, lambda s: s * np.sin(2 * s), -8, 8, hidden=True), out='pxsin', stroke=PINK)
-pie.text('y = x·sin 2x', 4.6, 3.2, 12, out='lbl_xsin', stroke=PINK)
-pie.polynomial([0, -2, 0, 0.5], out='fcurve', stroke=GOLD)
-pie.text('y = 0.5x³ − 2x', -3.7, -4.5, 12, out='lbl_poly', stroke=GOLD)
+# One weight per curve. The chosen one's is 1, so the plotted curve morphs into it.
+choice = pie.scalar([1, 0, 0], out='choice_fx')
+
+def mixed_curve_points(weights):
+    x = np.linspace(-8, 8, 200)
+    y = sum(w * f(x) for w, f in zip(weights, CURVES))
+    return np.stack([x, y], axis=1)
+
+pie.polyline(pie.lift(mixed_curve_points, pie.Array[pie.Point])(choice, hidden=True), out='curve', stroke=TEAL)
+pie.text(pie.lift(lambda weights: LABELS[int(np.argmax(weights))], pie.Text)(choice), 0, 4.5, 14, out='lbl_curve', stroke=TEAL)
+
+pie.ui.animated_radio(choice, options=LABELS, label='Curve:')
 ```
 
-By describing a curve, we mean writing down one or more (algebraic) equations that, when plotted on a 2D plane or a 3D space, give rise to the curve they describe. A simple description of the curve can have the format $y = f(x)$, possibly with some constraints on the value of $x$ - for example $y = \sin(x)$, a wavier $y = x\sin(2x)$, or this polynomial curve $y = 0.5x^3 - 2x$.
-
 ### 9.1.1 Understanding the problem: y = f(x) is not enough
+
+Consider this sideways parabola, described by the equation $x = y^2 - 4$.
+
+Or this circle, described by the equation $x^2 + y^2 = 9$.
 
 ```python-editor collapsed
 import numpy as np
 
 pie.clear()
-TEAL, PINK = '#0d9488', '#be185d'
+TEAL = '#115e59'
 
-# Points (x(s), y(s)) for s from start to end
-def curve_points(x_of, y_of, start, end, n=200):
-    s = np.linspace(start, end, n)
-    return np.stack([x_of(s), y_of(s)], axis=1)
+# Both curves run clockwise for u from 0 to 1, so their points line up when morphing.
+def parabola(u):
+    s = 8 * u - 4
+    return np.stack([s**2 - 4, s], axis=1)
 
-pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: s**2 - 4, lambda s: s, -4, 4, hidden=True), out='par', stroke=TEAL)
-pie.circle(pie.point(0, 0, out='origin', hidden=True), 3, out='circ', stroke=PINK)
+def circle(u):
+    s = 2 * np.pi * (1 - u)
+    return np.stack([3 * np.cos(s), 3 * np.sin(s)], axis=1)
+
+CURVES = [parabola, circle]
+LABELS = ['x = y² − 4', 'x² + y² = 9']
+
+# One weight per curve. The chosen one's is 1, so the plotted curve morphs into it.
+choice = pie.scalar([1, 0], out='choice_not_fx')
+
+def mixed_curve_points(weights):
+    u = np.linspace(0, 1, 200)
+    return sum(w * f(u) for w, f in zip(weights, CURVES))
+
+pie.polyline(pie.lift(mixed_curve_points, pie.Array[pie.Point])(choice, hidden=True), out='curve', stroke=TEAL)
+pie.text(pie.lift(lambda weights: LABELS[int(np.argmax(weights))], pie.Text)(choice), 0, 4.5, 14, out='lbl_curve', stroke=TEAL)
+
+pie.ui.animated_radio(choice, options=LABELS, label='Curve:')
 ```
-
-Consider this sideways parabola, described by the equation $x = y^2 - 4$.
-
-Or this circle, described by the equation $x^2 + y^2 = 9$.
 
 These curves simply cannot be described by an equation `y = f(x)`. The reason is that `y = f(x)` is a function. A function has a _unique_ output for a given input - it cannot have two different outputs for the same input. But the curves above clearly have two different `y`-values for many values of `x`. They can be described by other equations involving `x` and `y`, but that can get quite tricky and complicated pretty fast.
 
@@ -74,49 +95,7 @@ One possible, and commonly used, solution to describing (almost) any curve is:
 Then plot y-versus-x on a 2D plane. These equations are also called **parametric equations** - you are using a parameter $t$ to describe how $x$ and $y$ behave as functions of $t$. The curves we saw above can be expressed in parametric form like so:
 
 - $y = \sin(x), \; -4 \le x \le 4$: trace $x = t, \; y = \sin(t)$ as $t$ sweeps from $-4$ to $4$.
-
-```python-editor collapsed
-import numpy as np
-
-pie.clear()
-pie.scalar(50, out='unit')
-TEAL = '#0d9488'
-
-# Points (x(s), y(s)) for s from start to end
-def curve_points(x_of, y_of, start, end, n=200):
-    s = np.linspace(start, end, n)
-    return np.stack([x_of(s), y_of(s)], axis=1)
-
-t = pie.scalar(-4, out='t')
-pie.lift(lambda t: (t, np.sin(t)), pie.Point)(t, out='pt', fill=TEAL)
-pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: s, np.sin, -4, t, hidden=True), out='trail', stroke=TEAL)
-pie.text(pie.lift(lambda t: f'x = t, y = sin t,   t = {t:.2f}', pie.Text)(t), -3.5, 4, 13, out='lbl_rd', stroke=TEAL)
-# Sweep t from -4 to 4
-pie.translate_scalar_to(t, 4, animate=True)
-```
-
 - $x = y^2 - 4$: trace $x = t^2 - 4, \; y = t$ as $t$ sweeps from $-3$ to $3$.
-
-```python-editor collapsed
-import numpy as np
-
-pie.clear()
-pie.scalar(50, out='unit')
-PINK = '#be185d'
-
-# Points (x(s), y(s)) for s from start to end
-def curve_points(x_of, y_of, start, end, n=200):
-    s = np.linspace(start, end, n)
-    return np.stack([x_of(s), y_of(s)], axis=1)
-
-t = pie.scalar(-3, out='t2')
-pie.lift(lambda t: (t**2 - 4, t), pie.Point)(t, out='pt2', fill=PINK)
-pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: s**2 - 4, lambda s: s, -3, t, hidden=True), out='trail2', stroke=PINK)
-pie.text(pie.lift(lambda t: f'x = t² − 4, y = t,   t = {t:.2f}', pie.Text)(t), 0, 4.3, 13, out='lbl_rd2', stroke=PINK)
-# Sweep t from -3 to 3
-pie.translate_scalar_to(t, 3, animate=True)
-```
-
 - $x^2 + y^2 = 9$: trace $x = 3\cos(t), \; y = 3\sin(t)$ as $t$ sweeps from $0$ to $2\pi$.
 
 ```python-editor collapsed
@@ -124,19 +103,42 @@ import numpy as np
 
 pie.clear()
 pie.scalar(50, out='unit')
-GOLD = '#ca8a04'
 
-# Points (x(s), y(s)) for s from start to end
-def curve_points(x_of, y_of, start, end, n=200):
-    s = np.linspace(start, end, n)
-    return np.stack([x_of(s), y_of(s)], axis=1)
+# Each curve: x(t), y(t), the range of t, its color and its label
+PARAMETRIC = [
+    (lambda t: t, np.sin, -4, 4, '#115e59', 'x = t, y = sin t'),
+    (lambda t: t**2 - 4, lambda t: t, -3, 3, '#be185d', 'x = t² − 4, y = t'),
+    (lambda t: 3 * np.cos(t), lambda t: 3 * np.sin(t), 0, 2 * np.pi, '#a16207', 'x = 3cos t, y = 3sin t'),
+]
 
-t = pie.scalar(0, out='tc')
-pie.lift(lambda t: (3 * np.cos(t), 3 * np.sin(t)), pie.Point)(t, out='pc', fill=GOLD)
-pie.polyline(pie.lift(curve_points, pie.Array[pie.Point])(lambda s: 3 * np.cos(s), lambda s: 3 * np.sin(s), 0, t, hidden=True), out='trail3', stroke=GOLD)
-pie.text(pie.lift(lambda t: f'x = 3cos t, y = 3sin t,   t = {t:.2f}', pie.Text)(t), 0, 4.5, 13, out='lbl_rd3', stroke=GOLD)
-# Sweep t from 0 to 2π
-pie.translate_scalar_to(t, float(2 * np.pi), animate=True)
+# How far t has swept: a fraction w of the way from its start to its end
+def swept_t(k, w):
+    _, _, start, end, _, _ = PARAMETRIC[k]
+    return start + w * (end - start)
+
+def trail_points(k, w):
+    x_of, y_of, start, _, _, _ = PARAMETRIC[k]
+    t = np.linspace(start, swept_t(k, w), 200)
+    return np.stack([x_of(t), y_of(t)], axis=1)
+
+# The tip of the trail. An untraced curve's dot goes off the canvas.
+def tip(k, w):
+    return trail_points(k, w)[-1].tolist() if w > 0 else (100, 100)
+
+def trail_label(k, w):
+    return f'{PARAMETRIC[k][5]},   t = {swept_t(k, w):.2f}' if w > 0 else ''
+
+# One weight per curve. The chosen one's sweeps to 1, tracing its curve; the others' drop to 0 at once.
+choice = pie.scalar([0, 0, 0], out='choice_trace')
+
+for k, curve in enumerate(PARAMETRIC):
+    color = curve[4]
+    pie.polyline(pie.lift(trail_points, pie.Array[pie.Point])(k, choice[k], hidden=True), out=f'trail{k}', stroke=color)
+    pie.lift(tip, pie.Point)(k, choice[k], out=f'pt{k}', fill=color)
+    pie.text(pie.lift(trail_label, pie.Text)(k, choice[k]), 0, 4.5, 14, out=f'lbl_trail{k}', stroke=color)
+
+pie.ui.animated_radio(choice, options=['y = sin x', 'x = y² − 4', 'x² + y² = 9'], label='Curve:', snap=True)
+pie.translate_scalar_to(choice, [1, 0, 0], animate=True)
 ```
 
 #### A pythonic pseudocode for plotting a curve may look like:
@@ -187,18 +189,6 @@ Since a polynomial function is just a vector, we just need to find two vectors `
 
 ### 9.2.1 Bezier curve of second degree
 
-```python-editor collapsed
-pie.clear()
-unit = pie.scalar(50, out='unit')
-BLUE, PINK, GREEN = '#1d4ed8', '#be185d', '#047857'
-pie.polynomial([1, -2, 1], out='bp1', stroke=BLUE)
-pie.text('p₁', -1, 3.4, 16, out='bx1', stroke=BLUE)
-pie.polynomial([0, 2, -2], out='bp2', stroke=PINK)
-pie.text('p₂', 0.5, 1, 16, out='bx2', stroke=PINK)
-pie.polynomial([0, 0, 1], out='bp3', stroke=GREEN)
-pie.text('p₃', 2, 3.4, 16, out='bx3', stroke=GREEN)
-```
-
 We start with the identity
 
 $$((1-t) + t)^2 = \underbrace{\textcolor{#1d4ed8}{(1-t)^2}}_{\textcolor{#1d4ed8}{p_1(t)}} + \underbrace{\textcolor{#be185d}{2t(1-t)}}_{\textcolor{#be185d}{p_2(t)}} + \underbrace{\textcolor{#047857}{t^2}}_{\textcolor{#047857}{p_3(t)}}$$
@@ -209,16 +199,39 @@ where each term is a polynomial - and hence a vector:
 - $p_2(t) = 2t(1-t) = 0 + 2t - 2t^2$, i.e. the pink curve $\textcolor{#be185d}{[0, 2, -2]}$
 - $p_3(t) = t^2 = 0 + 0t + t^2$, i.e. the green curve $\textcolor{#047857}{[0, 0, 1]}$
 
+```python-editor collapsed
+import numpy as np
+
+pie.clear()
+unit = pie.scalar(50, out='unit')
+origin_x = pie.scalar(0, out='originX')
+BLUE, PINK, GREEN = '#1d4ed8', '#be185d', '#047857'
+
+# More points around [0, 1], so the curves stay smooth when zoomed in
+X = np.concatenate([np.linspace(-10, -1, 90, endpoint=False), np.linspace(-1, 2, 300, endpoint=False), np.linspace(2, 10, 80)])
+
+def polynomial_points(coefficients):
+    return np.stack([X, np.polyval(coefficients[::-1], X)], axis=1)
+
+basis = pie.lift(polynomial_points, pie.Array[pie.Point])
+pie.polyline(basis([1, -2, 1], hidden=True), out='bp1', stroke=BLUE)
+pie.text('p₁', -1, 3.4, 16, out='bx1', stroke=BLUE)
+pie.polyline(basis([0, 2, -2], hidden=True), out='bp2', stroke=PINK)
+pie.text('p₂', 0.5, 1, 16, out='bx2', stroke=PINK)
+pie.polyline(basis([0, 0, 1], hidden=True), out='bp3', stroke=GREEN)
+pie.text('p₃', 2, 3.4, 16, out='bx3', stroke=GREEN)
+```
+
 These three vectors form the **basis** for calculating the Bezier curve. Note that for all three curves, whenever the input $t$ is between `0` and `1`, the output is also between `0` and `1`, as you can see if you zoom into this unit region to see it clearly:
 
 ```python-editor collapsed
-pie.translate_scalar_to(unit, 300, animate=True)
+pie.translate_scalar_to([unit, origin_x], [300, -0.5], animate=True)
 ```
 
 Or zoom back out:
 
 ```python-editor collapsed
-pie.translate_scalar_to(unit, 50, animate=True)
+pie.translate_scalar_to([unit, origin_x], [50, 0], animate=True)
 ```
 
 And since the three polynomials sum to $((1-t)+t)^2 = 1$, their outputs at any $t$ are three weights that add up to exactly `1`.
@@ -231,6 +244,8 @@ $$\begin{aligned} y(t) &= \begin{bmatrix} \textcolor{#1d4ed8}{1} & \textcolor{#b
 
 That's it! Given three points $(x_1,y_1)$, $(x_2,y_2)$ and $(x_3,y_3)$, you can calculate the parametric equations $x(t)$ and $y(t)$ and then plot y-versus-x to get the Bezier path. Let's see it in action.
 
+We start with the three pink anchor points $P_1 = (-2,-2)$, $P_2 = (0,3)$ and $P_3 = (3,2)$.
+
 ```python-editor collapsed
 pie.clear()
 pie.scalar(60, out='unit')
@@ -242,16 +257,6 @@ pie.text('P1', -2, -1.6, 12, out='lab_1')
 pie.text('P2', 0, 3.4, 12, out='lab_2')
 pie.text('P3', 3, 2.4, 12, out='lab_3')
 ```
-
-We start with the three pink anchor points $P_1 = (-2,-2)$, $P_2 = (0,3)$ and $P_3 = (3,2)$.
-
-```python-editor collapsed
-pie.line(pa, pb, out='e1', stroke=GRAY)
-pie.line(pb, pc, out='e2', stroke=GRAY)
-pie.line(pc, pa, out='e3', stroke=GRAY)
-```
-
-Joining the anchor points in order gives the grey control polygon.
 
 We build the curve directly from the parametric polynomials we derived above. The point $B(t)$ is just the weighted sum of the three anchors, using the basis polynomials as weights:
 
@@ -270,56 +275,48 @@ t = pie.scalar(0, out='t')
 pie.lift(lambda p1, p2, p3, t: tuple(bezier(p1, p2, p3, t)), pie.Point)(pa, pb, pc, t, out='bpt', fill=TEAL)
 trail = pie.lift(lambda p1, p2, p3, t: bezier(p1, p2, p3, np.linspace(0, t, 100)), pie.Array[pie.Point])(pa, pb, pc, t, hidden=True)
 pie.polyline(trail, out='bez', stroke=TEAL)
-pie.text(pie.lift(lambda t: f't = {t:.2f}', pie.Text)(t), -4, 4, 13, out='lbl_rdt', stroke=TEAL)
+pie.text(pie.lift(lambda t: f't = {t:.2f}', pie.Text)(t), 0.5, -1, 13, out='lbl_rdt', stroke=TEAL)
 label_x = pie.lift(lambda p1, p2, p3, t: bezier(p1, p2, p3, t)[0] + 0.5, pie.Scalar)(pa, pb, pc, t)
 label_y = pie.lift(lambda p1, p2, p3, t: bezier(p1, p2, p3, t)[1] - 0.4, pie.Scalar)(pa, pb, pc, t)
 pie.text('B(t)', label_x, label_y, 12, out='lbl_bt', stroke=TEAL)
+
+pie.ui.slider(t, min=0, max=1, step=0.01, label='t')
 ```
 
-As $t$ sweeps from `0` to `1`, this point moves through space; trace its path and you get the teal Bezier curve.
-
-```python-editor collapsed
-pie.translate_scalar_to(t, 1, animate=True)
-```
+As $t$ sweeps from `0` to `1`, this point moves through space; trace its path and you get the teal Bezier curve. Use the slider to sweep $t$.
 
 Some observations:
 
 - At $t = 0$ the weights are $(1, 0, 0)$, so the curve starts exactly at $P_1$.
-
-```python-editor collapsed
-pie.bezier_quadratic(pa, pb, pc, out='bez_full', stroke=TEAL)
-pie.translate_scalar_to(t, 0, animate=True)
-```
-
 - At $t = 1$ the weights are $(0, 0, 1)$, so it ends exactly at $P_3$.
-
-```python-editor collapsed
-pie.bezier_quadratic(pa, pb, pc, out='bez_full', stroke=TEAL)
-pie.translate_scalar_to(t, 1, animate=True)
-```
-
 - $P_2$'s weight $2t(1-t)$ peaks at only `0.5`, so at $t = 0.5$ the curve is pulled toward $P_2$ but never reaches it.
-
-```python-editor collapsed
-pie.bezier_quadratic(pa, pb, pc, out='bez_full', stroke=TEAL)
-pie.translate_scalar_to(t, 0.5, animate=True)
-```
 
 ---
 
 ### 9.2.2 Bezier curve of third degree
 
 ```python-editor collapsed
+import numpy as np
+
 pie.clear()
 unit = pie.scalar(50, out='unit')
+origin_x = pie.scalar(0, out='originX')
 BLUE, PINK, GREEN, AMBER = '#1d4ed8', '#be185d', '#047857', '#b45309'
-pie.polynomial([1, -3, 3, -1], out='cp1', stroke=BLUE)
+
+# More points around [0, 1], so the curves stay smooth when zoomed in
+X = np.concatenate([np.linspace(-10, -1, 90, endpoint=False), np.linspace(-1, 2, 300, endpoint=False), np.linspace(2, 10, 80)])
+
+def polynomial_points(coefficients):
+    return np.stack([X, np.polyval(coefficients[::-1], X)], axis=1)
+
+basis = pie.lift(polynomial_points, pie.Array[pie.Point])
+pie.polyline(basis([1, -3, 3, -1], hidden=True), out='cp1', stroke=BLUE)
 pie.text('p₁', -0.6, 3.4, 16, out='cbx1', stroke=BLUE)
-pie.polynomial([0, 3, -6, 3], out='cp2', stroke=PINK)
+pie.polyline(basis([0, 3, -6, 3], hidden=True), out='cp2', stroke=PINK)
 pie.text('p₂', 0.33, 0.7, 16, out='cbx2', stroke=PINK)
-pie.polynomial([0, 0, 3, -3], out='cp3', stroke=GREEN)
+pie.polyline(basis([0, 0, 3, -3], hidden=True), out='cp3', stroke=GREEN)
 pie.text('p₃', 0.67, 0.7, 16, out='cbx3', stroke=GREEN)
-pie.polynomial([0, 0, 0, 1], out='cp4', stroke=AMBER)
+pie.polyline(basis([0, 0, 0, 1], hidden=True), out='cp4', stroke=AMBER)
 pie.text('p₄', 1.6, 3.4, 16, out='cbx4', stroke=AMBER)
 ```
 
@@ -337,13 +334,13 @@ where:
 These four vectors form the basis for calculating the Bezier curve of degree three. This looks a lot like what we did for Bezier curves of degree two. Again, for all four of these polynomials, whenever the input is between `0` and `1`, the output is also between `0` and `1`, as you can see if you zoom into this unit region to see it clearly:
 
 ```python-editor collapsed
-pie.translate_scalar_to(unit, 300, animate=True)
+pie.translate_scalar_to([unit, origin_x], [300, -0.5], animate=True)
 ```
 
 Or zoom back out:
 
 ```python-editor collapsed
-pie.translate_scalar_to(unit, 50, animate=True)
+pie.translate_scalar_to([unit, origin_x], [50, 0], animate=True)
 ```
 
 And they sum to `1`.
@@ -370,14 +367,7 @@ pie.text('P4', 3, 2.4, 12, out='lab_4')
 
 Let's look at an example with the four anchor points $P_1 = (-2,-2)$, $P_2 = (-1,3)$, $P_3 = (2,4)$ and $P_4 = (3,2)$.
 
-```python-editor collapsed
-pie.line(pa, pb, out='e1', stroke=GRAY)
-pie.line(pb, pc, out='e2', stroke=GRAY)
-pie.line(pc, pd, out='e3', stroke=GRAY)
-pie.line(pd, pa, out='e4', stroke=GRAY)
-```
-
-As before, the grey control polygon joins the anchors in order. We build the curve exactly as we did for degree two: the point $B(t)$ is the weighted sum of the four anchors, using the four basis polynomials as weights:
+We build the curve exactly as we did for degree two: the point $B(t)$ is the weighted sum of the four anchors, using the four basis polynomials as weights:
 
 $$B(t) = \textcolor{#1d4ed8}{(1-t)^3}\,P_1 + \textcolor{#be185d}{3t(1-t)^2}\,P_2 + \textcolor{#047857}{3t^2(1-t)}\,P_3 + \textcolor{#b45309}{t^3}\,P_4$$
 
@@ -394,47 +384,22 @@ t = pie.scalar(0, out='t')
 pie.lift(lambda p1, p2, p3, p4, t: tuple(bezier(p1, p2, p3, p4, t)), pie.Point)(pa, pb, pc, pd, t, out='bpt', fill=TEAL)
 trail = pie.lift(lambda p1, p2, p3, p4, t: bezier(p1, p2, p3, p4, np.linspace(0, t, 100)), pie.Array[pie.Point])(pa, pb, pc, pd, t, hidden=True)
 pie.polyline(trail, out='bez', stroke=TEAL)
-pie.text(pie.lift(lambda t: f't = {t:.2f}', pie.Text)(t), -4.3, 4.3, 13, out='lbl_rdt', stroke=TEAL)
+pie.text(pie.lift(lambda t: f't = {t:.2f}', pie.Text)(t), 0.5, -1, 13, out='lbl_rdt', stroke=TEAL)
 label_x = pie.lift(lambda p1, p2, p3, p4, t: bezier(p1, p2, p3, p4, t)[0] + 0.5, pie.Scalar)(pa, pb, pc, pd, t)
 label_y = pie.lift(lambda p1, p2, p3, p4, t: bezier(p1, p2, p3, p4, t)[1] - 0.4, pie.Scalar)(pa, pb, pc, pd, t)
 pie.text('B(t)', label_x, label_y, 12, out='lbl_bt', stroke=TEAL)
+
+pie.ui.slider(t, min=0, max=1, step=0.01, label='t')
 ```
 
-As $t$ sweeps from `0` to `1`, trace its path and you get the teal Bezier curve of degree three.
-
-```python-editor collapsed
-pie.translate_scalar_to(t, 1, animate=True)
-```
+As $t$ sweeps from `0` to `1`, trace its path and you get the teal Bezier curve of degree three. Use the slider to sweep $t$.
 
 Some observations:
 
 - At $t = 0$ the weights are $(1, 0, 0, 0)$, so the curve starts exactly at $P_1$.
-
-```python-editor collapsed
-pie.bezier_cubic(pa, pb, pc, pd, out='bez_full', stroke=TEAL)
-pie.translate_scalar_to(t, 0, animate=True)
-```
-
 - At $t = 1$ the weights are $(0, 0, 0, 1)$, so it ends exactly at $P_4$.
-
-```python-editor collapsed
-pie.bezier_cubic(pa, pb, pc, pd, out='bez_full', stroke=TEAL)
-pie.translate_scalar_to(t, 1, animate=True)
-```
-
 - At $t = 1/3$ the curve leans toward $P_2$ but never touches it, since $P_2$'s weight $3t(1-t)^2$ is never `1`.
-
-```python-editor collapsed
-pie.bezier_cubic(pa, pb, pc, pd, out='bez_full', stroke=TEAL)
-pie.translate_scalar_to(t, 1 / 3, animate=True)
-```
-
 - At $t = 2/3$ it leans toward $P_3$ but never touches it, since $P_3$'s weight $3t^2(1-t)$ is never `1`.
-
-```python-editor collapsed
-pie.bezier_cubic(pa, pb, pc, pd, out='bez_full', stroke=TEAL)
-pie.translate_scalar_to(t, 2 / 3, animate=True)
-```
 
 ---
 

@@ -226,7 +226,7 @@ The end result is different from $AB$ - a visual confirmation that $AB \neq BA$.
 
 ```python-editor collapsed
 # One weight per product. The chosen one's is 1, so each entry moves between its AB and BA value.
-choice = pie.scalar([1, 0], out='choice')
+choice = pie.scalar([1, 0], out='choice_ab_ba')
 blend = pie.lift(lambda w_ab, w_ba, ab, ba: w_ab * ab + w_ba * ba, pie.Scalar)
 for out, ab, ba in [('s11', 0, -1), ('s12', 2, 0), ('s21', 1, 1), ('s22', 1, 2)]:
     blend(choice[0], choice[1], ab, ba, out=out)
@@ -296,7 +296,7 @@ M = P @ Q
 PRODUCTS = np.array([I, Q2, Q, M])
 
 # One weight per product. The chosen one's is 1, so the current matrix moves between products.
-choice = pie.scalar([1, 0, 0, 0], out='choice')
+choice = pie.scalar([1, 0, 0, 0], out='choice_factors')
 
 def blend(weights):
     return np.tensordot(weights, PRODUCTS, axes=1)
