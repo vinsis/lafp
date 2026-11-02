@@ -47,3 +47,12 @@ Explore the journey from the spectral properties of permutations to the geometry
 - [Birkhoff-von-Neumann algorithm](/series/permutation_sinkhorn/5_birkhoff_von_neumann)
 - [Matrix scaling](/series/permutation_sinkhorn/6_matrix_scaling)
 - [Sinkhorn distance](/series/permutation_sinkhorn/7_sinkhorn)
+
+---
+
+## Integer and floating point representations
+
+How computers turn bits into numbers. This series starts with four ways to represent integers, seen through one formula, and then takes a floating point number apart bit by bit.
+
+- [Binary representations of integers](/series/integer_and_floating_point_representations/1_binary_representations_of_integers)
+- [Anatomy of a floating point number](/series/integer_and_floating_point_representations/2_anatomy_of_floating_point)
