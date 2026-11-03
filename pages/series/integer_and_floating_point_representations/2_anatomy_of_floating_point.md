@@ -14,7 +14,13 @@ A floating-point number has three components:
 
 Bias ($B$) is set to $2^{\text{n} - 1} - 1$ where $n$ is the number of exponent bits ($5$ in this example).
 
-Run the editor below first: the other editors on this page use its functions. It draws the $16$ bits of the example on the canvas.
+The function that maps these bits to a decimal value is:
+
+$$
+n = (-1)^{\textcolor{#7c3aed}{S}} \times \begin{cases} 1.\textcolor{#115e59}{M} \times 2^{\textcolor{#b45309}{E} - B} & \text{if } \textcolor{#b45309}{E} \neq \text{all 0s} \quad (\text{normal}) \\ 0.\textcolor{#115e59}{M} \times 2^{1 - B} & \text{if } \textcolor{#b45309}{E} = \text{all 0s} \quad (\text{subnormal}) \end{cases}
+$$
+
+Run the editor below first: the other editors on this page use its functions. 
 
 ```python-editor collapsed
 SIGN, EXP, MAN, GRAY = '#7c3aed', '#b45309', '#115e59', '#3f3f46'
@@ -69,9 +75,11 @@ def draw_bits(name, bits, lengths, caption, notes, special=True, calc=None):
         calc = pie.lift(lambda b: decode(b, special)[1], pie.Text)(bits, out=f'{name}_calc')
     pie.ui.latex(calc)
 
-def float_view(name, presets, caption, explain=None):
+def float_view(name, presets, caption, explain=None, sections=None):
     """`presets`: one (option, bits, sign note, exponent note, mantissa note) per case. A radio picks the case.
-    `explain`: one LaTeX string per case, shown in place of the calculation."""
+    `caption`: a string, or one string per case.
+    `explain`: one LaTeX string per case, shown in place of the calculation.
+    `sections`: one markdown string per case, shown below the calculation."""
     pie.clear()
     pie.scalar(0, out='gridOpacity')
     pick = pie.scalar(0, out=name)
@@ -79,19 +87,18 @@ def float_view(name, presets, caption, explain=None):
         pie.ui.radio(pick, options=[p[0] for p in presets], label='Case:')
     chosen = lambda col: pie.lift(lambda i: presets[int(i)][col], pie.Text)(pick)
     notes = [chosen(c) if any(p[c] for p in presets) else None for c in (2, 3, 4)]
+    if not isinstance(caption, str):
+        captions = caption
+        caption = pie.lift(lambda i: captions[int(i)], pie.Text)(pick)
     calc = None if explain is None else pie.lift(lambda i: explain[int(i)], pie.Text)(pick, out=f'{name}_calc')
     draw_bits(name, chosen(1), (1, 5, 10), caption, notes, calc=calc)
+    if sections is not None:
+        pie.ui.markdown(pick, sections=sections)
 
 float_view('pick_parts', [
     ('', '0 01001 0110000001', 'sign S', 'exponent E', 'mantissa M'),
 ], 'Components of a floating point representation')
 ```
-
-The function that maps these bits to a decimal value is:
-
-$$
-n = (-1)^{\textcolor{#7c3aed}{S}} \times \begin{cases} 1.\textcolor{#115e59}{M} \times 2^{\textcolor{#b45309}{E} - B} & \text{if } \textcolor{#b45309}{E} \neq \text{all 0s} \quad (\text{normal}) \\ 0.\textcolor{#115e59}{M} \times 2^{1 - B} & \text{if } \textcolor{#b45309}{E} = \text{all 0s} \quad (\text{subnormal}) \end{cases}
-$$
 
 <details>
 <summary>Fully working example</summary>
@@ -139,29 +146,35 @@ float_view('pick_modes', [
 
 ---
 
-## Handling `0`
+## Handling `0`, `inf` and `NaN`
 
-The normal formula never evaluates to $0$, because $1.M$ is at least $1$. A zero is represented by setting all the mantissa and exponent bits to $0$, which the subnormal formula maps to $0$. This actually gives two zeros, one for each value of the sign bit: $+0$ and $-0$.
+Run the editor and switch between the cases.
 
 ```python-editor collapsed
-float_view('pick_zero', [
+ZERO_CAPTION = 'A zero is represented by setting all mantissa and exponent bits to 0. The sign bit preserves the sign of underflow, thus distinguishing approaching zero from above and below.'
+SPECIAL_CAPTION = 'Infinity and NaNs are represented by setting all exponent bits to 1. For infinity, all mantissa bits are 0. All other mantissa bits are mapped to NaN. Mantissa bits are preserved to decode and diagnose why the NaN was produced.'
+ZERO_MD = r'''
+#### Handling `0`
+
+A zero is represented by setting all the mantissa and exponent bits to $0$, which the subnormal formula maps to $0$. This actually gives two zeros, one for each value of the sign bit: $+0$ and $-0$.
+'''
+INF_MD = r'''
+#### Handling `inf`
+
+Infinity is represented by setting all exponent bits to $1$ and all mantissa bits to $0$. The sign bit then chooses between `inf` and `-inf`.
+'''
+NAN_MD = r'''
+#### Handling `NaN`
+
+If the exponent is all $1$s but the mantissa has at least one non-zero bit, the value is $NaN$. Any such bit pattern in the mantissa works, which is why there are many distinct NaN encodings.
+'''
+float_view('pick_special', [
     ('+0', '0 00000 0000000000', '', 'all bits are 0', 'all bits are 0'),
     ('−0', '1 00000 0000000000', '', 'all bits are 0', 'all bits are 0'),
-], 'A zero is represented by setting all mantissa and exponent bits to 0. The sign bit preserves the sign of underflow, thus distinguishing approaching zero from above and below.')
-```
-
----
-
-## Handling `inf` and `NaN`
-
-Infinity is represented by setting all exponent bits to $1$ and all mantissa bits to $0$. The sign bit then chooses between `inf` and `-inf`. If the exponent is all $1$s but the mantissa has at least one non-zero bit, the value is $NaN$. Any such bit pattern in the mantissa works, which is why there are many distinct NaN encodings.
-
-```python-editor collapsed
-float_view('pick_special', [
     ('+∞', '0 11111 0000000000', '', 'all bits are 1', 'all bits are 0'),
     ('−∞', '1 11111 0000000000', '', 'all bits are 1', 'all bits are 0'),
     ('NaN', '0 11111 1000000001', '', 'all bits are 1', 'at least one non-zero bit'),
-], 'Infinity and NaNs are represented by setting all exponent bits to 1. For infinity, all mantissa bits are 0. All other mantissa bits are mapped to NaN. Mantissa bits are preserved to decode and diagnose why the NaN was produced.')
+], [ZERO_CAPTION] * 2 + [SPECIAL_CAPTION] * 3, sections=[ZERO_MD] * 2 + [INF_MD] * 2 + [NAN_MD])
 ```
 
 ---
@@ -203,13 +216,80 @@ float_view('pick_limits', [
 
 The negative counterparts are obtained by flipping the sign bit.
 
-#### Subnormals enable gradual underflow and lexicographic ordering
+---
 
-For non-negative floats, the bit-pattern order matches the numeric order: incrementing the bits by 1 gives the next representable value. This holds because the exponent field sits to the left of the mantissa - bumping the mantissa past all $1$s carries into the exponent, exactly like bumping a decimal past $9$ carries into the next digit.
-
-Subnormals are what keep this property alive near zero. Without them, the smallest positive normal is $2^{1 - B}$, and the next bit pattern below it (all $0$s in the exponent) would have to mean $0$: a jump from $2^{1 - B}$ straight down to $0$, breaking the "decrement bits by 1, get the next-smaller value" rule.
+## Subnormals enable gradual underflow and lexicographic ordering
 
 By interpreting the all-$0$s exponent as $0.M \times 2^{1 - B}$, the interval $[0,\ 2^{1 - B})$ is filled evenly with $2^{\text{mantissa bits}}$ values, and lexicographic order keeps matching numeric order all the way down to $0$.
+
+The editor below uses a toy format with $2$ exponent bits and $2$ mantissa bits, so $B = 1$. Switch the rule for the all-$0$s exponent and watch the dots near $0$ on the canvas.
+
+```python-editor collapsed
+RULES = ['Subnormal', 'Flush to zero', 'Read as normal']
+PATTERNS = [(e, m) for e in range(3) for m in range(4)]  # exponent 00 to 10, mantissa 00 to 11
+
+def toy_value(e, m, rule):
+    """The value of exponent bits `e` and mantissa bits `m` (2 each, B = 1) under `rule`."""
+    if e == 0 and RULES[rule] == 'Subnormal':
+        return m / 4 * 2 ** (1 - 1)
+    if e == 0 and RULES[rule] == 'Flush to zero':
+        return 0.0
+    return (1 + m / 4) * 2 ** (e - 1)
+
+def toy_formula(rule):
+    """The value of a non-negative float under `rule`, by cases of the exponent."""
+    E, M = paint('E', EXP), paint('M', MAN)
+    zero_case = [rf'0.{M} \times 2^{{1 - B}}', '0', rf'1.{M} \times 2^{{0 - B}}'][int(rule)]
+    return (rf'n = \begin{{cases}} 1.{M} \times 2^{{{E} - B}} & \text{{if }} {E} \neq \text{{all 0s}} \\'
+            rf' {zero_case} & \text{{if }} {E} = \text{{all 0s}} \end{{cases}}')
+
+def toy_x(value):
+    return (value - 1.75) * 1.6
+
+def toy_table(rule):
+    """The first 5 bit patterns under `rule`, with each value's step from the row above."""
+    rows, prev = [], None
+    for e, m in PATTERNS[:5]:
+        v = toy_value(e, m, int(rule))
+        cells = [paint(0, SIGN) + r'\,' + paint(f'{e:02b}', EXP) + r'\,' + paint(f'{m:02b}', MAN),
+                 tex(v), '' if prev is None else '+' + tex(v - prev)]
+        # The last row is the first pattern whose exponent isn't all 0s
+        cells.append(paint(r'\text{normal}', GRAY) if e else '')
+        rows.append(' & '.join(cells))
+        prev = v
+    return (r'\begin{array}{cccl} \text{bits} & n & \text{step} & \\ \hline '
+            + r' \\ '.join(rows[:-1]) + r' \\ \hdashline ' + rows[-1] + r' \end{array}')
+
+UNDERFLOW_MD = [r'''
+#### Subnormal: what floats do
+
+An all-$0$s exponent means $0.M \times 2^{1-B}$. The values from $0$ to $1$ are $0.25$ apart, the same spacing as from $1$ to $2$. Each next bit pattern is the next larger value.
+''', r'''
+#### Flush to zero: counterexample
+
+An all-$0$s exponent means $0$, whatever $M$ is. Four bit patterns mean $0$, and the next one jumps to $2^{1-B} = 1$. Nothing between $0$ and $1$ can be stored, so a result below $1$ drops straight to $0$.
+''', r'''
+#### Read as normal: counterexample
+
+An all-$0$s exponent is read like any other: $1.M \times 2^{0-B}$. The order holds, but no bit pattern means $0$. The smallest value is $2^{-B} = 0.5$, and nothing in $[0,\ 0.5)$ can be stored.
+''']
+
+pie.clear()
+pie.scalar(0, out='gridOpacity')
+rule = pie.scalar(0, out='pick_underflow')
+pie.line(pie.point(toy_x(0) - 0.3, 0, hidden=True), pie.point(toy_x(3.5) + 0.3, 0, hidden=True), stroke=GRAY)
+for tick in range(4):
+    pie.text(str(tick), toy_x(tick), -0.4, 14, stroke=GRAY)
+dot_x = pie.lift(lambda r, e, m: toy_x(toy_value(int(e), int(m), int(r))), pie.Scalar)
+# The all-0s exponent dots last, so they are drawn on top
+for e, m in sorted(PATTERNS, key=lambda p: p[0] == 0):
+    pie.point(dot_x(rule, e, m), 0, fill=EXP if e == 0 else GRAY)
+
+pie.ui.radio(rule, options=RULES, label='All-0s exponent:')
+pie.ui.latex(pie.lift(toy_formula, pie.Text)(rule))
+pie.ui.latex(pie.lift(toy_table, pie.Text)(rule))
+pie.ui.markdown(rule, sections=UNDERFLOW_MD)
+```
 
 Note the _gradual_ jump from minimum normal to maximum subnormal in the above example.
 

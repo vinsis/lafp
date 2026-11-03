@@ -375,6 +375,33 @@ main > pre {
   color: var(--color-muted);
 }
 
+/* Markdown column alignment (`---:`, `:---:`): pie's `main td { text-align: left }` would override it. */
+main th[align=right],
+main td[align=right] {
+  text-align: right;
+}
+
+main th[align=center],
+main td[align=center] {
+  text-align: center;
+}
+
+/* More space between the UIs below an editor. */
+.python-editor-uis .python-editor-ui {
+  margin: 0.75rem 0;
+}
+
+/* `pie.ui.markdown`: a box with a dark grey border, as rounded as the Python editors. */
+.pie-ui-markdown {
+  border: 1px solid var(--color-muted);
+  border-radius: 6px;
+  padding: 0 1rem;
+}
+
+.pie-ui-markdown > :first-child {
+  margin-top: 1rem;
+}
+
 /* The `label` in front of every `pie.ui.*` UI: smaller and grey, so it reads as a caption. */
 .python-editor-ui-label {
   color: var(--color-muted);
