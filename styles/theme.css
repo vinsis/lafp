@@ -34,7 +34,7 @@
 
   /* Layout */
   --content-width: 40rem;    /* page text column, about 70 characters */
-  --wide-content-width: 56rem; /* page text column on pages with no canvas */
+  --wide-content-width: 72rem; /* page text column while the canvas is collapsed */
   --home-width: 48rem;       /* homepage column */
   --sidebar-width: 13rem;    /* eBook chapter list; the built-in is 16rem */
 }
@@ -54,17 +54,17 @@ main a:hover {
   color: #92400e;   /* amber-800 */
 }
 
-/* A page with no canvas has the whole window for its text, so its column is wider.
-   Its <main> has no class; a canvas page's has `canvas-page-text`. */
-main:not([class]) {
-  max-width: var(--wide-content-width);
-}
-
 /* On a canvas page the text column is a bit wider than the default, with a bit less padding at the sides. */
 main.canvas-page-text {
   max-width: 48rem;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
+}
+
+/* While the canvas is collapsed (e.g. `canvas: none`), the text has the whole window, so its column is wider.
+   A collapsed canvas is the one with a "Show canvas" button on the divider. */
+.canvas-page:has(.split-pane-button[aria-label="Show canvas"]) main.canvas-page-text {
+  max-width: var(--wide-content-width);
 }
 
 /* Header: a teal bar with a white logo. */
@@ -404,6 +404,19 @@ main table {
   min-width: 0;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+/* `pie.ui.latex`: a bit smaller than KaTeX's default 1.21em, so it sits closer to the page text. */
+.python-editor-ui-body .katex {
+  font-size: 1.1em;
+}
+
+/* Rules in a `pie.ui.latex` array (`\hline`, `\hdashline`, `|` and `:` columns): grey instead of the text color,
+   so they guide the eye without competing with the numbers. */
+.python-editor-ui-body .katex .katex-hline,
+.python-editor-ui-body .katex .katex-hdashline,
+.python-editor-ui-body .katex .vertical-separator {
+  border-color: var(--color-border-hover);
 }
 
 /* `pie.ui.markdown`: a box with a dark grey border, as rounded as the Python editors. */
