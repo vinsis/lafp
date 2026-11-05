@@ -56,3 +56,7 @@ How computers turn bits into numbers. This series starts with four ways to repre
 
 - [Binary representations of integers](/series/integer_and_floating_point_representations/1_binary_representations_of_integers)
 - [Anatomy of a floating point number](/series/integer_and_floating_point_representations/2_anatomy_of_floating_point)
+- [Block scaling in MXFP4 and NVFP4](/series/integer_and_floating_point_representations/3_block_scaling_in_mxfp4_and_nvfp4)
+- [Adding two floating point numbers](/series/integer_and_floating_point_representations/4_adding_two_floats)
+- [Why floating point addition isn't associative](/series/integer_and_floating_point_representations/5_why_fp_addition_is_not_associative)
+- [Exponentiation by squaring](/series/integer_and_floating_point_representations/6_exponentiation_by_squaring)

@@ -20,6 +20,7 @@
   --color-code-bar: #b9c5c5;     /* editor toolbar and line-number gutter */
   --color-code-border: #a7b5b5;  /* editor and code block borders */
   --color-border: #a7b5b5;
+  --color-details-bg: #cbd5d5;  /* collapsed sections (<details>): a shade darker than the page */
 
   /* Accent: header bar, homepage logo and buttons */
   --color-accent: #0d9488;   /* teal-600 */
@@ -386,9 +387,23 @@ main td[align=center] {
   text-align: center;
 }
 
+/* Markdown tables: slightly smaller text than the page. */
+main table {
+  font-size: 0.9em;
+}
+
 /* More space between the UIs below an editor. */
 .python-editor-uis .python-editor-ui {
   margin: 0.75rem 0;
+}
+
+/* A wide `pie.ui.latex` or `pie.ui.markdown` scrolls sideways instead of running past the text column.
+   `min-width: 0` lets the body, a flex item, shrink below its content's width. */
+.python-editor-ui-body:has(> span > .katex),
+.python-editor-ui-body:has(> .pie-ui-markdown) {
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* `pie.ui.markdown`: a box with a dark grey border, as rounded as the Python editors. */
@@ -396,6 +411,8 @@ main td[align=center] {
   border: 1px solid var(--color-muted);
   border-radius: 6px;
   padding: 0 1rem;
+  font-size: 0.9rem;
+  text-align: left;
 }
 
 .pie-ui-markdown > :first-child {
@@ -483,9 +500,9 @@ main td[align=center] {
   box-shadow: 0 0 0 1px var(--color-accent), 0 0 0 5px rgba(13, 148, 136, 0.25);
 }
 
-/* Checkboxes (`pie.ui.checkboxes`) and radio buttons (`pie.ui.radio`): each button and its label sit together in one pill.
-   A chosen pill turns light teal with a teal border. A ticked box fills teal with a white tick;
-   a chosen radio button gets a teal ring with a teal dot. */
+/* Checkboxes (`pie.ui.checkboxes`) and radio buttons (`pie.ui.radio`): each option is one pill, with no box or dot.
+   The real inputs are hidden but still take clicks through their labels, and Space or the arrow keys.
+   An unticked checkbox is a grey pill; a ticked one is solid teal with white text. */
 .pie-ui-choices {
   gap: 0.5rem;
 }
@@ -494,7 +511,8 @@ main td[align=center] {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.2rem 0.7rem 0.2rem 0.5rem;
+  position: relative;
+  padding: 0.2rem 0.7rem;
   background: var(--color-code-bg);
   border: 1px solid var(--color-code-border);
   border-radius: 999px;
@@ -511,38 +529,15 @@ main td[align=center] {
   border-color: var(--color-accent);
 }
 
-.pie-ui-choices label:has(input:checked) {
-  background: rgba(13, 148, 136, 0.14);
+.pie-ui-choices label:has(input[type=checkbox]:checked) {
+  background: var(--color-accent);
   border-color: var(--color-accent);
-  color: #0f766e;   /* teal-700, as the headings */
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-.pie-ui-choices input[type=checkbox] {
-  -webkit-appearance: none;
-  appearance: none;
-  flex-shrink: 0;
-  width: 0.875rem;
-  height: 0.875rem;
-  margin: 0;
-  background: var(--color-bg) center / 0.625rem no-repeat;
-  border: 1.5px solid var(--color-border-hover);
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background-color 0.12s, border-color 0.12s;
-}
-
-.pie-ui-choices label:hover > input[type=checkbox] {
-  border-color: var(--color-accent);
-}
-
-.pie-ui-choices input[type=checkbox]:checked {
-  background-color: var(--color-accent);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.5 9.5 3.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  border-color: var(--color-accent);
-}
-
-.pie-ui-choices input[type=checkbox]:checked:hover {
-  background-color: var(--color-hover);
+.pie-ui-choices label:has(input[type=checkbox]:checked):hover {
+  background: var(--color-hover);
   border-color: var(--color-hover);
 }
 
@@ -558,7 +553,6 @@ main td[align=center] {
 }
 
 .pie-ui-choices label:has(input[type=radio]) {
-  position: relative;
   padding: 0.2rem 0.8rem;
   background: transparent;
   border-color: transparent;
@@ -577,7 +571,7 @@ main td[align=center] {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
-.pie-ui-choices input[type=radio] {
+.pie-ui-choices input {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -603,4 +597,12 @@ main details[open] > summary {
 
 main details[open] {
   padding-bottom: 0.75rem;
+}
+
+/* Every collapsed section in a page: its own background, smaller text, more padding. Not the homepage's. */
+main:not(.home) details {
+  background: var(--color-details-bg);
+  font-size: 0.9em;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
 }
