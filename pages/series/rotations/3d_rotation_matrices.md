@@ -1,6 +1,7 @@
 ---
 title: 2. 3D rotation matrices
 description: Why 3D rotations do not commute, intrinsic and extrinsic rotations, and Euler angles, with Python examples using scipy.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

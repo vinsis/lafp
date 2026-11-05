@@ -1,6 +1,7 @@
 ---
 title: Three interpretations of matrix products
 description: Animations of three ways to read a matrix product: weighted sums of columns or rows, dot products, and a sum of outer products.
+date: 2026-10-24
 ---
 
 # Three interpretations of matrix products

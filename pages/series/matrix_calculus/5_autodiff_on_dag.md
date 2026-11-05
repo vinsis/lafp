@@ -1,6 +1,7 @@
 ---
 title: Autodiff on a DAG
 description: The chain rule on a computation graph, forward and reverse ways to compute gradients, and why full Jacobians are overkill for autodiff.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

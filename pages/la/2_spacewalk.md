@@ -1,6 +1,7 @@
 ---
 title: Vectors and the geometry of weighted sums
 description: An array of numbers becomes a vector with a length and a direction. Scaling and adding vectors leads to matrix-vector multiplication.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

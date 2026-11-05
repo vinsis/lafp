@@ -1,6 +1,7 @@
 ---
 title: Eigendecomposition of a matrix
 description: How a matrix with n distinct eigenvectors factors as VDV⁻¹, what that means geometrically, and how it makes powers of a matrix easy.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

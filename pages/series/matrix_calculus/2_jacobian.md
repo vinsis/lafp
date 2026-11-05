@@ -1,6 +1,7 @@
 ---
 title: Jacobian of a function
 description: The Jacobian of a vector-valued function, the Jacobian of a composition of functions, the Jacobian determinant and the Jacobian inverse.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

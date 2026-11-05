@@ -1,6 +1,7 @@
 ---
 title: Markov matrices and stationary distributions
 description: Model a Markov process as a matrix, find its stationary distribution, and see what the eigenvalues and eigenvectors of a Markov matrix tell you.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

@@ -1,6 +1,7 @@
 ---
 title: A matrix as a function on vectors
 description: See a matrix as a function that maps vectors to vectors, turning lines into lines and circles into ellipses, with interactive visuals.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

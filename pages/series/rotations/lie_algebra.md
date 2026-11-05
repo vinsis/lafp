@@ -1,6 +1,7 @@
 ---
 title: 6. Lie groups and Lie algebra
 description: Rotations form the Lie group SO(n). Derive its Lie algebra of skew-symmetric matrices for 2D and 3D rotations, with Python code.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

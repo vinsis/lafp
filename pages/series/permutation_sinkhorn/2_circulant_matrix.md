@@ -1,6 +1,7 @@
 ---
 title: Circulant matrices
 description: Circulant matrices, their eigenvalues and eigenvectors, and their link to circular convolution and the convolution theorem.
+date: 2026-10-24
 sidebar: _series.md
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: Matrix-matrix multiplication, visualized
 description: How to multiply two matrices, why it is associative but usually not commutative, and how to see it as composing and factorizing transformations.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

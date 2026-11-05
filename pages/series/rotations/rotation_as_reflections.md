@@ -1,6 +1,7 @@
 ---
 title: 4. Thinking of rotations in terms of reflections
 description: Reflection matrices around lines and hyperplanes, and how any rotation is two reflections, shown algebraically and in 2D and 3D.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

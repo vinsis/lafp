@@ -1,6 +1,7 @@
 ---
 title: Sinkhorn distance
 description: A derivation of dual Sinkhorn distances for entropy-regularized optimal transport, using Lagrange multipliers.
+date: 2026-10-24
 sidebar: _series.md
 ---
 

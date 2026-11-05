@@ -1,6 +1,7 @@
 ---
 title: Linear transformations and change of basis
 description: Reach the same point with two different sets of vectors, see matrices as encoders and decoders, and learn how a change of basis works.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

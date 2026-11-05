@@ -1,6 +1,7 @@
 ---
 title: The Kronecker Product Visualized
 description: A visual guide to the Kronecker product, its lesser-known properties, its link to bilinear forms and products like CXBᵀ, and an unusual application.
+date: 2026-10-24
 ---
 
 # The Kronecker Product Visualized

@@ -1,7 +1,8 @@
 import { onMount } from "solid-js";
+import { Link } from "@solidjs/meta";
 import { inject } from "@vercel/analytics";
 import site from "../site.yml";
-import { ArticleIcon, BookIcon, SeriesIcon } from "./icons";
+import { ArticleIcon, BookIcon, FeedIcon, SeriesIcon } from "./icons";
 import { LogoOneLine } from "./logo";
 
 const REPO_URL = "https://github.com/vinsis/lafp";
@@ -12,6 +13,8 @@ export default function Header() {
   onMount(() => inject());
   return (
     <header class="site-header">
+      {/* Lets feed readers find the feed from any page's URL. */}
+      <Link rel="alternate" type="application/rss+xml" title={site.title} href="/rss.xml" />
       <a class="site-header-title" href="/" aria-label={site.title}>
         <svg class="site-header-logo" viewBox="0 0 540 60" aria-hidden="true">
           <LogoOneLine />
@@ -26,6 +29,10 @@ export default function Header() {
         </a>
         <a class="site-header-link" href="/series" aria-label="Series" title="Series">
           <SeriesIcon />
+        </a>
+        {/* `rel="external"`: a full page load, so the router doesn't treat /rss.xml as one of its pages. */}
+        <a class="site-header-link" href="/rss.xml" rel="external" aria-label="RSS feed" title="RSS feed">
+          <FeedIcon />
         </a>
         <a class="site-header-repo" href={REPO_URL} aria-label="Source on GitHub" title="Source on GitHub">
           <svg viewBox="0 0 16 16" aria-hidden="true">

@@ -1,6 +1,7 @@
 ---
 title: Eigenvectors of symmetric matrices
 description: Why a symmetric matrix has real eigenvalues and perpendicular eigenvectors, with a visual of eigenvectors as a matrix becomes symmetric.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

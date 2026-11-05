@@ -1,6 +1,7 @@
 ---
 title: Permutation matrices - from shuffle to symmetry
 description: How permutation matrices shuffle rows and columns, why their inverse is their transpose, and how they form a group, with animations.
+date: 2026-10-24
 ---
 
 # Permutation matrices - from shuffle to symmetry

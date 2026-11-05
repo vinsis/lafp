@@ -1,6 +1,7 @@
 ---
 title: Introduction to an interactive linear algebra eBook
 description: What this free eBook covers, who it is for, and how its runnable Python and interactive canvas help programmers learn linear algebra.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

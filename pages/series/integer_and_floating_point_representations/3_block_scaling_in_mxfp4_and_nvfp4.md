@@ -1,6 +1,7 @@
 ---
 title: Block scaling in MXFP4 and NVFP4
 description: How MXFP4 and NVFP4 multiply 4-bit E2M1 values by a shared block scale, and NVFP4 by a tensor scale too, to get the stored numbers.
+date: 2026-11-05
 canvas: left
 sidebar: _series.md
 ---

@@ -1,6 +1,7 @@
 ---
 title: 3. Quaternions
 description: Quaternion algebra, how to rotate a vector with a quaternion, visuals of quaternion rotations, and the matrix form of a quaternion.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

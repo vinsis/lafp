@@ -1,6 +1,7 @@
 ---
 title: SINQ — Sinkhorn-like iterations for quantization
 description: The key idea in the SINQ paper, which normalizes rows and columns of a weight matrix in Sinkhorn-like iterations before quantization.
+date: 2026-10-24
 ---
 
 # SINQ — Sinkhorn-like iterations for quantization

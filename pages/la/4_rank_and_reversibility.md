@@ -1,6 +1,7 @@
 ---
 title: Matrix rank, linear independence and the inverse
 description: What the rank of a matrix means, how it relates to linearly independent vectors, and when a matrix can be inverted, including the 2-by-2 inverse.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

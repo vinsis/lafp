@@ -1,6 +1,7 @@
 ---
 title: Weighted sums and weighted means
 description: Linear algebra starts with weighted sums. See how scaling and adding numbers shows up in indexing, expected values, rotation and polynomials.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

@@ -1,6 +1,7 @@
 ---
 title: Doubly stochastic matrices
 description: Properties of doubly stochastic matrices, majorization, and Muirhead's inequality, with Python checks.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

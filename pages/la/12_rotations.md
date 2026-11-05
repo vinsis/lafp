@@ -1,6 +1,7 @@
 ---
 title: Rotation matrices
 description: Derive the 2D rotation matrix, see why its columns are perpendicular unit vectors, and why the transpose of a rotation matrix is its inverse.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

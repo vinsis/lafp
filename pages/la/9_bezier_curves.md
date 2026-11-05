@@ -1,6 +1,7 @@
 ---
 title: Bezier curves with linear algebra
 description: Build quadratic and cubic Bezier curves from polynomial vectors, and see why they stay inside the convex hull of their control points, in 2D and 3D.
+date: 2026-10-24
 canvas: left
 sidebar: _ebook.md
 ---

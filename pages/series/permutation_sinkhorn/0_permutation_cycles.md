@@ -1,6 +1,7 @@
 ---
 title: Overview and permutation cycles
 description: An overview of the series from permutations to Sinkhorn distances, starting with how to decompose a permutation into cycles.
+date: 2026-10-24
 canvas: left
 sidebar: _series.md
 ---

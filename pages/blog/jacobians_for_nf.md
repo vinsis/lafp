@@ -1,6 +1,7 @@
 ---
 title: Nice Jacobians for normalizing flows
 description: Autoregressive, affine and channel-wise transformations used in normalizing flows, and why their Jacobian determinants are easy to compute.
+date: 2026-10-24
 ---
 
 # Nice Jacobians for normalizing flows

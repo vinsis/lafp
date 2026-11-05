@@ -1,6 +1,7 @@
 ---
 title: Adding two floating point numbers
 description: How two floats are added, step by step: align the exponents, add the bits, normalize, round, with a made-up 3-bit mantissa.
+date: 2026-11-05
 canvas: none
 sidebar: _series.md
 ---
