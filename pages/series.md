@@ -1,9 +1,13 @@
 ---
 title: Series
 description: Deep dives into focused topics related to linear algebra like rotations, matrix calculus and permutations.
+toc: false
 ---
 
 # Series
+
+Deep dives into specific topics.
+
 ---
 
 ## Rotations, quaternions and Lie algebras

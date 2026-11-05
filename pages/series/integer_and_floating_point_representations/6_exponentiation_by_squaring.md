@@ -2,6 +2,7 @@
 title: Exponentiation by squaring
 description: The binary digits of n say which squares of x multiply to x to the n, so x to the n takes about log2(n) multiplications instead of n − 1. Shown step by step, then used for Fibonacci numbers.
 canvas: none
+sidebar: _series.md
 ---
 
 # Exponentiation by squaring

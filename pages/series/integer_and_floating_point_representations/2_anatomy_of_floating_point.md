@@ -2,6 +2,7 @@
 title: Anatomy of a floating point number
 description: How a floating point value is calculated from its bits, how inf and NaN are represented, what normal and subnormal modes are, and why they matter.
 canvas: left
+sidebar: _series.md
 ---
 
 # Anatomy of a floating point number

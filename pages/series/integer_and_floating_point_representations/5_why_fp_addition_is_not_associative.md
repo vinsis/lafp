@@ -2,6 +2,7 @@
 title: Why floating point addition isn't associative
 description: Each floating point addition rounds its exact sum, so the order of additions can change the result. The three ways a sum loses bits, shown in FP8 E5M2.
 canvas: none
+sidebar: _series.md
 ---
 
 # Why floating point addition isn't associative

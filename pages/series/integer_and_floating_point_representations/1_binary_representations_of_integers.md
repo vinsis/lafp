@@ -2,6 +2,7 @@
 title: Binary representations of integers
 description: uint, two's complement, one's complement and biased integers seen as one formula, a dot product of bits and weights plus a bias.
 canvas: left
+sidebar: _series.md
 ---
 
 # Binary representations of integers
