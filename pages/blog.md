@@ -5,6 +5,7 @@ description: Visual articles on matrix tips and tricks, and latest research in l
 
 # Blog
 
+- [Indexing numpy arrays](/blog/numpy_indexing)
 - [Gram-Schmidt vs modified Gram-Schmidt](/blog/modified_gram_schmidt)
 - [Paper: A Flag Decomposition for Hierarchical Datasets](/blog/flag_decomposition)
 - [SINQ — Sinkhorn-like iterations for quantization](/blog/sinq)

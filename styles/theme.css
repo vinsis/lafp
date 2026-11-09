@@ -532,6 +532,110 @@ main table {
   box-shadow: 0 0 0 1px var(--color-accent), 0 0 0 5px rgba(13, 148, 136, 0.25);
 }
 
+/* Text box (`pie.ui.textbox`): like a small Python editor (its background, border, corners and code font),
+   with the slider's teal border and halo on focus instead of the browser's blue ring. */
+.python-editor-ui input[type=text] {
+  width: 16rem;
+  max-width: 100%;
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 6px;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  transition: border-color 0.12s, box-shadow 0.12s, background-color 0.12s;
+}
+
+.python-editor-ui input[type=text]:hover {
+  border-color: var(--color-border-hover);
+}
+
+.python-editor-ui input[type=text]:focus {
+  outline: none;
+  background: var(--color-bg);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+}
+
+/* The slider sits in the same box as the text box. Its height is the text box's: one 0.875rem line at 1.4,
+   its padding and its border. */
+.python-editor-ui-body:has(> input[type=range]) {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: calc(0.875rem * 1.4 + 0.6rem + 2px);
+  margin-left: 0.5rem;
+  padding: 0 0.6rem;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 6px;
+  transition: border-color 0.12s, box-shadow 0.12s, background-color 0.12s;
+}
+
+.python-editor-ui-body > input[type=range] {
+  margin: 0;
+}
+
+.python-editor-ui-body:has(> input[type=range]):hover {
+  border-color: var(--color-border-hover);
+}
+
+.python-editor-ui-body:has(> input[type=range]:focus) {
+  background: var(--color-bg);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+}
+
+/* A text box's or slider's label: the left part of the same box, in the editor toolbar's darker shade.
+   The label and the box meet with no gap, square corners where they touch and one border between them.
+   On focus both borders turn teal; there is no halo, since it would show as a stripe across the label. */
+.python-editor-ui:has(.python-editor-ui-body > :is(input[type=text], input[type=range])) .python-editor-ui-label {
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--color-code-bar);
+  border: 1px solid var(--color-code-border);
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  transition: border-color 0.12s, color 0.12s;
+}
+
+.python-editor-ui-label + .python-editor-ui-body:has(> input[type=text]) {
+  margin-left: -0.25rem;   /* cancels the built-in gap between label and UI */
+}
+
+.python-editor-ui-label + .python-editor-ui-body > input[type=text] {
+  margin-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+.python-editor-ui-label + .python-editor-ui-body > input[type=text]:focus {
+  box-shadow: none;
+}
+
+.python-editor-ui-label + .python-editor-ui-body:has(> input[type=range]) {
+  margin-left: -0.25rem;   /* cancels the built-in gap between label and UI */
+  border-radius: 0 6px 6px 0;
+}
+
+.python-editor-ui-label + .python-editor-ui-body:has(> input[type=range]:focus) {
+  box-shadow: none;
+}
+
+.python-editor-ui:has(input[type=text]:hover, .python-editor-ui-body:hover > input[type=range]) .python-editor-ui-label {
+  border-color: var(--color-border-hover);
+}
+
+.python-editor-ui:has(:is(input[type=text], input[type=range]):focus) .python-editor-ui-label {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 /* Checkboxes (`pie.ui.checkboxes`) and radio buttons (`pie.ui.radio`): each option is one pill, with no box or dot.
    The real inputs are hidden but still take clicks through their labels, and Space or the arrow keys.
    An unticked checkbox is a grey pill; a ticked one is solid teal with white text. */
