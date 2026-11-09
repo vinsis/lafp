@@ -603,6 +603,90 @@ main table {
   box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
 }
 
+/* Step player (`pie.ui.step_list`), three rows: the previous step's label; back and next buttons and the label
+   of the step shown; the next step's label. The previous and next labels line up with the shown one, in grey.
+   With no previous or next step, its row stays empty, so the buttons don't move.
+   It sits in a box like the Python editors (their background, border and corners), so it doesn't read as page text.
+   `min-width: 0` lets a long label wrap on narrow screens. */
+.python-editor-ui-body:has(> .pie-ui-steps) {
+  min-width: 0;
+}
+
+.pie-ui-steps {
+  display: grid;
+  grid-template-columns: auto auto auto 1fr;
+  align-items: center;
+  column-gap: 0.375rem;
+  row-gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.pie-ui-steps-other {
+  grid-column: 4;
+  margin-left: 0.25rem;
+  color: var(--color-subtle);
+  font-size: 0.8125rem;
+}
+
+.pie-ui-steps button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  background: var(--color-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+
+.pie-ui-steps button svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pie-ui-steps button:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.pie-ui-steps button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pie-ui-steps button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+}
+
+/* `k/n` between the buttons. */
+.pie-ui-steps-count {
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pie-ui-steps-name {
+  margin-left: 0.25rem;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
 /* Collapsed text: room above and below what <details> shows when open. */
 main details[open] > summary {
   margin-bottom: 0.75rem;
@@ -618,4 +702,5 @@ main:not(.home) details {
   font-size: 0.9em;
   padding: 0.75rem 1rem;
   border-radius: 6px;
+  margin: 1rem 0;
 }

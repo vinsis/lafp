@@ -64,3 +64,14 @@ How computers turn bits into numbers. This series starts with four ways to repre
 - [Adding two floating point numbers](/series/integer_and_floating_point_representations/4_adding_two_floats)
 - [Why floating point addition isn't associative](/series/integer_and_floating_point_representations/5_why_fp_addition_is_not_associative)
 - [Exponentiation by squaring](/series/integer_and_floating_point_representations/6_exponentiation_by_squaring)
+
+---
+
+## Online softmax, flash attention and flash decoding
+
+How attention kernels avoid trips to GPU memory. This series starts with online softmax, builds Flash Attention 1 and 2 on it, and ends with flash decoding, with each CUDA kernel stepped through as tiles move between HBM and SRAM.
+
+- [Online softmax](/series/online_softmax_flash_attention/1_online_softmax)
+- [Flash Attention 1](/series/online_softmax_flash_attention/2_flash_attention_1)
+- [Flash Attention 2](/series/online_softmax_flash_attention/3_flash_attention_2)
+- [Flash decoding](/series/online_softmax_flash_attention/4_flash_decoding)

@@ -73,6 +73,22 @@ Other keys are ignored. A bad value fails the build, and shows an error screen i
 
 Math uses KaTeX: `$…$` inline, and `$$…$$` on its own lines for a display block.
 
+- KaTeX doesn't fail the build on an error: it shows the bad formula in red on the page. Check commands against KaTeX's list.
+- There are no custom macros. Color with `\textcolor{#1d4ed8}{m}`. `\lightblue` doesn't exist. `\red`, `\green`, `\orange` and the like do exist, but in KaTeX's own colors (e.g. `\orange` is `#ffa500`), which won't match the canvas.
+
+HTML blocks work in pages. A collapsed section with Markdown inside needs blank lines around the Markdown:
+
+````md
+<details>
+<summary>Cuda implementation</summary>
+
+```cpp
+int x = 0;
+```
+
+</details>
+````
+
 A page's URL must not match a route in `node_modules/@tinyvolt/pie/src/routes/` (`/`, `/pages`, `/_tags`, `/_tags/<tag>`). For example, `pages/pages.md` fails the build.
 
 ## Python editors
@@ -139,6 +155,13 @@ Built-in functions:
 
 Arguments can be nodes or plain numbers. Passing an array where one item is expected runs the function once per item (except `partial`).
 
+- Parameters are positional only, for built-ins and `functions/` alike: `pie.text('a', 0, 1, 14)`, not `font_size=14`. The only keyword arguments are `out`, `hidden`, `fill`, `stroke` and `animate`.
+- `hidden=True` makes the node but doesn't draw it, e.g. a corner point a shape is built from: `pie.point(0, 0, hidden=True)`.
+- `pie.scalar([1, 0, 0])` makes an Array of Scalars. `a[i]` (in Python, outside a lifted function) is its item node, e.g. `pie.point(a[0], a[1])`.
+- A boxed `pie.text` (w or h not 0) always has the page background behind it. It ignores `fill`; `stroke` colors both the text and the border. For a colored box with a label, draw a filled shape, then an unboxed text over it.
+- Draw order: nodes are drawn in the order they were made, later on top, except that every point is drawn above every other node. Replacing a node with the same `out` keeps its place.
+- `fill` and `stroke` are plain colors set by the call, `set_fill` or `set_stroke`. No node or lifted function can drive them. For a shape whose color depends on a value, make one shape per color, and use lifts to give the inactive ones a size of 0.
+
 ### Side effects
 
 These change existing nodes, or the canvas, instead of making a new one. They run once, when called.
@@ -175,7 +198,16 @@ xs = linspace(0, n, 5)
 pie.point(xs, 0)          # 5 points from 0 to 5; set `n` again and they move
 ```
 
-A lifted function also takes `fill` and `stroke`, e.g. `linspace(0, n, 5, fill='red')`.
+A lifted function also takes `fill` and `stroke`, e.g. `linspace(0, n, 5, fill='red')`, and `hidden=True`.
+
+What the function gets and must return:
+
+- A Scalar input arrives as a `float`, a Point as a tuple `(x, y)`, a Text as a `str`, an Array as a numpy array of its shape (an Array of Points has a last dimension of 2).
+- Any other argument is passed through unchanged, whatever it is, e.g. an `int`, a string or a list of dicts: `pie.lift(f, pie.Text)(t, 'Q', steps)`.
+- `pie.Scalar` needs a number, `pie.Point` a tuple or list of 2 numbers, `pie.Text` a `str`. `pie.Array[...]` needs a numpy array of numbers, not a list: return `np.array([...])`.
+- `g = f(...)` lifted to an Array: `g[i]`, outside the lifted function, is its item node. Reruns keep the item nodes while the shape stays the same, so `pie.point(g[0], g[1])` follows `g`. This is how one lift can give several numbers, e.g. a box's left, bottom, width and height.
+- A function defined with `def` in a block is found by name when it reruns, so running a new `def f` changes what existing nodes compute. Anything else, e.g. a lambda, is kept by reference.
+- Before an animation plays (`animate=True`, or a UI that animates), every lifted function it affects runs once per frame, in one batch. Dozens of lifts on one animated node play smoothly.
 
 Limits:
 
@@ -368,3 +400,65 @@ Change the CSS variables in `styles/theme.css` (colors, fonts, text width), or a
 - a `layouts/` file has no default export
 
 Run `npm run build` after a change to confirm it.
+
+## This site
+
+What this site adds on top of pie-ssg. Each function and UI has a doc comment in its file with the details.
+
+### Its functions (`functions/`)
+
+| Call | Makes |
+| --- | --- |
+| `pie.rectangle(corner, w, h, rotation)` | a Polygon with its bottom-left corner at Point `corner`, rotated counter-clockwise (degrees, default 0) about it. Uses `fill` and `stroke`; default fill none. `w` and `h` can be nodes, and 0 draws nothing |
+| `pie.polygon(points)` / `pie.polyline(points)` | a closed / open path through an Array of Points |
+| `pie.annotate_arrow(p1, p2, gap)` | an arrow from `p1` to `p2`, pulled back by `gap` (default 0) at both ends |
+| `pie.annotate_curved_arrow(p1, p2, control, gap, text)` | a curved arrow bent towards `control`, labeled there |
+| `pie.annotate_curly_bracket(p1, p2, text)` | a curly bracket from `p1` to `p2`, bulging to the left of `p1 → p2`, labeled past its tip |
+| `pie.annotate_dim_line(p1, p2, text)` | a line with a tick across each end, labeled left of its middle |
+| `pie.annotate_angle_mark(line1, line2, text)` | an arc marking the angle between two lines that start at the same point |
+| `pie.polynomial(coefficients, x_min, x_max)` | the graph of a₀ + a₁x + …, x from -10 to 10 by default |
+| `pie.diagram(json.dumps(items))` | one Diagram node (`nodes/diagram.tsx`) that draws many boxes and lines. Each item is a dict: `x`, `y` (a box's bottom-left corner), `w`, `h`, and optionally `line` (a line from (x, y) to (x + w, y + h)), `fill`, `stroke`, `label` (at the box's center), `font` (pixels), `wrap` (the label's width; it wraps at spaces) and `color` (the label's) |
+
+`functions/linear-algebra.ts` (`pie.la_*`: vectors, matrices, matrix products, transforms, rotation matrices, 3D) and `functions/geometric-algebra.ts` (`pie.ga_*`: quaternions) are for the linear algebra pages.
+
+### Its UIs (`ui/`)
+
+| Call | Shows |
+| --- | --- |
+| `pie.ui.markdown(n, sections=['# a', '# b'])` | the Markdown section that Scalar `n` picks, by index, rendered like the page (math included) |
+| `pie.ui.markdown(text)` | the Markdown in Text node `text` |
+| `pie.ui.animated_radio(mask, options=[...])` | one radio button per item of the Array of Scalars `mask`. Choosing one moves its item to 1 and the others to 0 over half a second. `snap=True`: the others drop to 0 at once |
+| `pie.ui.animated_checkboxes(mask, options=[...])` | like `pie.ui.checkboxes`, but each item moves to 1 or 0 over half a second |
+| `pie.ui.bits_radio(bits)` | one radio button per bit pattern `00…0` to `11…1` of the Array of Scalars `bits`, first item leftmost |
+| `pie.ui.case_checkboxes(n, [mask_a, mask_b], options=[[...], [...]])` | the checkboxes for the Array that Scalar `n` picks |
+| `pie.ui.step_list(diagram, steps=[...])` | one radio button per step of Diagram node `diagram`. Each step is a dict: `label`, and lists of `[item index, {field: value}]`: `start` (applied when the step begins), `move` (positions and sizes it animates to over half a second) and `end` (applied when it ends). `stagger`: `[item index, n, count]` moves that item in the n-th of `count` parts of the half second. Choosing the next step plays it; any other step shows at once |
+
+### Code for visuals and UIs
+
+The Python behind a figure should read like the algorithm it shows. Readers open the editor to learn the algorithm, not the drawing.
+
+- Write the algorithm's steps as the algorithm has them, with its names: `m_new = max(m_old, tile.max())`, `d = d * exp(m_old - m_new) + exp(tile - m_new).sum()`. Compute the values the figure shows from that code. Don't hard-code results the code could produce.
+- Keep the drawing code to the few calls that put shapes, text and UIs on the canvas, apart from the algorithm, e.g. in one helper at the end. No layout or animation machinery that hides the algorithm's steps.
+- When a figure needs a step list or timing, keep it short and next to the drawing code, not mixed into the algorithm.
+- Name the drawing helpers after what the algorithm does, so a call reads as a step of it: `move_data(K[j], Kj)` for a load from HBM to SRAM, `compute(Sij)`, `update(mi, li, Oi)`.
+- Put the helpers in their own collapsed editor before the algorithm's editor, and tell the reader to run both in order.
+- Many shapes that change together are one node, not many. Like a point cloud: one node type whose fields hold every point, not an Array of Point nodes. Make the node type in `nodes/`, the function that makes it in `functions/`, and a UI in `ui/` to change it. Don't build figures out of hundreds of nodes or lifts.
+- Use each part for what it is for: a function makes a node from its inputs, a UI writes nodes when the reader acts, and a lift recomputes a value from other nodes. Don't make one do another's job.
+
+### Step-through animations
+
+The pages in `pages/series/online_softmax_flash_attention/` step a kernel through its loads, computations and stores. Each page has two editors:
+
+1. Drawing helpers. A `Slot` is a place in HBM or SRAM, with its position, size and starting data (label, fill, outline). The actions record into the current step: `move_data(src, dst)` copies data, which flies over; `change(slots, ...)` changes it in place, filling up from the bottom; `run_block(square, slots)` switches SRAM to another CUDA block; `step(label, caption)` ends a step. Each page adds its own slots and named actions (`compute`, `update`, `stale`, …) on top.
+2. The algorithm: its loops, with one action per line and a `step(...)` after each stage, then `show_steps(...)`.
+
+`show_steps` turns the recorded steps into items for one `pie.diagram` node: each slot's outline, caption, old data, new data and ring, plus the zoom lines and the caption. For each step it computes how the items look as the step starts, after its moves, and as it ends, and passes only the changes to `pie.ui.step_list`. The figure is one node, with no lifts.
+
+### Pages
+
+- The page background is a light grey-teal, `#d3dcdc`. Use dark text (`#27272a`) and dark outlines (`#3f3f46`) on the canvas, not light grey.
+- Give one object one color everywhere: in `\textcolor`, on the canvas, and in canvas text.
+- A new blog post goes in `pages/blog/`, with a link at the top of the list in `pages/blog.md`.
+- A series is a folder in `pages/series/`. Its pages are numbered in reading order, e.g. `1_online_softmax.md`, and set `sidebar: _series.md`. `_series.md` lists them, and `pages/series.md` has a section for each series.
+- `date: YYYY-MM-DD` in a page's frontmatter dates it in `rss.xml` (made in `vite.config.ts`). Every page except `pages/blog.md` and `pages/series.md` is in the feed.
+- Articles ported from the old site: drop links to `/nova/...`. Those pages don't exist here.
