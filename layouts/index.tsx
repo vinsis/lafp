@@ -154,7 +154,7 @@ const formatDate = (date: string) =>
 function Latest() {
   return (
     <section class="home-latest">
-      <h2>Latest posts (<a href="/rss.xml">RSS</a>)</h2>
+      <h2>Latest posts (<a href="/rss.xml" rel="external">RSS</a>)</h2>
       <ul>
         <For each={latest}>
           {page => (
