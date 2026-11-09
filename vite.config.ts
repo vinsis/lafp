@@ -29,20 +29,31 @@ function pageDate(file: string, raw: Record<string, string>): string {
 }
 
 /**
- * `rss.xml`: every page, newest `date` first, then the undated ones. Each item has the page's title, link and description.
+ * The feed's pages, newest `date` first, then the undated ones.
+ * `href` is the page's URL path, e.g. `/blog/numpy_indexing`. `title` is empty when the page has none.
+ */
+function feedItems(root: string) {
+  return pageFiles(root)
+    .filter(file => !NOT_IN_FEED.has(file))
+    .map(file => {
+      const { frontmatter, raw } = parseFrontmatter(file, fs.readFileSync(path.join(root, file), "utf8"));
+      const href = file.slice("pages".length, -".md".length);
+      return { href, title: frontmatter.title, description: frontmatter.description, date: pageDate(file, raw) };
+    })
+    .sort((a, b) => b.date.localeCompare(a.date) || a.href.localeCompare(b.href, "en", { numeric: true }));
+}
+
+/**
+ * `rss.xml`: every page in `feedItems` order. Each item has the page's title, link and description.
  * `null` when `site.yml` has no `url`.
  */
 function rssXml(root: string): string | null {
   const site = parseSite("site.yml", fs.readFileSync(path.join(root, "site.yml"), "utf8"));
   if (!site.url) return null;
-  const items = pageFiles(root)
-    .filter(file => !NOT_IN_FEED.has(file))
-    .map(file => {
-      const { frontmatter, raw } = parseFrontmatter(file, fs.readFileSync(path.join(root, file), "utf8"));
-      const link = site.url + file.slice("pages".length, -".md".length);
-      return { link, title: frontmatter.title || link, description: frontmatter.description, date: pageDate(file, raw) };
-    })
-    .sort((a, b) => b.date.localeCompare(a.date) || a.link.localeCompare(b.link, "en", { numeric: true }));
+  const items = feedItems(root).map(item => {
+    const link = site.url + item.href;
+    return { ...item, link, title: item.title || link };
+  });
   return [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
@@ -91,6 +102,34 @@ function rssFeed(): Plugin {
   };
 }
 
+const LATEST_ID = "virtual:latest-pages";
+const RESOLVED_LATEST_ID = "\0" + LATEST_ID;
+/** How many of the newest feed pages the homepage lists. */
+const LATEST_COUNT = 5;
+
+/** `import latest from "virtual:latest-pages"`: the first `LATEST_COUNT` items of the feed, for the homepage. */
+function latestPages(): Plugin {
+  let root = process.cwd();
+  return {
+    name: "lafp-latest-pages",
+    configResolved(config) {
+      root = config.root;
+    },
+    resolveId(id) {
+      if (id === LATEST_ID) return RESOLVED_LATEST_ID;
+    },
+    load(id) {
+      if (id === RESOLVED_LATEST_ID) return `export default ${JSON.stringify(feedItems(root).slice(0, LATEST_COUNT))};`;
+    },
+    // In dev, a changed, added or removed page makes the list rebuild on the next page load.
+    hotUpdate({ file }) {
+      if (!file.endsWith(".md") || !file.startsWith(path.join(root, "pages") + path.sep)) return;
+      const mod = this.environment.moduleGraph.getModuleById(RESOLVED_LATEST_ID);
+      if (mod) this.environment.moduleGraph.invalidateModule(mod);
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [pie(), rssFeed()],
+  plugins: [pie(), rssFeed(), latestPages()],
 });

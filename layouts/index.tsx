@@ -4,6 +4,7 @@ import { num } from "~/lib/nodes/jax";
 import type { ScalarNode } from "~/lib/nodes/state/Node";
 import { NodeStore } from "~/lib/nodes/state/NodeStore";
 import { PythonScope } from "~/lib/python/runner";
+import latest from "virtual:latest-pages";
 import site from "../site.yml";
 import { InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon } from "./icons";
 import { LogoTwoLine } from "./logo";
@@ -108,51 +109,66 @@ function Figure(props: { matrix: Accessor<number[][]> }) {
   );
 }
 
-const MATRIX_CODE = `M = [[2, 1],
-     [0, 1]]  
+const MATRIX_CODE = `import numpy as np
 
-pie.scalar(M, out='M')
-`;
+# Modify a matrix, or add your own, to change the shape of the ellipse, then click Run.
+matrices = {
+    'general':    [[2, 1], [0, 1]],
+    'stretch':    [[2, 0], [0, 0.5]],
+    'skew':       [[1, 0], [1, 1]],
+    'rotation':   [[0.8, 0.6], [-0.6, 0.8]],
+    'reflection': [[1, 0], [0, -1]],
+    'singular':   [[1, 0.5], [2, 1]],
+}
+names = list(matrices)
 
-const FIBONACCI_CODE = `def matmul(A, B):
-    return [[sum(a * b for a, b in zip(row, col)) for col in zip(*B)] for row in A]
+def pick(i):
+    return np.array(matrices[names[int(i)]])
 
-M = [[1, 1],
-     [1, 0]]
-
-# The top-right entry of M^n is the nth Fibonacci number.
-P = M
-for n in range(1, 11):   # try range(1, 101)
-    print(n, P[0][1])
-    P = matmul(P, M)
-
-# Squaring jumps ahead: M^2, M^4, M^8, ... so M^n takes about log2(n) steps, not n.
-def matpow(M, n):
-    result = [[1, 0], [0, 1]]
-    while n:
-        if n & 1:
-            result = matmul(result, M)
-        M = matmul(M, M)
-        n >>= 1
-    return result
-
-f = matpow(M, 10_000)[0][1]
-print(f'The 10,000th Fibonacci number has {len(str(f))} digits:')
-print(f)
+choice = pie.scalar(0, out='choice')
+pie.lift(pick, pie.Array[pie.Scalar])(choice, out='M')
+pie.ui.radio(choice, options=names)
 `;
 
 /** A runnable Python editor. Loaded in the browser only, as on Markdown pages. `store`: where its `pie.*` calls go. */
-function TryPython(props: { code: string; store?: NodeStore }) {
-  const [editor, setEditor] = createSignal<Component<{ code: string; scope: PythonScope }>>();
+function TryPython(props: { code: string; store?: NodeStore; collapsed?: boolean }) {
+  const [editor, setEditor] = createSignal<Component<{ code: string; collapsed?: boolean; scope: PythonScope }>>();
   const scope = new PythonScope(props.store);
   onCleanup(() => scope.dispose());
   onMount(() => {
     import("~/lib/markdown/components/PythonEditor").then(({ PythonEditor }) => setEditor(() => PythonEditor));
   });
   return (
-    <Show when={editor()} fallback={<pre><code>{props.code}</code></pre>}>
-      {e => <Dynamic component={e()} code={props.code} scope={scope} />}
+    // A collapsed editor has no code block while it loads, so the code doesn't flash up and vanish.
+    <Show when={editor()} fallback={props.collapsed ? undefined : <pre><code>{props.code}</code></pre>}>
+      {e => <Dynamic component={e()} code={props.code} collapsed={props.collapsed} scope={scope} />}
     </Show>
+  );
+}
+
+/** A `YYYY-MM-DD` date as e.g. "9 Nov 2026". In UTC, so the server and the browser show the same day. */
+const formatDate = (date: string) =>
+  new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+
+/** The newest pages in the RSS feed. */
+function Latest() {
+  return (
+    <section class="home-latest">
+      <h2>Latest posts (<a href="/rss.xml">RSS</a>)</h2>
+      <ul>
+        <For each={latest}>
+          {page => (
+            <li>
+              <a href={page.href}>
+                <span class="home-latest-title">{page.title || page.href}</span>
+                <Show when={page.date}>{date => <time datetime={date()}>{formatDate(date())}</time>}</Show>
+                <Show when={page.description}>{description => <p>{description()}</p>}</Show>
+              </a>
+            </li>
+          )}
+        </For>
+      </ul>
+    </section>
   );
 }
 
@@ -187,23 +203,17 @@ export default function Home() {
           <li><OpenSourceIcon /> Open-source</li>
         </ul>
       </div>
-      <div class="home-figure">
-        <Figure matrix={matrix} />
-      </div>
       <section class="home-try">
         <p>
           Try it: change the matrix.
           See <a href="/la/3_mat_vec_mul#333-circle-ellipse">chapter 3</a> for why it works.
         </p>
-        <TryPython code={MATRIX_CODE} store={store} />
+        <TryPython code={MATRIX_CODE} store={store} collapsed />
       </section>
-      <section class="home-try">
-        <p>
-          Try it: Fibonacci numbers from powers of a matrix.
-          See <a href="/la/18_fibonacci_numbers">chapter 18</a> for why it works.
-        </p>
-        <TryPython code={FIBONACCI_CODE} />
-      </section>
+      <div class="home-figure">
+        <Figure matrix={matrix} />
+      </div>
+      <Latest />
       <p class="home-credits">
         Made with{" "}
         <a class="home-credits-pie" href="https://github.com/TinyVolt/pie-ssg" aria-label="pie-ssg" title="pie-ssg">
