@@ -10,32 +10,27 @@ Deep dives into specific topics.
 
 ---
 
-## Rotations, quaternions and Lie algebras
+## Online softmax, flash attention and flash decoding
 
-This series starts from 2D rotation matrices and takes us through the developments we have made to understand and describe rotations - it covers imaginary numbers, intrinsic and extrinsic rotations, Euler angles, quaternions, geometric algebra and Lie theory.
+How attention kernels avoid trips to GPU memory. This series starts with online softmax, builds Flash Attention 1 and 2 on it, and ends with flash decoding, with each CUDA kernel stepped through as tiles move between HBM and SRAM.
 
-- [Rotation is linear](/series/rotations/0_intro)
-- [2D rotations](/series/rotations/2d_rotations)
-- [3D rotation matrices](/series/rotations/3d_rotation_matrices)
-- [Quaternions](/series/rotations/quaternions)
-- [Rotations as reflections](/series/rotations/rotation_as_reflections)
-- [Geometric algebra](/series/rotations/geometric_algebra)
-- [Lie algebra](/series/rotations/lie_algebra)
+- [Online softmax](/series/online_softmax_flash_attention/1_online_softmax)
+- [Flash Attention 1](/series/online_softmax_flash_attention/2_flash_attention_1)
+- [Flash Attention 2](/series/online_softmax_flash_attention/3_flash_attention_2)
+- [Flash decoding](/series/online_softmax_flash_attention/4_flash_decoding)
 
 ---
 
-## Matrix calculus and autodiff
+## Integer and floating point representations
 
-Starting from the idea of a small change in output given a small change in input, this series builds the concepts of linear operators, gradients and Jacobians, and covers the foundational ideas behind autodiff alongwith links to implementations in PyTorch and JAX.
+How computers turn bits into numbers. This series starts with four ways to represent integers, seen through one formula, and then takes a floating point number apart bit by bit.
 
-- [Linear operator](/series/matrix_calculus/0_linear_operator)
-- [Gradient of a function](/series/matrix_calculus/1_gradient)
-- [Jacobian of a function](/series/matrix_calculus/2_jacobian)
-- [Key matrix derivatives](/series/matrix_calculus/3_key_derivatives)
-- [Function is a DAG](/series/matrix_calculus/4_function_as_dag)
-- [Autodiff on a DAG](/series/matrix_calculus/5_autodiff_on_dag)
-- [VJP and JVP](/series/matrix_calculus/6_vjp_and_jvp)
-- [Hessian of a function](/series/matrix_calculus/7_hessian)
+- [Binary representations of integers](/series/integer_and_floating_point_representations/1_binary_representations_of_integers)
+- [Anatomy of a floating point number](/series/integer_and_floating_point_representations/2_anatomy_of_floating_point)
+- [Block scaling in MXFP4 and NVFP4](/series/integer_and_floating_point_representations/3_block_scaling_in_mxfp4_and_nvfp4)
+- [Adding two floating point numbers](/series/integer_and_floating_point_representations/4_adding_two_floats)
+- [Why floating point addition isn't associative](/series/integer_and_floating_point_representations/5_why_fp_addition_is_not_associative)
+- [Exponentiation by squaring](/series/integer_and_floating_point_representations/6_exponentiation_by_squaring)
 
 ---
 
@@ -54,24 +49,29 @@ Explore the journey from the spectral properties of permutations to the geometry
 
 ---
 
-## Integer and floating point representations
+## Matrix calculus and autodiff
 
-How computers turn bits into numbers. This series starts with four ways to represent integers, seen through one formula, and then takes a floating point number apart bit by bit.
+Starting from the idea of a small change in output given a small change in input, this series builds the concepts of linear operators, gradients and Jacobians, and covers the foundational ideas behind autodiff alongwith links to implementations in PyTorch and JAX.
 
-- [Binary representations of integers](/series/integer_and_floating_point_representations/1_binary_representations_of_integers)
-- [Anatomy of a floating point number](/series/integer_and_floating_point_representations/2_anatomy_of_floating_point)
-- [Block scaling in MXFP4 and NVFP4](/series/integer_and_floating_point_representations/3_block_scaling_in_mxfp4_and_nvfp4)
-- [Adding two floating point numbers](/series/integer_and_floating_point_representations/4_adding_two_floats)
-- [Why floating point addition isn't associative](/series/integer_and_floating_point_representations/5_why_fp_addition_is_not_associative)
-- [Exponentiation by squaring](/series/integer_and_floating_point_representations/6_exponentiation_by_squaring)
+- [Linear operator](/series/matrix_calculus/0_linear_operator)
+- [Gradient of a function](/series/matrix_calculus/1_gradient)
+- [Jacobian of a function](/series/matrix_calculus/2_jacobian)
+- [Key matrix derivatives](/series/matrix_calculus/3_key_derivatives)
+- [Function is a DAG](/series/matrix_calculus/4_function_as_dag)
+- [Autodiff on a DAG](/series/matrix_calculus/5_autodiff_on_dag)
+- [VJP and JVP](/series/matrix_calculus/6_vjp_and_jvp)
+- [Hessian of a function](/series/matrix_calculus/7_hessian)
 
 ---
 
-## Online softmax, flash attention and flash decoding
+## Rotations, quaternions and Lie algebras
 
-How attention kernels avoid trips to GPU memory. This series starts with online softmax, builds Flash Attention 1 and 2 on it, and ends with flash decoding, with each CUDA kernel stepped through as tiles move between HBM and SRAM.
+This series starts from 2D rotation matrices and takes us through the developments we have made to understand and describe rotations - it covers imaginary numbers, intrinsic and extrinsic rotations, Euler angles, quaternions, geometric algebra and Lie theory.
 
-- [Online softmax](/series/online_softmax_flash_attention/1_online_softmax)
-- [Flash Attention 1](/series/online_softmax_flash_attention/2_flash_attention_1)
-- [Flash Attention 2](/series/online_softmax_flash_attention/3_flash_attention_2)
-- [Flash decoding](/series/online_softmax_flash_attention/4_flash_decoding)
+- [Rotation is linear](/series/rotations/0_intro)
+- [2D rotations](/series/rotations/2d_rotations)
+- [3D rotation matrices](/series/rotations/3d_rotation_matrices)
+- [Quaternions](/series/rotations/quaternions)
+- [Rotations as reflections](/series/rotations/rotation_as_reflections)
+- [Geometric algebra](/series/rotations/geometric_algebra)
+- [Lie algebra](/series/rotations/lie_algebra)
