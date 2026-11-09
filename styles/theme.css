@@ -248,6 +248,28 @@ main.home h1 {
   color: inherit;
 }
 
+/* The post's kind (eBook, Blog or Series): a small label with the header's icon, at the card's top right. Not a link of its own. */
+.home-latest-kind {
+  float: right;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 0.75rem;
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-muted);
+  vertical-align: 0.1em;
+}
+
+.home-latest-kind svg {
+  width: 1em;
+  height: 1em;
+  color: var(--color-accent);
+}
+
 .home-latest-title {
   font-weight: 500;
   color: #0f766e;   /* teal-700, as the page headings */

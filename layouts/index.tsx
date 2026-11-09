@@ -6,7 +6,7 @@ import { NodeStore } from "~/lib/nodes/state/NodeStore";
 import { PythonScope } from "~/lib/python/runner";
 import latest from "virtual:latest-pages";
 import site from "../site.yml";
-import { InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon } from "./icons";
+import { ArticleIcon, BookIcon, InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon, SeriesIcon } from "./icons";
 import { LogoTwoLine } from "./logo";
 
 // The figure: points on the unit circle, each with an arrow to where the matrix sends it.
@@ -150,7 +150,14 @@ function TryPython(props: { code: string; store?: NodeStore; collapsed?: boolean
 const formatDate = (date: string) =>
   new Date(`${date}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 
-/** The newest pages in the RSS feed. */
+/** What kind of post a page is, from its folder, with the header's icon for it. */
+const KINDS: { prefix: string; label: string; icon: Component }[] = [
+  { prefix: "/la/", label: "eBook", icon: BookIcon },
+  { prefix: "/blog/", label: "Blog", icon: ArticleIcon },
+  { prefix: "/series/", label: "Series", icon: SeriesIcon },
+];
+
+/** The newest pages in the RSS feed. A page in none of the `KINDS` folders gets no tag. */
 function Latest() {
   return (
     <section class="home-latest">
@@ -160,6 +167,9 @@ function Latest() {
           {page => (
             <li>
               <a href={page.href}>
+                <Show when={KINDS.find(kind => page.href.startsWith(kind.prefix))}>
+                  {kind => <span class="home-latest-kind"><Dynamic component={kind().icon} />{kind().label}</span>}
+                </Show>
                 <span class="home-latest-title">{page.title || page.href}</span>
                 <Show when={page.date}>{date => <time datetime={date()}>{formatDate(date())}</time>}</Show>
                 <Show when={page.description}>{description => <p>{description()}</p>}</Show>
