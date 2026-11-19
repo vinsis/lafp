@@ -6,7 +6,7 @@ import { parseFrontmatter } from "./node_modules/@tinyvolt/pie/src/lib/markdown/
 import { parseSite } from "./node_modules/@tinyvolt/pie/src/lib/site/vitePlugin";
 
 /** Pages left out of the feed: they only list other pages. */
-const NOT_IN_FEED = new Set(["pages/blog.md", "pages/series.md"]);
+const NOT_IN_FEED = new Set(["pages/blog.md", "pages/series.md", "pages/tools.md"]);
 
 const escape = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -30,7 +30,7 @@ function pageDate(file: string, raw: Record<string, string>): string {
 
 /**
  * The feed's pages, newest `date` first, then the undated ones.
- * `href` is the page's URL path, e.g. `/blog/numpy_indexing`. `title` is empty when the page has none.
+ * `href` is the page's URL path, e.g. `/tools/numpy_indexing`. `title` is empty when the page has none.
  */
 function feedItems(root: string) {
   return pageFiles(root)

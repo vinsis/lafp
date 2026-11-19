@@ -2,7 +2,7 @@ import { onMount } from "solid-js";
 import { Link } from "@solidjs/meta";
 import { inject } from "@vercel/analytics";
 import site from "../site.yml";
-import { ArticleIcon, BookIcon, FeedIcon, SeriesIcon } from "./icons";
+import { ArticleIcon, BookIcon, FeedIcon, SeriesIcon, ToolsIcon } from "./icons";
 import { LogoOneLine } from "./logo";
 
 const REPO_URL = "https://github.com/vinsis/lafp";
@@ -29,6 +29,9 @@ export default function Header() {
         </a>
         <a class="site-header-link" href="/series" aria-label="Series" title="Series">
           <SeriesIcon />
+        </a>
+        <a class="site-header-link" href="/tools" aria-label="Tools" title="Tools">
+          <ToolsIcon />
         </a>
         {/* `rel="external"`: a full page load, so the router doesn't treat /rss.xml as one of its pages. */}
         <a class="site-header-link" href="/rss.xml" rel="external" aria-label="RSS feed" title="RSS feed">

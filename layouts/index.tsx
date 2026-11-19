@@ -6,7 +6,7 @@ import { NodeStore } from "~/lib/nodes/state/NodeStore";
 import { PythonScope } from "~/lib/python/runner";
 import latest from "virtual:latest-pages";
 import site from "../site.yml";
-import { ArticleIcon, BookIcon, InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon, SeriesIcon } from "./icons";
+import { ArticleIcon, BookIcon, InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon, SeriesIcon, ToolsIcon } from "./icons";
 import { LogoTwoLine } from "./logo";
 
 // The figure: points on the unit circle, each with an arrow to where the matrix sends it.
@@ -155,6 +155,7 @@ const KINDS: { prefix: string; label: string; icon: Component }[] = [
   { prefix: "/la/", label: "eBook", icon: BookIcon },
   { prefix: "/blog/", label: "Blog", icon: ArticleIcon },
   { prefix: "/series/", label: "Series", icon: SeriesIcon },
+  { prefix: "/tools/", label: "Tools", icon: ToolsIcon },
 ];
 
 /** The newest pages in the RSS feed. A page in none of the `KINDS` folders gets no tag. */
@@ -206,6 +207,7 @@ export default function Home() {
           <a class="home-button" href="/la/0_intro">eBook</a>
           <a class="home-button" href="/blog">Blog</a>
           <a class="home-button" href="/series">Series</a>
+          <a class="home-button" href="/tools">Tools</a>
         </div>
         <ul class="home-features">
           <li><InteractiveIcon /> Interactive</li>

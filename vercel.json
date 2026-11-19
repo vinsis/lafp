@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/blog/numpy_indexing", "destination": "/tools/numpy_indexing", "permanent": true }
+  ]
+}
