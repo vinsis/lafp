@@ -2,7 +2,7 @@
 title: Indexing numpy arrays
 description: A visual tour of numpy indexing: integers, slices, index arrays, boolean masks, new axes and 3D arrays, with the picked elements colored.
 date: 2026-11-09
-tags: #numpy #python
+tags: #numpy #tensors #tool
 toc: false
 ---
 

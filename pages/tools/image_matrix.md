@@ -2,7 +2,7 @@
 title: Matrix operations on an image
 description: Matrix operations like SVD, blur, sharpen, flip and color transformations are shown here.
 date: 2026-11-20
-tags: #svd #numpy #python
+tags: #2d #cv #tool
 ---
 
 # Matrix operations on an image
@@ -28,10 +28,11 @@ def decode(url):
     return np.asarray(image) / 255
 
 def encode(X):
-    """X, an array of shape (height, width, 3), as a PNG data URL. Values are clipped to [0, 1]."""
+    """X, an array of shape (height, width, 3), as a BMP data URL: uncompressed, so quick to make.
+    Values are clipped to [0, 1]."""
     buffer = io.BytesIO()
-    Image.fromarray((np.clip(X, 0, 1) * 255).round().astype(np.uint8)).save(buffer, format='PNG')
-    return 'data:image/png;base64,' + base64.b64encode(buffer.getvalue()).decode()
+    Image.fromarray((np.clip(X, 0, 1) * 255).round().astype(np.uint8)).save(buffer, format='BMP')
+    return 'data:image/bmp;base64,' + base64.b64encode(buffer.getvalue()).decode()
 
 def per_channel(f, X):
     """f applied to the red, green and blue matrices of X."""
@@ -47,12 +48,19 @@ def reverse(n):
     """The n×n permutation matrix that reverses order: the identity, flipped."""
     return np.eye(n)[::-1]
 
+_factors = {}
+
+def factors(X):
+    """U, s, Vᵀ of each color matrix of X. Computed once per image: moving k only changes how many terms are kept."""
+    hit = _factors.get(id(X))
+    if hit is None or hit[0] is not X:
+        _factors.clear()
+        hit = _factors[id(X)] = (X, [np.linalg.svd(X[:, :, c], full_matrices=False) for c in range(3)])
+    return hit[1]
+
 def svd(X, k):
     """Each color matrix cut to its top k singular values: the closest matrix of rank k."""
-    def top_k(C):
-        U, s, Vt = np.linalg.svd(C, full_matrices=False)
-        return U[:, :k] * s[:k] @ Vt[:k]
-    return per_channel(top_k, X)
+    return np.stack([U[:, :k] * s[:k] @ Vt[:k] for U, s, Vt in factors(X)], axis=2)
 
 def blur(X, k):
     """B X Bᵀ: B averages each pixel with k neighbors above and below, Bᵀ with k to the left and right."""
@@ -119,8 +127,10 @@ def result(op, img, k):
         return ''
     return encode(OPERATIONS[op][0](decode(img), int(k)))
 
+@lru_cache(maxsize=64)
 def matrix(op, img, k):
-    """The matrix the operation multiplies by, as an image: dark where its entries are large. Empty if it has none."""
+    """The matrix the operation multiplies by, as an image: dark where its entries are large. Empty if it has none.
+    Cached, so going back to an operation, image and k seen before costs nothing."""
     make = OPERATIONS[op][1]
     if not img or make is None:
         return ''

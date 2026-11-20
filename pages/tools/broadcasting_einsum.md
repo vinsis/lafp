@@ -2,7 +2,7 @@
 title: Broadcasting and einsum visualizer
 description: See which input cells make each output cell for various broadcasting and einsum operations.
 date: 2026-11-19
-tags: #numpy #python
+tags: #numpy #tensors #tool
 ---
 
 # Broadcasting and einsum visualizer
