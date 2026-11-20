@@ -1,30 +1,46 @@
 import { createSignal, For, onCleanup, onMount, Show } from 'solid-js';
-import type { ScalarNode } from '~/lib/nodes/state/Node';
+import type { ScalarNode, TextNode } from '~/lib/nodes/state/Node';
 import { num, scalar } from '~/lib/nodes/jax';
 import { expectNode, type UiArg } from '~/lib/ui/nodeHandle';
 
 /**
- * `pie.ui.dropdown(n, options=['a', 'b'])`: a dropdown with one entry per option. Scalar `n` holds the chosen index.
+ * `pie.ui.dropdown(n, options=['a', 'b'])`: a dropdown with one entry per option.
+ * Scalar `n` holds the chosen index. Text `n` holds the chosen option itself, and the dropdown shows its value
+ * even when it is none of the options, e.g. after a text box wrote it.
  * Drawn by the page, not the browser, so its open list matches the page. Keys: ↑ and ↓ move, Enter or Space
  * chooses, Escape closes.
  */
 export function Dropdown(props: { args: UiArg[]; options?: string[] }) {
-  const [n, setN] = expectNode<ScalarNode>(props.args[0], ['Scalar']);
+  const [n, setN] = expectNode<ScalarNode | TextNode>(props.args[0], ['Scalar', 'Text']);
   if (!props.options?.length) throw new Error('needs `options`, a list of strings');
   const options = props.options;
 
   const [open, setOpen] = createSignal(false);
   // The option under the mouse or the arrow keys while the list is open.
   const [active, setActive] = createSignal(0);
-  const picked = () => num(n().value);
+  // -1 when a Text holds none of the options.
+  const picked = () => {
+    const node = n();
+    return node.type === 'Text' ? options.indexOf(node.value) : num(node.value);
+  };
+  const shown = () => {
+    const node = n();
+    return node.type === 'Text' ? node.value : options[picked()] ?? '';
+  };
+  // The open list's height: down to 48px above the window's bottom edge, at least 120px. Past it, the list scrolls.
+  const [maxHeight, setMaxHeight] = createSignal(0);
   let root!: HTMLDivElement;
+  let list: HTMLUListElement | undefined;
+  const reveal = () => list?.children[active()]?.scrollIntoView({ block: 'nearest' });
 
   const show = () => {
-    setActive(picked());
+    setMaxHeight(Math.max(120, window.innerHeight - root.getBoundingClientRect().bottom - 48));
+    setActive(Math.max(picked(), 0));
     setOpen(true);
+    reveal();
   };
   const choose = (i: number) => {
-    setN({ value: scalar(i) });
+    setN(n().type === 'Text' ? { value: options[i] } : { value: scalar(i) });
     setOpen(false);
   };
 
@@ -34,6 +50,7 @@ export function Dropdown(props: { args: UiArg[]; options?: string[] }) {
       if (!open()) return show();
       const step = e.key === 'ArrowDown' ? 1 : -1;
       setActive((active() + step + options.length) % options.length);
+      reveal();
     } else if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       if (open()) choose(active());
@@ -58,13 +75,13 @@ export function Dropdown(props: { args: UiArg[]; options?: string[] }) {
         type="button" class="pie-dropdown-button" aria-haspopup="listbox" aria-expanded={open()}
         onClick={() => (open() ? setOpen(false) : show())} onKeyDown={onKeyDown}
       >
-        {options[picked()] ?? ''}
+        {shown()}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="6 9 12 15 18 9" />
         </svg>
       </button>
       <Show when={open()}>
-        <ul class="pie-dropdown-list" role="listbox">
+        <ul class="pie-dropdown-list" role="listbox" ref={list} style={{ 'max-height': `${maxHeight()}px` }}>
           <For each={options}>
             {(option, i) => (
               <li

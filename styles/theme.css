@@ -702,6 +702,7 @@ main table {
   top: calc(100% + 0.25rem);
   left: -0.4rem;
   min-width: max-content;
+  overflow-y: auto;
   margin: 0;
   padding: 0.3rem;
   list-style: none;
@@ -736,9 +737,9 @@ main table {
   color: var(--color-accent);
 }
 
-/* The `label` of `pie.ui.dropdown`, `pie.ui.case_text_radio` and `pie.ui.case_textbox`: small grey capitals, all
-   the same width, so the UIs stacked under each other line up. */
-.python-editor-ui:has(> .python-editor-ui-body > :is(.pie-dropdown, .pie-case)) > .python-editor-ui-label {
+/* The `label` of `pie.ui.dropdown`, `pie.ui.textbox`, `pie.ui.case_text_radio` and `pie.ui.case_textbox`: small
+   grey capitals, all the same width, so the UIs stacked under each other line up. */
+.python-editor-ui:has(> .python-editor-ui-body > :is(.pie-dropdown, .pie-case, input[type=text])) > .python-editor-ui-label {
   min-width: 4.5rem;
   margin-right: 0.5rem;
   color: var(--color-muted);
@@ -749,8 +750,141 @@ main table {
   text-transform: uppercase;
 }
 
-/* `pie.ui.case_textbox`: no space before the text box, so it lines up with the UIs above it. */
-.pie-case input[type=text] {
+/* `pie.ui.grids`: arrays as grids of small rounded cells, side by side, with the text items between them.
+   Marked cells in the picked red, on a faint red. */
+.pie-grids {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  font-family: "Source Serif 4", serif;
+  font-variant-numeric: tabular-nums;
+}
+
+.pie-grids-array {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.pie-grids-name {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.pie-grids-matrix {
+  display: grid;
+  gap: 3px;
+}
+
+.pie-grids-stack {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.pie-grids-cell {
+  min-width: 2.2em;
+  padding: 0.2em 0.35em;
+  border-radius: 4px;
+  background: var(--color-code-bg);
+  color: var(--color-subtle);
+  text-align: center;
+}
+
+.pie-grids-cell.pie-grids-marked {
+  background: rgba(225, 29, 72, 0.14);
+  color: #e11d48;
+}
+
+.pie-grids-cell.pie-grids-clickable {
+  cursor: pointer;
+}
+
+.pie-grids-cell.pie-grids-clickable.pie-grids-marked {
+  background: rgba(29, 78, 216, 0.14);
+  color: #1d4ed8;
+}
+
+.pie-grids-cell.pie-grids-clickable:hover {
+  box-shadow: inset 0 0 0 1px var(--color-border-hover);
+}
+
+.pie-grids-text {
+  color: var(--color-muted);
+  font-size: 1.4rem;
+}
+
+.pie-grids-error {
+  max-width: 24rem;
+  color: var(--color-error);
+  font-family: var(--font-ui);
+  font-size: 0.875rem;
+}
+
+/* A UI that draws nothing, e.g. a hidden `pie.ui.slider_if`, hides with its grip and label. */
+.python-editor-ui:has(> .python-editor-ui-body:empty) {
+  display: none;
+}
+
+/* `pie.ui.image_upload`: a button in the text box's colors. The file input is hidden; the label opens it. */
+.pie-image-upload {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-code-border);
+  border-radius: 6px;
+  color: var(--color-muted);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.pie-image-upload:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+.pie-image-upload input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* `pie.ui.images`: images side by side, each with its caption under it. */
+.pie-images {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem 1.25rem;
+}
+
+.pie-images figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.pie-images img {
+  display: block;
+  border-radius: 6px;
+}
+
+.pie-images figcaption {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* `pie.ui.case_textbox` and a labeled `pie.ui.textbox`: no space before the text box, so it lines up with the UIs
+   above it. */
+.pie-case input[type=text],
+.python-editor-ui:has(> .python-editor-ui-label) > .python-editor-ui-body > input[type=text] {
   margin-left: 0;
 }
 
@@ -783,10 +917,11 @@ main table {
   box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
 }
 
-/* A text box's or slider's label: the left part of the same box, in the editor toolbar's darker shade.
+/* A slider's label: the left part of the same box, in the editor toolbar's darker shade.
    The label and the box meet with no gap, square corners where they touch and one border between them.
-   On focus both borders turn teal; there is no halo, since it would show as a stripe across the label. */
-.python-editor-ui:has(.python-editor-ui-body > :is(input[type=text], input[type=range])) .python-editor-ui-label {
+   On focus both borders turn teal; there is no halo, since it would show as a stripe across the label.
+   A text box's label is the small grey capitals of the dropdown's instead. */
+.python-editor-ui:has(.python-editor-ui-body > input[type=range]) .python-editor-ui-label {
   margin-left: 0.5rem;
   padding: 0.3rem 0.6rem;
   background: var(--color-code-bar);
@@ -799,19 +934,6 @@ main table {
   transition: border-color 0.12s, color 0.12s;
 }
 
-.python-editor-ui-label + .python-editor-ui-body:has(> input[type=text]) {
-  margin-left: -0.25rem;   /* cancels the built-in gap between label and UI */
-}
-
-.python-editor-ui-label + .python-editor-ui-body > input[type=text] {
-  margin-left: 0;
-  border-radius: 0 6px 6px 0;
-}
-
-.python-editor-ui-label + .python-editor-ui-body > input[type=text]:focus {
-  box-shadow: none;
-}
-
 .python-editor-ui-label + .python-editor-ui-body:has(> input[type=range]) {
   margin-left: -0.25rem;   /* cancels the built-in gap between label and UI */
   border-radius: 0 6px 6px 0;
@@ -821,11 +943,11 @@ main table {
   box-shadow: none;
 }
 
-.python-editor-ui:has(input[type=text]:hover, .python-editor-ui-body:hover > input[type=range]) .python-editor-ui-label {
+.python-editor-ui:has(.python-editor-ui-body:hover > input[type=range]) .python-editor-ui-label {
   border-color: var(--color-border-hover);
 }
 
-.python-editor-ui:has(:is(input[type=text], input[type=range]):focus) .python-editor-ui-label {
+.python-editor-ui:has(.python-editor-ui-body > input[type=range]:focus) .python-editor-ui-label {
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
