@@ -1,6 +1,6 @@
 ---
 title: Tools
-description: Interactive tools for learning linear algebra: type your own input and see the result.
+description: Interactive tools to explore various applications of linear algebra.
 tags: #category
 ---
 

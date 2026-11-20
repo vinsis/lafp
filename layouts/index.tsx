@@ -1,4 +1,4 @@
-import { type Accessor, type Component, For, on, onCleanup, onMount, Show, createEffect, createMemo, createSignal } from "solid-js";
+import { type Accessor, type Component, type JSX, For, Index, on, onCleanup, onMount, Show, createEffect, createMemo, createSignal } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { num } from "~/lib/nodes/jax";
 import type { ScalarNode } from "~/lib/nodes/state/Node";
@@ -6,7 +6,11 @@ import { NodeStore } from "~/lib/nodes/state/NodeStore";
 import { PythonScope } from "~/lib/python/runner";
 import latest from "virtual:latest-pages";
 import site from "../site.yml";
-import { ArticleIcon, BookIcon, InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon, SeriesIcon, ToolsIcon } from "./icons";
+import { type Mesh, projectMesh } from "../functions/mesh";
+import {
+  ArticleIcon, BookIcon, ChevronLeftIcon, ChevronRightIcon, InteractiveIcon, OpenSourceIcon, PieLogo, ProgrammableIcon,
+  SeriesIcon, ToolsIcon,
+} from "./icons";
 import { LogoTwoLine } from "./logo";
 
 // The figure: points on the unit circle, each with an arrow to where the matrix sends it.
@@ -130,6 +134,315 @@ pie.lift(pick, pie.Array[pie.Scalar])(choice, out='M')
 pie.ui.radio(choice, options=names)
 `;
 
+/** The ellipse: the unit circle's points, each with an arrow to where the matrix `M` in `store` sends it. */
+function EllipseFigure(props: { store: NodeStore }) {
+  // A bad `M`, e.g. 3×3, keeps the last good matrix.
+  const matrix = animated(createMemo<number[][]>(prev => readMatrix(props.store) ?? prev, MATRIX));
+  return <Figure matrix={matrix} />;
+}
+
+/** Array of Scalars node `id`'s shape and numbers, row by row, or undefined if there is none. */
+function readArray(store: NodeStore, id: string): { shape: number[]; values: number[] } | undefined {
+  const node = store.getNodeValue(id);
+  if (node?.type !== "Array" || node.itemType !== "Scalar") return;
+  return { shape: node.shape, values: node.items.map(item => num((item as ScalarNode).value)) };
+}
+
+const SVD_IMAGE = "/blog/plane.jpg";   // 224 × 224
+
+const SVD_CODE = `import base64, io
+import numpy as np
+from PIL import Image
+from pyodide.http import pyfetch
+
+# The image: one 224×224 matrix per color, values in [0, 1].
+response = await pyfetch('${SVD_IMAGE}')
+X = np.asarray(Image.open(io.BytesIO(await response.bytes())).convert('RGB')) / 255
+
+# SVD of each color matrix, X_c = U Σ Vᵀ. Computed once: moving k only changes how many terms are kept.
+factors = [np.linalg.svd(X[:, :, c], full_matrices=False) for c in range(3)]
+
+def rank_k(k):
+    """Each color matrix cut to its top k singular values: the closest matrix of rank k."""
+    k = int(k)
+    Xk = np.stack([U[:, :k] * s[:k] @ Vt[:k] for U, s, Vt in factors], axis=2)
+    return to_image(Xk)
+
+def to_image(X):
+    """X as a BMP data URL, for the figure. Values are clipped to [0, 1]."""
+    buffer = io.BytesIO()
+    Image.fromarray((np.clip(X, 0, 1) * 255).round().astype(np.uint8)).save(buffer, format='BMP')
+    return 'data:image/bmp;base64,' + base64.b64encode(buffer.getvalue()).decode()
+
+k = pie.scalar(10, out='k')
+pie.lift(rank_k, pie.Text)(k, out='Xk')
+pie.ui.slider(k, min=1, max=100, step=1, label='k')
+`;
+
+/** The image, or once the code has run, its rank-k version: Text `Xk` in `store`, with k from Scalar `k`. */
+function SvdFigure(props: { store: NodeStore }) {
+  const image = () => {
+    const node = props.store.getNodeValue("Xk");
+    return node?.type === "Text" && node.value ? node.value : undefined;
+  };
+  const k = () => {
+    const node = props.store.getNodeValue("k");
+    return node?.type === "Scalar" ? num(node.value) : undefined;
+  };
+  return (
+    <figure class="home-svd">
+      <img src={image() ?? SVD_IMAGE} width="224" height="224" alt="" />
+      <figcaption>{image() && k() !== undefined ? `Rank ${k()}` : "Original"}</figcaption>
+    </figure>
+  );
+}
+
+const TEAPOT_URL = "/models/teapot.obj";
+
+const TEAPOT_CODE = `import numpy as np
+
+# The figure multiplies each point (x, y, z, 1) of the teapot by M, then by a fixed camera.
+
+def rotate_y(deg):
+    """Turns about the y-axis, which points up."""
+    c, s = np.cos(np.radians(deg)), np.sin(np.radians(deg))
+    return np.array([[c, 0, s, 0], [0, 1, 0, 0], [-s, 0, c, 0], [0, 0, 0, 1]])
+
+def rotate_x(deg):
+    """Tilts about the x-axis, which points right."""
+    c, s = np.cos(np.radians(deg)), np.sin(np.radians(deg))
+    return np.array([[1, 0, 0, 0], [0, c, -s, 0], [0, s, c, 0], [0, 0, 0, 1]])
+
+def model(turn, tilt):
+    """Turn, then tilt: the rightmost matrix acts first."""
+    return rotate_x(tilt) @ rotate_y(turn)
+
+turn, tilt = pie.scalar(30, out='turn'), pie.scalar(20, out='tilt')
+pie.lift(model, pie.Array[pie.Scalar])(turn, tilt, out='M')
+pie.ui.slider(turn, min=-180, max=180, step=1, label='turn')
+pie.ui.slider(tilt, min=-90, max=90, step=1, label='tilt')
+`;
+
+/** An OBJ file's vertices and triangles, centered on the origin and scaled into the cube [-1, 1]³. */
+function parseObj(text: string): Mesh {
+  const vertices: number[][] = [];
+  const faces: number[][] = [];
+  for (const line of text.split("\n")) {
+    const p = line.trim().split(/\s+/);
+    if (p[0] === "v") vertices.push(p.slice(1, 4).map(Number));
+    if (p[0] === "f") faces.push(p.slice(1, 4).map(t => parseInt(t, 10) - 1));
+  }
+  const mid = [0, 1, 2].map(i => (Math.min(...vertices.map(v => v[i])) + Math.max(...vertices.map(v => v[i]))) / 2);
+  const centered = vertices.map(v => v.map((x, i) => x - mid[i]));
+  const extent = Math.max(...centered.flat().map(Math.abs));
+  return { vertices: centered.map(v => v.map(x => x / extent)), faces };
+}
+
+/** `TEAPOT_CODE`'s model matrix before it runs: turned 30° and tilted 20°, 16 numbers row by row. */
+const TEAPOT_MODEL = (() => {
+  const [turn, tilt] = [30, 20].map(d => (d * Math.PI) / 180);
+  const [cy, sy, cx, sx] = [Math.cos(turn), Math.sin(turn), Math.cos(tilt), Math.sin(tilt)];
+  return [cy, 0, sy, 0, sx * sy, cx, -sx * cy, 0, -cx * sy, sx, cx * cy, 0, 0, 0, 0, 1];
+})();
+
+/** The camera at z = 4 looking at the origin, then a 45° perspective, as in the 3D tool. */
+const TEAPOT_CAMERA = (() => {
+  const [distance, near, far] = [4, 0.1, 100];
+  const f = 1 / Math.tan((45 * Math.PI) / 180 / 2);
+  const a = (far + near) / (near - far);
+  const b = (2 * far * near) / (near - far);
+  return [f, 0, 0, 0, 0, f, 0, 0, 0, 0, a, b - a * distance, 0, 0, -1, distance];
+})();
+
+/** The teapot, turned by the 4×4 matrix `M` in `store`. */
+function TeapotFigure(props: { store: NodeStore }) {
+  const size = 224;
+  const [mesh, setMesh] = createSignal<Mesh>();
+  onMount(() => {
+    fetch(TEAPOT_URL).then(r => r.text()).then(text => setMesh(parseObj(text)));
+  });
+  const model = () => {
+    const M = readArray(props.store, "M");
+    return M?.shape.join() === "4,4" ? M.values : TEAPOT_MODEL;
+  };
+  const triangles = createMemo(() => {
+    const m = mesh();
+    return m ? projectMesh(m, model(), TEAPOT_CAMERA, 1) : [];
+  });
+  return (
+    <svg width={size} height={size} viewBox="-1 -1 2 2" aria-hidden="true">
+      <g transform="scale(1 -1)">
+        <Index each={triangles()}>
+          {t => (
+            <polygon
+              points={t().points.join(" ")} fill={t().fill} stroke={t().stroke}
+              stroke-width="1" stroke-linejoin="round" vector-effect="non-scaling-stroke"
+            />
+          )}
+        </Index>
+      </g>
+    </svg>
+  );
+}
+
+const EINSUM_CODE = `import json
+import numpy as np
+
+A = np.arange(6).reshape(2, 3)
+B = np.arange(12).reshape(3, 4)
+S = np.arange(9).reshape(3, 3)
+u, v = np.array([1, 2, 3]), np.array([10, 20])
+
+# Each example: what it computes, its subscripts, and the arrays they name.
+EXAMPLES = [
+    ('matrix product', 'ij,jk->ik', {'A': A, 'B': B}),
+    ('outer product', 'i,j->ij', {'u': u, 'v': v}),
+    ('column sums', 'ij->j', {'A': A}),
+    ('diagonal', 'ii->i', {'S': S}),
+    ('transpose', 'ij->ji', {'A': A}),
+]
+
+def used(letters, x, out, idx):
+    """Which cells of x make out[idx]. Each letter of out takes its value in idx. A letter not in out is summed
+    over, so it takes every value, but the same one everywhere it appears."""
+    m = np.zeros(x.shape, bool)
+    for pos in np.ndindex(x.shape):
+        value = dict(zip(out, idx))
+        m[pos] = all(value.setdefault(l, p) == p for l, p in zip(letters, pos))
+    return m
+
+def chosen(cell, shape):
+    """The index written in cell, e.g. '1,2', or the first cell if it isn't one of shape's."""
+    try:
+        idx = tuple(int(s) for s in cell.split(','))
+    except ValueError:
+        return (0,) * len(shape)
+    inside = len(idx) == len(shape) and all(0 <= i < n for i, n in zip(idx, shape))
+    return idx if inside else (0,) * len(shape)
+
+def grid(x, marked, clickable=False):
+    """One array for pie.ui.grids, with no name over it."""
+    return {'name': '', 'values': x.tolist(), 'marked': marked.tolist(), 'clickable': clickable}
+
+def figure(choice, cell):
+    """The arrays and out as grids. The cells that make the chosen cell of out are marked."""
+    _, spec, arrays = EXAMPLES[int(choice)]
+    ins, out = spec.split('->')
+    result = np.einsum(spec, *arrays.values())
+    idx = chosen(cell, result.shape)
+    items = []
+    for letters, x in zip(ins.split(','), arrays.values()):
+        if items:
+            items.append({'text': ','})
+        items.append(grid(x, used(letters, x, out, idx)))
+    picked = np.zeros(result.shape, bool)
+    picked[idx] = True
+    items += [{'text': '→'}, grid(result, picked, clickable=True)]
+    return json.dumps(items)
+
+def call(choice):
+    """The example's einsum call, as Markdown code."""
+    _, spec, arrays = EXAMPLES[int(choice)]
+    return f"\`np.einsum('{spec}', {', '.join(arrays)})\`"
+
+choice = pie.scalar(0, out='choice')
+cell = pie.text('', out='cell')   # the chosen cell of out, e.g. '1,2'
+pie.ui.radio(choice, options=[name for name, _, _ in EXAMPLES])
+pie.ui.markdown(pie.lift(call, pie.Text)(choice))
+pie.ui.grids(pie.lift(figure, pie.Text)(choice, cell), cell)
+`;
+
+/**
+ * One example on the homepage: its title, the text with it, its code, and the figure its code drives.
+ * No `figure`: the code's UIs, under its editor, are the figure.
+ */
+type Example = { title: string; intro: () => JSX.Element; code: string; figure?: Component<{ store: NodeStore }> };
+
+const EXAMPLES: Example[] = [
+  {
+    title: "Circle → ellipse",
+    intro: () => <>Change the matrix. See <a href="/la/3_mat_vec_mul#333-circle-ellipse">chapter 3</a> for why it works.</>,
+    code: MATRIX_CODE,
+    figure: EllipseFigure,
+  },
+  {
+    title: "SVD of an image",
+    intro: () => (
+      <>
+        Best rank-k approximation of an image. See <a href="/la/23_svd">chapter 23</a> for
+        SVD, and the <a href="/tools/image_matrix">image tool</a> for more.
+      </>
+    ),
+    code: SVD_CODE,
+    figure: SvdFigure,
+  },
+  {
+    title: "Rotate a teapot",
+    intro: () => (
+      <>
+        3D rotations. See <a href="/la/12_rotations">chapter 12</a> for
+        rotations, and the <a href="/tools/3d_model">3D tool</a> for more.
+      </>
+    ),
+    code: TEAPOT_CODE,
+    figure: TeapotFigure,
+  },
+  {
+    title: "Einsum",
+    intro: () => (
+      <>
+        Visualize Einstein summation on tensors. See the{" "}
+        <a href="/tools/broadcasting_einsum">einsum tool</a> for more.
+      </>
+    ),
+    code: EINSUM_CODE,
+  },
+];
+
+/** The examples, one at a time, with buttons to the previous and next. Each keeps its own Python variables and figure. */
+function Examples() {
+  const [current, setCurrent] = createSignal(0);
+  const go = (step: number) => setCurrent(i => (i + step + EXAMPLES.length) % EXAMPLES.length);
+  return (
+    <section class="home-try">
+      <div class="home-try-nav">
+        <button type="button" class="home-try-arrow" aria-label="Previous example" title="Previous example" onClick={() => go(-1)}>
+          <ChevronLeftIcon />
+        </button>
+        <div class="home-try-head">
+          <span class="home-try-title">{EXAMPLES[current()].title}</span>
+          <p>{EXAMPLES[current()].intro()}</p>
+        </div>
+        <button type="button" class="home-try-arrow" aria-label="Next example" title="Next example" onClick={() => go(1)}>
+          <ChevronRightIcon />
+        </button>
+      </div>
+      <For each={EXAMPLES}>
+        {(example, i) => <ExampleView example={example} hidden={i() !== current()} />}
+      </For>
+    </section>
+  );
+}
+
+/** One example: its editor and its figure. Hidden, not removed, when another is shown, so it keeps its state. */
+function ExampleView(props: { example: Example; hidden: boolean }) {
+  // Holds the nodes the example's editor makes. Not drawn: the figure reads them.
+  // The arguments are those of a page with `canvas: none`: the canvas on the right, collapsed.
+  const store = new NodeStore("right", "first");
+  return (
+    <div class="home-try-example" hidden={props.hidden}>
+      <TryPython code={props.example.code} store={store} collapsed />
+      <Show when={props.example.figure}>
+        {figure => (
+          <div class="home-figure">
+            <Dynamic component={figure()} store={store} />
+          </div>
+        )}
+      </Show>
+    </div>
+  );
+}
+
 /** A runnable Python editor. Loaded in the browser only, as on Markdown pages. `store`: where its `pie.*` calls go. */
 function TryPython(props: { code: string; store?: NodeStore; collapsed?: boolean }) {
   const [editor, setEditor] = createSignal<Component<{ code: string; collapsed?: boolean; scope: PythonScope }>>();
@@ -185,10 +498,6 @@ function Latest() {
 
 /** The homepage, at `/`. */
 export default function Home() {
-  // Holds the nodes the matrix editor makes. Not drawn: the figure reads `M` from it.
-  const store = new NodeStore();
-  // A bad `M`, e.g. 3×3, keeps the last good matrix.
-  const matrix = animated(createMemo<number[][]>(prev => readMatrix(store) ?? prev, MATRIX));
   return (
     <main class="home">
       <details class="home-ai">
@@ -204,10 +513,10 @@ export default function Home() {
           </svg>
         </h1>
         <div class="home-buttons">
-          <a class="home-button" href="/la/0_intro">eBook</a>
-          <a class="home-button" href="/blog">Blog</a>
-          <a class="home-button" href="/series">Series</a>
-          <a class="home-button" href="/tools">Tools</a>
+          <a class="home-button" href="/la/0_intro"><BookIcon />eBook</a>
+          <a class="home-button" href="/blog"><ArticleIcon />Blog</a>
+          <a class="home-button" href="/series"><SeriesIcon />Series</a>
+          <a class="home-button" href="/tools"><ToolsIcon />Tools</a>
         </div>
         <ul class="home-features">
           <li><InteractiveIcon /> Interactive</li>
@@ -215,16 +524,7 @@ export default function Home() {
           <li><OpenSourceIcon /> Open-source</li>
         </ul>
       </div>
-      <section class="home-try">
-        <p>
-          Try it: change the matrix.
-          See <a href="/la/3_mat_vec_mul#333-circle-ellipse">chapter 3</a> for why it works.
-        </p>
-        <TryPython code={MATRIX_CODE} store={store} collapsed />
-      </section>
-      <div class="home-figure">
-        <Figure matrix={matrix} />
-      </div>
+      <Examples />
       <Latest />
       <p class="home-credits">
         Made with{" "}

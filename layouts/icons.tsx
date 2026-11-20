@@ -1,6 +1,24 @@
 // Icons for the header links and the homepage's feature list.
 // Drawn with `currentColor`, so CSS sets their color.
 
+/** An arrow head pointing left: the homepage's previous example. */
+export function ChevronLeftIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M15 6l-6 6 6 6" />
+    </svg>
+  );
+}
+
+/** An arrow head pointing right: the homepage's next example. */
+export function ChevronRightIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M9 6l6 6-6 6" />
+    </svg>
+  );
+}
+
 /** Open book: the eBook. */
 export function BookIcon() {
   return (
