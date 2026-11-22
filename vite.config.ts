@@ -132,4 +132,6 @@ function latestPages(): Plugin {
 
 export default defineConfig({
   plugins: [pie(), rssFeed(), latestPages()],
+  // `@solidjs/start` comes in through `@tinyvolt/pie` and ships `.jsx`. Without this, the dev server leaves it to Node, which can't load `.jsx`.
+  ssr: { noExternal: ["@solidjs/start"] },
 });
