@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@solidjs/meta": "0.29.4",
-    "@tinyvolt/pie": "0.9.0",
+    "@tinyvolt/pie": "0.11.1",
     "@vercel/analytics": "^2.0.1",
     "solid-js": "1.9.14",
     "vite": "8.1.4"
