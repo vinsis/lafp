@@ -5,11 +5,13 @@ This folder is a site made with [pie-ssg](https://github.com/TinyVolt/pie-ssg): 
 
 Requires Node 24.
 
+This repo uses pnpm (`pnpm-lock.yaml`). Never use npm or npx: use `pnpm` and `pnpm exec` / `pnpm dlx`, e.g. `pnpm add <pkg>`, `pnpm install`.
+
 ```sh
-npm run dev       # dev server
-npm run build     # build to .output/; also runs the checks listed under "Build checks"
-npm run start     # run the built server
-npm run preview   # preview the build with vite
+pnpm dev          # dev server
+pnpm build        # build to .output/; also runs the checks listed under "Build checks"
+pnpm start        # run the built server
+pnpm preview      # preview the build with vite
 ```
 
 ## Where things go
@@ -362,7 +364,7 @@ export function Stepper(props: { args: UiArg[]; step?: number }) {
 - A UI that throws shows `pie.ui.<name>: <message>` in red in its place.
 - Don't add a grip or a label: every UI gets both. `args` and `label` are reserved prop names.
 - The built-in UIs are in `node_modules/@tinyvolt/pie/src/lib/ui/components/`.
-- A name used twice, by two of your files or by yours and a built-in, raises an error when a page with a Python editor loads. It doesn't fail the build.
+- A name used twice, by two of your files or by yours and a built-in, fails the build.
 
 ## Layouts: `layouts/`
 
@@ -389,7 +391,7 @@ Change the CSS variables in `styles/theme.css` (colors, fonts, text width), or a
 
 ## Build checks
 
-`npm run build` fails, with a message naming the file, when:
+`pnpm build` fails, with a message naming the file, when:
 
 - a page's frontmatter or `site.yml` has a bad line or value, or `site.yml` has no `title`
 - a `sidebar` or `glossary` file doesn't exist or is outside the project
@@ -397,9 +399,10 @@ Change the CSS variables in `styles/theme.css` (colors, fonts, text width), or a
 - a page's URL matches a route in `node_modules/@tinyvolt/pie/src/routes/`
 - a `functions/` keyword is used twice
 - a `nodes/` type name is used twice
+- a `ui/` name is used twice
 - a `layouts/` file has no default export
 
-Run `npm run build` after a change to confirm it.
+Run `pnpm build` after a change to confirm it.
 
 ## This site
 
@@ -431,7 +434,7 @@ What this site adds on top of pie-ssg. Each function and UI has a doc comment in
 | `pie.ui.animated_checkboxes(mask, options=[...])` | like `pie.ui.checkboxes`, but each item moves to 1 or 0 over half a second |
 | `pie.ui.bits_radio(bits)` | one radio button per bit pattern `00…0` to `11…1` of the Array of Scalars `bits`, first item leftmost |
 | `pie.ui.case_checkboxes(n, [mask_a, mask_b], options=[[...], [...]])` | the checkboxes for the Array that Scalar `n` picks |
-| `pie.ui.matrix_grid(expr, shapes={'A': [5, 8]}, size=12, color='#e11d48')` | the arrays in Text `expr`, a numpy expression such as `A[:3, :] @ A.T`, as grids of squares `size` pixels wide, side by side, with the operators between them (`@` shown as ×). Each operand is drawn as the array before its first `[...]`, with the cells it picks in `color`. `shapes` gives each name's shape: 1 or 2 whole numbers. Supports integers, slices, `...`, `None`, lists of integers or booleans, chaining, `.T`, numbers, `@ * / + -`, parentheses, and commas (arrays side by side). Not masks like `A[A > 0]`: the cells have no values. A bad expression shows an error; a shape mismatch in an operator shows after the grids. The parsing and indexing are in `ui/numpy-index.ts` |
+| `pie.ui.matrix_grid(expr, shapes={'A': [5, 8]}, size=12, color='#e11d48')` | the arrays in Text `expr`, a numpy expression such as `A[:3, :] @ A.T`, as grids of squares `size` pixels wide, side by side, with the operators between them (`@` shown as ×). Each operand is drawn as the array before its first `[...]`, with the cells it picks in `color`. `shapes` gives each name's shape: 1 or 2 whole numbers. Supports integers, slices, `...`, `None`, lists of integers or booleans, chaining, `.T`, numbers, `@ * / + -`, parentheses, and commas (arrays side by side). Inside `[...]`, `i` and `j` are each cell's row and column in the array being indexed, as after `i, j = np.indices(A.shape)`: e.g. `A[i // 2 == j // 2]` (diagonal 2×2 blocks), `A[i <= j]` (upper triangle). They take integers, `+ - * / // % **`, `abs(...)`, comparisons, `& \| ^ ~`, `[...]` and `.T`, with Python's precedence and numpy's rules; a chained comparison like `0 <= i - j <= 2` fails as in numpy. Not masks like `A[A > 0]`: the cells have no values. A bad expression shows an error; a shape mismatch in an operator shows after the grids. The parsing and indexing are in `ui/numpy-index.ts` |
 | `pie.ui.step_list(diagram, steps=[...])` | one radio button per step of Diagram node `diagram`. Each step is a dict: `label`, and lists of `[item index, {field: value}]`: `start` (applied when the step begins), `move` (positions and sizes it animates to over half a second) and `end` (applied when it ends). `stagger`: `[item index, n, count]` moves that item in the n-th of `count` parts of the half second. Choosing the next step plays it; any other step shows at once |
 
 ### Code for visuals and UIs
