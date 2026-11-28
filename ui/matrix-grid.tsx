@@ -7,11 +7,13 @@ import { matrixGridItems, type Shape } from './numpy-index';
  * `pie.ui.matrix_grid(expr, shapes={'A': [5, 8]}, size=12, color='#e11d48')`: the arrays in Text `expr`, a numpy
  * expression such as `A[:3, :] @ A.T`, as grids of squares `size` pixels wide, side by side, with the operators
  * between them (`@` shown as ×). Each operand is drawn as the array before its first `[...]`, with the cells it
- * picks in `color`. `shapes` gives each name's shape: 1 or 2 whole
+ * picks in `color`, or in `colors[name]` for a name in `colors`, e.g. `colors={'P': '#0891b2'}`. `shapes` gives each name's shape: 1 or 2 whole
  * numbers. Bad syntax, an unknown name or a bad index shows an error instead; a shape mismatch in an operator shows
  * after the grids. See `numpy-index.ts` for the syntax.
  */
-export function MatrixGrid(props: { args: UiArg[]; shapes?: Record<string, unknown>; size?: number; color?: string }) {
+export function MatrixGrid(props: {
+  args: UiArg[]; shapes?: Record<string, unknown>; size?: number; color?: string; colors?: Record<string, string>;
+}) {
   const [expr] = expectNode<TextNode>(props.args[0], ['Text']);
   const shapes = checkShapes(props.shapes);
   const size = props.size ?? 12;
@@ -24,7 +26,7 @@ export function MatrixGrid(props: { args: UiArg[]; shapes?: Record<string, unkno
         {(item) => (item.kind === 'grid'
           ? (
             <span class="pie-grids-array">
-              <Cells shape={item.shape} marked={item.marked} size={size} color={color} />
+              <Cells shape={item.shape} marked={item.marked} size={size} color={props.colors?.[item.name] ?? color} />
             </span>
           )
           : <span class={item.kind === 'text' ? 'pie-grids-text' : 'pie-grids-error'}>{item.text}</span>)}

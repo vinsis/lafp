@@ -6,6 +6,7 @@ tags: #category
 
 # Blog
 
+- [Butterfly and Monarch matrices](/blog/butterfly_and_monarch_matrices)
 - [Gram-Schmidt vs modified Gram-Schmidt](/blog/modified_gram_schmidt)
 - [Paper: A Flag Decomposition for Hierarchical Datasets](/blog/flag_decomposition)
 - [SINQ — Sinkhorn-like iterations for quantization](/blog/sinq)

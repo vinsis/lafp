@@ -18,7 +18,7 @@
 
 export type Shape = number[];
 export type GridItem =
-  | { kind: 'grid'; shape: Shape; marked: boolean[] }
+  | { kind: 'grid'; name: string; shape: Shape; marked: boolean[] }
   | { kind: 'text'; text: string }
   | { kind: 'error'; text: string };
 
@@ -551,7 +551,7 @@ class Reader {
     }
     const marked: boolean[] = new Array(count(drawn)).fill(false);
     if (indexed) for (const p of x.data) marked[p] = true;
-    return { shape: x.shape, items: [{ kind: 'grid', shape: drawn, marked }] };
+    return { shape: x.shape, items: [{ kind: 'grid', name: name.text, shape: drawn, marked }] };
   }
 
   /** The items between `[` and `]`, indexing an array of shape `shape`: `i` and `j` are its cells' indices. */
